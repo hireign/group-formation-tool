@@ -3,7 +3,7 @@ package CSCI5308.ADV_SDC.GFT;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import controller.UserController;
+import dal.twentythree.gft.controller.UserController;
 
 @SpringBootTest
 class CopyCatMeApplicationTests {

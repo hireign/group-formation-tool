@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import dao.User;
+import dal.twentythree.gft.dao.User;
 
 @SpringBootTest(classes=UserTest.class)
 public class UserTest {

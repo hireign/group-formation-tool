@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import dao.Course;
+import dal.twentythree.gft.dao.Course;
 
 @SpringBootTest
 public class CourseTest {

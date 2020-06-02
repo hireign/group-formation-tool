@@ -1,7 +1,7 @@
 package model;
 
-import dao.*;
-import daoInterfaces.UserContract;
+import dal.twentythree.gft.dao.*;
+import dal.twentythree.gft.daoInterfaces.UserContract;
 
 public class UserDBMock implements UserContract
 {

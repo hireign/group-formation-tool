@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import dao.Role;
+import dal.twentythree.gft.dao.Role;
 
 @SpringBootTest
 public class RoleTest {

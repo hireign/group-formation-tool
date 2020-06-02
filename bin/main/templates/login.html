@@ -12,7 +12,7 @@
 	</div>
 	<h1>Welcome to the group formation tool, please sign in:</h1>
 	<br/>
-	<form th:action="@{/login}" method="post">
+	<form id="loginForm" th:action="@{/login}" method="post">
 	    <div><label> BannerID : <input type="text" name="username"/> </label></div>
 	    <div><label> Password: <input type="password" name="password"/> </label></div>
 	    <div><input type="submit" value="Log In"/></div>

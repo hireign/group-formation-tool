@@ -10,7 +10,7 @@
 	    <h3 th:text="${errorMessage}"></h3>
 	    <br/>
 	</div>
-	<form th:action="@{/signup}" method="post">
+	<form id="registerForm" th:action="@{/signup}" method="post">
 	    <div><label>BannerID : <input type="text" name="username"/> </label></div>
 	    <div><label>Password: <input type="password" name="password"/> </label></div>
 	    <div><label>Password (Confirmation): <input type="password" name="passwordConfirmation"/> </label></div>
