@@ -6,7 +6,7 @@ import dal.twentythree.gft.daoInterfaces.UserContract;
 public class UserDBMock implements UserContract
 {
 
-	public void loadUserByBannerID(String bannerID, User user)
+	public void loadUserByBannerID(String bannerID, UserContactInfo user)
 	{
 		user.setBannerId(bannerID);
 		user.setEmailId("shewani@dal.ca");
@@ -14,13 +14,13 @@ public class UserDBMock implements UserContract
 		user.setLastName("Sanju");
 	}
 	
-	public boolean createUser(User user)
+	public boolean createUser(UserContactInfo user)
 	{
 		//TODO
 		return true;
 	}
 	
-	public boolean updateUser(User user)
+	public boolean updateUser(UserContactInfo user)
 	{
 		//TODO
 		return true;

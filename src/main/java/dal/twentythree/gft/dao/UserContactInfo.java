@@ -1,6 +1,6 @@
 package dal.twentythree.gft.dao;
 
-public class User {
+public class UserContactInfo {
 	
 	private Long id;
 	private String bannerId;

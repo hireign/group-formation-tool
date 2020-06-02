@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import dal.twentythree.gft.dao.User;
+import dal.twentythree.gft.dao.UserContactInfo;
 import dal.twentythree.gft.exception.CopyCatMeDBConfigException;
 import dal.twentythree.gft.exception.CourseGroupFormationException;
 import dal.twentythree.gft.repository.UsersDatabaseRepository;
@@ -61,7 +61,7 @@ public class UserController {
 			@RequestParam(name = FIRST_NAME) String firstName, @RequestParam(name = LAST_NAME) String lastName,
 			@RequestParam(name = EMAIL) String email) throws CopyCatMeDBConfigException, CourseGroupFormationException {
 
-		User user = new User();
+		UserContactInfo user = new UserContactInfo();
 		user.setBannerId(bannerID);
 		user.setEmailId(email);
 		user.setFirstName(firstName);

@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import dal.twentythree.gft.config.DBConfig;
-import dal.twentythree.gft.dao.User;
+import dal.twentythree.gft.dao.UserContactInfo;
 import dal.twentythree.gft.exception.CopyCatMeDBConfigException;
 import dal.twentythree.gft.exception.CourseGroupFormationException;
 import dal.twentythree.gft.repository.UsersDatabaseRepository;
@@ -25,7 +25,7 @@ public class UsersDatabaseRepositoryImpl implements UsersDatabaseRepository, Con
 	Logger myLogger = LoggerUtil.getLoggerInstance(this.getClass());
 	
 	@Override
-	public void createUser(User user) throws CopyCatMeDBConfigException, CourseGroupFormationException {
+	public void createUser(UserContactInfo user) throws CopyCatMeDBConfigException, CourseGroupFormationException {
 		Connection con = null;
 		try {
 			con = DBConfig.getDBConfigInstance().getConnectionInstance();
@@ -75,8 +75,8 @@ public class UsersDatabaseRepositoryImpl implements UsersDatabaseRepository, Con
 	}
 
 	@Override
-	public List<User> getAllUsers() throws CopyCatMeDBConfigException, CourseGroupFormationException {
-		List<User> userList = new ArrayList<User>();
+	public List<UserContactInfo> getAllUsers() throws CopyCatMeDBConfigException, CourseGroupFormationException {
+		List<UserContactInfo> userList = new ArrayList<UserContactInfo>();
 		Connection con = null;
 		try {
 			con = DBConfig.getDBConfigInstance().getConnectionInstance();
@@ -84,7 +84,7 @@ public class UsersDatabaseRepositoryImpl implements UsersDatabaseRepository, Con
 			PreparedStatement insertionps = con.prepareStatement(selectSql);
 			ResultSet rs = insertionps.executeQuery();
 			while (rs.next()) {
-				User u = new User();
+				UserContactInfo u = new UserContactInfo();
 				u.setBannerId(rs.getString(BANNERID));
 				u.setEmailId(rs.getString(EMAILID));
 				u.setFirstName(rs.getString(FIRSTNAME));
@@ -111,9 +111,9 @@ public class UsersDatabaseRepositoryImpl implements UsersDatabaseRepository, Con
 	}
 
 	@Override
-	public User fetchByBannerId(String bannerId) throws CopyCatMeDBConfigException, CourseGroupFormationException {
+	public UserContactInfo fetchByBannerId(String bannerId) throws CopyCatMeDBConfigException, CourseGroupFormationException {
 		Connection con = null;
-		User u = null;
+		UserContactInfo u = null;
 		try {
 			con = DBConfig.getDBConfigInstance().getConnectionInstance();
 			String selectSql = "SELECT * from User, UserContactInfo WHERE bannerID = ? and User.id = UserContactInfo.userID;";
@@ -121,7 +121,7 @@ public class UsersDatabaseRepositoryImpl implements UsersDatabaseRepository, Con
 			insertionps.setString(1, bannerId);
 			ResultSet rs = insertionps.executeQuery();
 			while (rs.next()) {
-				u = new User();
+				u = new UserContactInfo();
 				u.setEmailId(rs.getString(EMAILID));
 				u.setFirstName(rs.getString(FIRSTNAME));
 				u.setLastName(rs.getString(LASTNAME));

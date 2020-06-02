@@ -3,13 +3,13 @@ package dal.twentythree.gft.service.impl;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import dal.twentythree.gft.dao.User;
+import dal.twentythree.gft.dao.UserContactInfo;
 
 public class UserValidator {
 
 	private static final String REGEX_EMAIL = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
 	
-	public static boolean validateUser(User user) {
+	public static boolean validateUser(UserContactInfo user) {
 		boolean success = false;
 		if (isBannerIDValid(user.getBannerId()) &&
 			isEmailValid(user.getEmailId()) &&

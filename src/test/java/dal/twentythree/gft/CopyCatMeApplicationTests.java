@@ -1,4 +1,4 @@
-package CSCI5308.ADV_SDC.GFT;
+package dal.twentythree.gft;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
