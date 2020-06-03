@@ -1,0 +1,25 @@
+<!DOCTYPE html>  
+<html xmlns:th="http://www.thymeleaf.org">  
+<head>  
+	<title>CSCI5308 Group Formation Tool - Signup page</title>
+</head>  
+<body>
+	<h1>Welcome to the group formation tool, please enter your information:</h1>
+	<br/>
+	<div th:if="${errorMessage}">
+	    <h3 th:text="${errorMessage}"></h3>
+	    <br/>
+	</div>
+	<form th:action="@{/signup}" method="post">
+	    <div><label>BannerID : <input type="text" name="username"/> </label></div>
+	    <div><label>Password: <input type="password" name="password"/> </label></div>
+	    <div><label>Password (Confirmation): <input type="password" name="passwordConfirmation"/> </label></div>
+	    <div><label>First Name : <input type="text" name="firstName"/> </label></div>
+	    <div><label>Last Name : <input type="text" name="lastName"/> </label></div>
+	    <div><label>Email : <input type="text" name="email"/> </label></div>
+	    <div><input type="submit" value="Create Account"/></div>
+	</form>
+	<br/>
+	<a th:href="@{/login}">Are you an existing user? Click here to log in!</a>
+</body>  
+</html>
