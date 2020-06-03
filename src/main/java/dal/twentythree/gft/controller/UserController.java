@@ -1,8 +1,9 @@
 package dal.twentythree.gft.controller;
 
+import java.util.UUID;
+
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import dal.twentythree.gft.dao.UserAccountStatus;
 import dal.twentythree.gft.dao.UserContactInfo;
 import dal.twentythree.gft.exception.CopyCatMeDBConfigException;
 import dal.twentythree.gft.exception.CourseGroupFormationException;
@@ -23,7 +25,7 @@ import dal.twentythree.gft.util.LoggerUtil;
 public class UserController {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
+
 	private final String USERNAME = "username";
 	private final String PASSWORD = "password";
 	private final String PASSWORD_CONFIRMATION = "passwordConfirmation";
@@ -69,8 +71,21 @@ public class UserController {
 		user.setPassword(bCryptPasswordEncoder.encode(password));
 		ModelAndView m;
 		if (UserValidator.validateUser(user) && password.equals(passwordConfirm)) {
-			userDBImpl.createUser(user);
+			Long userId = userDBImpl.createUser(user);
+
+			// -- Send Confirmation Email
+//			UserAccountStatus uas = new UserAccountStatus(email, UUID.randomUUID().toString());
+//
+//			String appUrl = request.getScheme() + "://" + request.getServerName();
+//			if (userService.sendConfirmMail(uas, appUrl)) {
+//				m = new ModelAndView("signup");
+//				m.addObject("message",
+//						"Please confirm the account by clicking on the link in your email at " + email);
+//				return m;
+//			}
+
 			m = new ModelAndView("login");
+			m.addObject("error", "Please confirm your email by clicking on the link in email");
 		} else {
 			m = new ModelAndView("signup");
 			m.addObject("errorMessage", "Invalid data, please check your input values.");

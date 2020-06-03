@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan({"dal.twentythree.gft"})
+@ComponentScan({"dal.twentythree"})
 public class CopyCatMeApplication {
 
 	public static void main(String[] args) {

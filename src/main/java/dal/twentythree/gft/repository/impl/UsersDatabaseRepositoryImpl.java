@@ -25,8 +25,9 @@ public class UsersDatabaseRepositoryImpl implements UsersDatabaseRepository, Con
 	Logger myLogger = LoggerUtil.getLoggerInstance(this.getClass());
 	
 	@Override
-	public void createUser(UserContactInfo user) throws CopyCatMeDBConfigException, CourseGroupFormationException {
+	public Long createUser(UserContactInfo user) throws CopyCatMeDBConfigException, CourseGroupFormationException {
 		Connection con = null;
+		Long userID = null;
 		try {
 			con = DBConfig.getDBConfigInstance().getConnectionInstance();
 			//Check if a user already exists in the database
@@ -35,14 +36,16 @@ public class UsersDatabaseRepositoryImpl implements UsersDatabaseRepository, Con
 			insertionps.setString(1, user.getBannerId());
 			ResultSet rs = insertionps.executeQuery();
 			if (!rs.next()) {
-				String sql = "INSERT INTO User (`bannerID`, `password`) VALUES (?, ?)";
+				String sql = "INSERT INTO User (`bannerID`, `password`, `enabled`) VALUES (?, ?, ?)";
 				PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 				ps.setString(1, user.getBannerId());
 				ps.setString(2, user.getPassword());
+				ps.setInt(3, 0);
 				ps.executeUpdate();
 				ResultSet generatedKeys = ps.getGeneratedKeys();
 				if (generatedKeys.next()) {
-	                user.setId((generatedKeys.getLong(1)));
+					userID = generatedKeys.getLong(1);
+	                user.setId(userID);
 	            }
 				ps.close();
 				
@@ -55,7 +58,7 @@ public class UsersDatabaseRepositoryImpl implements UsersDatabaseRepository, Con
 				
 				psCi.executeUpdate();
 				psCi.close();
-
+				return userID;
 			}
 			else
 			throw new CourseGroupFormationException(String.format("A user with banner Id  %s already exists.",user.getBannerId()));

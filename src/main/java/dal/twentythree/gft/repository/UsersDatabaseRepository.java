@@ -8,7 +8,7 @@ import dal.twentythree.gft.exception.CourseGroupFormationException;
 
 public interface UsersDatabaseRepository {
 	
-	public void createUser(UserContactInfo user) throws CopyCatMeDBConfigException, CourseGroupFormationException;
+	public Long createUser(UserContactInfo user) throws CopyCatMeDBConfigException, CourseGroupFormationException;
 	
 	public List<UserContactInfo> getAllUsers() throws CopyCatMeDBConfigException, CourseGroupFormationException;
 	
