@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import dal.twentythree.gft.config.DBConfig;
+import dal.twentythree.gft.dao.UserAccountStatus;
 import dal.twentythree.gft.dao.UserContactInfo;
 import dal.twentythree.gft.exception.CopyCatMeDBConfigException;
 import dal.twentythree.gft.exception.CourseGroupFormationException;
@@ -49,7 +50,7 @@ public class UsersDatabaseRepositoryImpl implements UsersDatabaseRepository, Con
 	            }
 				ps.close();
 				
-				String sqlContactInfo = "INSERT INTO UserContactInfo (userID, firstName, lastName, email) VALUES (?, ?,?,?)";
+				String sqlContactInfo = "INSERT INTO UserContactInfo (userID, firstName, lastName, email) VALUES (?, ?, ?, ?)";
 				PreparedStatement psCi = con.prepareStatement(sqlContactInfo);
 				psCi.setLong(1, user.getId());
 				psCi.setString(2, user.getFirstName());
@@ -58,6 +59,15 @@ public class UsersDatabaseRepositoryImpl implements UsersDatabaseRepository, Con
 				
 				psCi.executeUpdate();
 				psCi.close();
+				
+				//-- Insert default role for new users
+				String sqlRole = "INSERT INTO `SystemRole` (roleID, userID) VALUES (?, ?)";
+				PreparedStatement psRole = con.prepareStatement(sqlRole);
+				psRole.setInt(1, 2);	//-- GUEST role
+				psRole.setLong(2, user.getId());
+				psRole.executeUpdate();
+				psRole.close();
+				
 				return userID;
 			}
 			else
@@ -146,4 +156,75 @@ public class UsersDatabaseRepositoryImpl implements UsersDatabaseRepository, Con
 		return u;
 	}
 
+	@Override
+	public void saveAccountStatus(UserAccountStatus uas) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = DBConfig.getDBConfigInstance().getConnectionInstance();
+			String sql = "INSERT INTO `UserAccountStatus` (email, confirmationtoken) VALUES (?, ?)";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, uas.getEmail());
+			ps.setString(2, uas.getConfirmationToken());
+			ps.executeUpdate();
+		} catch (Exception e) {
+			throw new RuntimeException("Failed to save account status");
+		} finally {
+			try {
+				if (ps != null) {
+					ps.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) {}
+		}
+	}
+
+	@Override
+	public boolean verifyUser(String token, int i) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBConfig.getDBConfigInstance().getConnectionInstance();
+			String sql = "SELECT * FROM `UserAccountStatus` WHERE confirmationtoken = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, token);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				String email = rs.getString("email");
+				
+				//-- Delete confirmation token
+				String sqlD = "DELETE FROM `UserAccountStatus` WHERE email = ?";
+				ps = conn.prepareStatement(sqlD);
+				ps.setString(1, email);
+				ps.executeUpdate();
+				
+				//-- Enable user
+				sqlD = "UPDATE `User` SET enabled = 1 WHERE id IN (SELECT userID from `UserContactInfo` WHERE email = ?)";
+				ps = conn.prepareStatement(sqlD);
+				ps.setString(1, email);
+				ps.executeUpdate();
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			return false;
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) {}
+		}
+	}
 }
