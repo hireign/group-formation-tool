@@ -19,7 +19,11 @@ public interface Constants {
 	
 	public static final String COURSEID = "id";
 	public static final String COURSENAME = "title";
-	
+
+	public static final String courseID = "courseID";
+	public static final String roleID = "roleID";
+	public static final String userID = "userID";
+
 	public static final String ROLEID = "id";
 	public static final String ROLEENAME = "role";
 	
