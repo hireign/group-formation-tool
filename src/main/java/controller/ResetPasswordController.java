@@ -1,6 +1,5 @@
 package controller;
 
-import dao.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
@@ -9,17 +8,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import dao.User;
 import service.impl.EmailService;
+import util.BCryptPasswordEncryption;
 import util.Constants;
+import util.IPasswordEncryption;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.*;
 
 @Controller
-public class ResetPasswordController {
+public class ResetPasswordController implements Constants {
 
         @Autowired
         private EmailService emailService;
+        
+        IPasswordEncryption passwordEncryption = new BCryptPasswordEncryption();
 
         public User runSQL(String query) {
 
@@ -33,16 +38,10 @@ public class ResetPasswordController {
                         while (rs.next()) {
 
                                 User user = new User();
-
                                 user.setId(rs.getInt("userID"));
-
                                 user.setFirstName(rs.getString("firstName"));
-
                                 user.setLastName(rs.getString("lastName"));
-
                                 user.setEmailId(rs.getString("email"));
-
-                                user.setPassword(rs.getString("password"));
 
                                 System.out.println(user);
                                 return user;
@@ -109,11 +108,7 @@ public class ResetPasswordController {
 
         @PostMapping("/resetPassword")
 
-        public String PostReset(@RequestParam("email") String email,
-
-                                        HttpServletRequest request,
-
-                                        Model theModel) {
+        public String PostReset(@RequestParam("email") String email, HttpServletRequest request, Model theModel) {
 
                 // look up user in database by email
 
@@ -139,13 +134,13 @@ public class ResetPasswordController {
 
                         SimpleMailMessage resetPasswordEmail = new SimpleMailMessage();
 
-                        resetPasswordEmail.setFrom("bobbyjoe19950627@gmail.com");
+                        resetPasswordEmail.setFrom("CopyCatMeSupport@gmail.com");
 
                         resetPasswordEmail.setTo(user.getEmailId());
 
                         resetPasswordEmail.setSubject("Password Reset Request");
 
-                        resetPasswordEmail.setText("To reset your password, click the link below:\n" + appUrl + "/newPassword/"+user.getEmailId());
+                        resetPasswordEmail.setText("To reset your password, click the link below:\n" + appUrl + ":8080/newPassword/"+user.getEmailId());
 
                         emailService.sendEmail(resetPasswordEmail);
                 }
@@ -163,15 +158,15 @@ public class ResetPasswordController {
         }
 
         @PostMapping("/newPassword/{param}")
-        public String PostNew(@PathVariable("param") String email, @RequestParam("password") String password,
+        public String PostNew(@PathVariable("param") String email, @RequestParam("password") String password, Model theModel) {
+        	
+        		User user = null;
+        		user = runSQL("select * from UserContactInfo where email="+"'"+email+"'");
 
-                              Model theModel) {
+                writeSQL("UPDATE User SET password = '" + passwordEncryption.encryptPassword(password) +"' WHERE id = '"+ user.getId()+"'");
 
-                writeSQL("UPDATE UserContactInfo SET password = '" + password +"' WHERE email = '"+ email+"'");
-
-                theModel.addAttribute("message", "Reset password email has been sent.");
-                return "success";
-
+                theModel.addAttribute("message", "Password has been reset.");
+                return "successfulReset.html";
         }
 
 }
