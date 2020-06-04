@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Instructors</title>
+</head>
+<body>
+    <!--<div sec:authorize="isAuthenticated()">-->
+        <h4 th:inline="text">BannerID: [[${#httpServletRequest.remoteUser}]]</h4>
+    <div>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+    </div>
+    <h2 align="center">All Instructors</h2>
+<!--<div sec:authorize="isAuthenticated()">-->
+    <!-- Learned how to do this here: https://www.baeldung.com/thymeleaf-list -->
+<div align="center">
+    <form th:action="@{/admin/addInstructor}" align="center">
+        <input type="submit" value="Add an Instructor"/>
+    </form>
+    <br/>
+    <table align = "center">
+        <thead>
+        <tr align = "center">
+            <th>Instructor Id</th>
+            <th>Course Id</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tr th:each="instructor : ${instructors}">
+            <td th:value="${instructor.getUserId()}" th:text = "${instructor.getUserId()}" name="userID">Instructor ID</td>
+            <td th:value="${instructor.getCourseId()}"  th:text="${instructor.getCourseId()}" name="courseID">Course ID</td>
+            <td><a th:href="@{/admin/deleteInstructor(userID=${instructor.getUserId()})}">Delete</a></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
