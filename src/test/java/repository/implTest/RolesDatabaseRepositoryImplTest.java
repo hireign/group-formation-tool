@@ -6,8 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class RolesDatabaseRepositoryImplTest {
 
-	@Test
-	public void fetchByRoleId() {
-		
-	}
+//	@Test
+//	public void fetchByRoleId() {
+//		
+//	}
 }

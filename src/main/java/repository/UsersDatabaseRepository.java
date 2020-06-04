@@ -5,10 +5,11 @@ import java.util.List;
 import dao.User;
 import exception.CopyCatMeDBConfigException;
 import exception.CourseGroupFormationException;
+import util.IPasswordEncryption;
 
 public interface UsersDatabaseRepository {
 	
-	public void createUser(User user) throws CopyCatMeDBConfigException, CourseGroupFormationException;
+	public boolean createUser(User user, IPasswordEncryption passwordEncryption, boolean SignUp) throws CopyCatMeDBConfigException, CourseGroupFormationException;
 	
 	public List<User> getAllUsers() throws CopyCatMeDBConfigException, CourseGroupFormationException;
 	

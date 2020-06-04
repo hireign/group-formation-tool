@@ -2,13 +2,13 @@ package dao;
 
 public class Course {
 
-	private String courseId;
+	private Long courseId;
 	private String courseName;
 
-	public String getCourseId() {
+	public Long getCourseId() {
 		return courseId;
 	}
-	public void setCourseId(String courseId) {
+	public void setCourseId(Long courseId) {
 		this.courseId = courseId;
 	}
 	public String getCourseName() {

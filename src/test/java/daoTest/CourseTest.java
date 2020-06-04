@@ -6,21 +6,21 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import dao.Course;
 
-@SpringBootTest
+@SpringBootTest(classes=CourseTest.class)
 public class CourseTest {
 
 	@Test
 	public void setCourseIdTest() {
 		Course course = new Course();
-		course.setCourseId("CSCI5409");
-		assertEquals("CSCI5409",course.getCourseId());
+		course.setCourseId((long) 5409);
+		assertEquals(5409,course.getCourseId());
 	}
 	
 	@Test
 	public void getCourseIdTest() {
 		Course course = new Course();
-		course.setCourseId("CSCI5409");
-		assertEquals("CSCI5409",course.getCourseId());
+		course.setCourseId((long) 5409);
+		assertEquals(5409,course.getCourseId());
 	}
 	
 	@Test

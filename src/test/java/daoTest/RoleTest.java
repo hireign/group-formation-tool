@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import dao.Role;
 
-@SpringBootTest
+@SpringBootTest(classes=RoleTest.class)
 public class RoleTest {
 	
 	@Test

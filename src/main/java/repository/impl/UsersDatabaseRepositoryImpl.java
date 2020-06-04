@@ -17,15 +17,16 @@ import exception.CopyCatMeDBConfigException;
 import exception.CourseGroupFormationException;
 import repository.UsersDatabaseRepository;
 import util.Constants;
+import util.IPasswordEncryption;
 import util.LoggerUtil;
 
 @Repository
 public class UsersDatabaseRepositoryImpl implements UsersDatabaseRepository, Constants {
 
 	Logger myLogger = LoggerUtil.getLoggerInstance(this.getClass());
-	
+	String rawPassword;
 	@Override
-	public void createUser(User user) throws CopyCatMeDBConfigException, CourseGroupFormationException {
+	public boolean createUser(User user, IPasswordEncryption PE, boolean SignUp) throws CopyCatMeDBConfigException, CourseGroupFormationException {
 		Connection con = null;
 		try {
 			con = DBConfig.getDBConfigInstance().getConnectionInstance();
@@ -35,14 +36,21 @@ public class UsersDatabaseRepositoryImpl implements UsersDatabaseRepository, Con
 			insertionps.setString(1, user.getBannerId());
 			ResultSet rs = insertionps.executeQuery();
 			if (!rs.next()) {
+				if(null == user.getPassword())
+					rawPassword = String.format("%s%s%s",user.getFirstName().substring(0,1),user.getBannerId().substring(2,6), "Rahul");
+				else
+					rawPassword = user.getPassword();
+				
+				String encryptedPassword = PE.encryptPassword(rawPassword);
+				
 				String sql = "INSERT INTO User (`bannerID`, `password`) VALUES (?, ?)";
 				PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 				ps.setString(1, user.getBannerId());
-				ps.setString(2, user.getPassword());
+				ps.setString(2, encryptedPassword);
 				ps.executeUpdate();
 				ResultSet generatedKeys = ps.getGeneratedKeys();
 				if (generatedKeys.next()) {
-	                user.setId((generatedKeys.getLong(1)));
+	                user.setId((generatedKeys.getInt(1)));
 	            }
 				ps.close();
 				
@@ -56,9 +64,16 @@ public class UsersDatabaseRepositoryImpl implements UsersDatabaseRepository, Con
 				psCi.executeUpdate();
 				psCi.close();
 
+				return true;
 			}
-			else
-			throw new CourseGroupFormationException(String.format("A user with banner Id  %s already exists.",user.getBannerId()));
+			else {
+				user.setId(rs.getInt("id"));
+				
+				if(SignUp)
+					return true;
+				else
+					throw new CourseGroupFormationException(String.format("A user with banner Id  %s already exists.",user.getBannerId()));
+			}
 		} catch (SQLException e) {
 			myLogger.info("An exception occurred while inserting new User in Database ", e);
 			throw new CourseGroupFormationException(String.format("There was an error while creating your account"));
@@ -89,7 +104,7 @@ public class UsersDatabaseRepositoryImpl implements UsersDatabaseRepository, Con
 				u.setEmailId(rs.getString(EMAILID));
 				u.setFirstName(rs.getString(FIRSTNAME));
 				u.setLastName(rs.getString(LASTNAME));
-				u.setId(rs.getLong(ID));
+				u.setId(rs.getInt(ID));
 				userList.add(u);
 			}
 
@@ -125,7 +140,7 @@ public class UsersDatabaseRepositoryImpl implements UsersDatabaseRepository, Con
 				u.setEmailId(rs.getString(EMAILID));
 				u.setFirstName(rs.getString(FIRSTNAME));
 				u.setLastName(rs.getString(LASTNAME));
-				u.setId(rs.getLong(ID));
+				u.setId(rs.getInt(ID));
 			}
 
 		} catch (SQLException e) {

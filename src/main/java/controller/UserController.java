@@ -15,6 +15,7 @@ import exception.CourseGroupFormationException;
 import repository.UsersDatabaseRepository;
 import repository.impl.UsersDatabaseRepositoryImpl;
 import service.impl.UserValidator;
+import util.IPasswordEncryption;
 import util.LoggerUtil;
 
 
@@ -30,6 +31,7 @@ public class UserController {
 	
 	UsersDatabaseRepository userDBImpl = new UsersDatabaseRepositoryImpl();
 	Logger myLogger = LoggerUtil.getLoggerInstance(this.getClass());
+	IPasswordEncryption passwordEncryption;
 	
 	@GetMapping("/ping")
 	public String ping() {
@@ -64,7 +66,7 @@ public class UserController {
 		user.setPassword(password);
 		ModelAndView m;
 		if(UserValidator.validateUser(user) && password.equals(passwordConfirm)) {
-			userDBImpl.createUser(user);
+			userDBImpl.createUser(user, passwordEncryption, false);
 			m = new ModelAndView("login");
 		}
 		else {

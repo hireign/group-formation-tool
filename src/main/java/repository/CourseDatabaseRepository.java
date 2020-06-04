@@ -11,5 +11,9 @@ public interface CourseDatabaseRepository {
 	public List<Course> getAllCourses() throws CopyCatMeDBConfigException, CourseGroupFormationException;
 	
 	public Course fetchByCourseId(String courseId) throws CopyCatMeDBConfigException, CourseGroupFormationException;
+
+	public Course loadCourseByID(long courseID, Course course) throws CourseGroupFormationException, CopyCatMeDBConfigException;
+
+	public boolean isCurrentUserEnrolledAsRoleInCourse(int instructorRole);
 	
 }

@@ -34,7 +34,7 @@ public class CourseDatabaseRepositoryImpl implements CourseDatabaseRepository,Co
 			ResultSet rs = insertionps.executeQuery();
 			while(rs.next()){
 				Course course = new Course();
-				course.setCourseId(rs.getString(COURSEID));
+				course.setCourseId(rs.getLong(COURSEID));
 				course.setCourseName(rs.getString(COURSENAME));
 				courseList.add(course);
 		}	
@@ -69,7 +69,7 @@ public class CourseDatabaseRepositoryImpl implements CourseDatabaseRepository,Co
 			ResultSet rs = insertionps.executeQuery();
 			while (rs.next()) {
 				course = new Course();
-				course.setCourseId(rs.getString(COURSEID));
+				course.setCourseId(rs.getLong(COURSEID));
 				course.setCourseName(rs.getString(COURSENAME));
 			}
 
@@ -87,6 +87,42 @@ public class CourseDatabaseRepositoryImpl implements CourseDatabaseRepository,Co
 		}
 		return course;
 
+	}
+
+	@Override
+	public Course loadCourseByID(long courseID, Course course) throws CourseGroupFormationException, CopyCatMeDBConfigException {
+		Connection con = null;
+		try {
+			con = DBConfig.getDBConfigInstance().getConnectionInstance();
+			String selectSql = "SELECT * from Course WHERE id = ?";
+			PreparedStatement insertionps = con.prepareStatement(selectSql);
+			insertionps.setLong(1, courseID);
+			ResultSet rs = insertionps.executeQuery();
+			while (rs.next()) {
+				course = new Course();
+				course.setCourseId(rs.getLong(COURSEID));
+				course.setCourseName(rs.getString(COURSENAME));
+			}
+
+		} catch (SQLException e) {
+			myLogger.info("An exception occurred while fetching Course from Database ", e);
+			throw new CourseGroupFormationException(String.format("There was an error while fetching the course record from database with course Id %s.",courseID));
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					myLogger.info("Failed to close database connection ", e);
+				}
+			}
+		}
+		return course;
+	}
+
+	@Override
+	public boolean isCurrentUserEnrolledAsRoleInCourse(int instructorRole) {
+//		return userRoleDecider.userHasRoleInCourse(CurrentUser.instance().getCurrentAuthenticatedUser(), role, this);
+		return false;
 	}
 
 }
