@@ -9,14 +9,14 @@
 	</head>
 	<body>
 		
-	  	<div sec:authorize="isAuthenticated()">
+	  	<div th:if="${USER}">
 	       <h4 th:inline="text">BannerID: [[${USER}]]</h4>
-	       <form th:action="@{/logout}" method="post">
+	       <form th:action="@{/login?logout}" method="get">
 	           <input type="submit" value="Sign Out"/>
 	       </form>
 		</div>
 		<h1>Welcome to the CSCI5308 Group Formation Tool!</h1>
-	  	<div sec:authorize="isAuthenticated()">
+	  	<div th:if="${USER}">
 	  		<!-- Display list of courses. -->
 	  		<!-- Learned how to do this here: https://www.baeldung.com/thymeleaf-list -->
 	  		<h4>Available courses:</h4>
@@ -26,7 +26,7 @@
 				</tr>
 	  		</table>
 		</div>
-		<div sec:authorize="!isAuthenticated()">
+		<div th:if="${USER == null}">
 			<!-- Send them to login. -->
 			<p>This site requires you to be logged in.</p>
 			<a th:href="@{/login}">Click here to log in!</a>

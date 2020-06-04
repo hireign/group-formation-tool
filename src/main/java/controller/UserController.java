@@ -81,7 +81,11 @@ public class UserController {
 			
 			// -- Send Confirmation Email
 			UserAccountStatus uas = new UserAccountStatus(email, UUID.randomUUID().toString());
-			String appUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getLocalPort();
+			String domain = request.getServerName();
+			String appUrl = request.getScheme() + "://" + domain;
+			if(domain.equals("localhost") || domain.equals("127.0.0.1")) {
+				appUrl += ":" + request.getLocalPort();
+			}
 			if (sendConfirmEmail(uas, appUrl)) {
 				userDBImpl.saveAccountStatus(uas);
 				m = new ModelAndView("login");
