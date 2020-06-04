@@ -10,7 +10,7 @@
 	<body>
 		
 	  	<div sec:authorize="isAuthenticated()">
-	       <h4 th:inline="text">BannerID: [[${#httpServletRequest.remoteUser}]]</h4>
+	       <h4 th:inline="text">BannerID: [[${USER}]]</h4>
 	       <form th:action="@{/logout}" method="post">
 	           <input type="submit" value="Sign Out"/>
 	       </form>

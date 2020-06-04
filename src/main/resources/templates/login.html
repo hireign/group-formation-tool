@@ -10,6 +10,9 @@
 	<div th:if="${param.logout}">
 		You have been logged out.
 	</div>
+	<div th:if="${message}">
+		[[${message}]]
+	</div>
 	<h1>Welcome to the group formation tool, please sign in:</h1>
 	<br/>
 	<form th:action="@{/login}" method="post">

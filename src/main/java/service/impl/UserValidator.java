@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import dao.User;
+import dao.UserLogin;
 
 public class UserValidator {
 
@@ -53,6 +54,10 @@ public class UserValidator {
 		Pattern pattern = Pattern.compile(REGEX_EMAIL);
 		Matcher matcher = pattern.matcher(email);
 		return matcher.matches();
+	}
+	
+	public static boolean validateUserLogin(UserLogin user) {
+		return isBannerIDValid(user.getBannerId());
 	}
 
 }
