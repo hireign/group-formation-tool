@@ -105,11 +105,11 @@ public class UserController {
 		ModelAndView m = null;
 		UserLogin userLogin = new UserLogin(bannerID, password);
 		if (UserValidator.validateUserLogin(userLogin) && userDBImpl.getUserLogin(userLogin)) {
-			m = new ModelAndView("/index");
+			m = new ModelAndView("index");
 			m.addObject("USER", bannerID);
 			m.addObject("ROLE", userDBImpl.getUserRole(bannerID));
 		} else {
-			m = new ModelAndView("/login");
+			m = new ModelAndView("login");
 			m.getModelMap().put("error", "");
 		}
 		return m;
