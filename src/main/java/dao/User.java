@@ -1,5 +1,8 @@
 package dao;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class User {
 	
 	private int id;
@@ -8,7 +11,7 @@ public class User {
 	private String firstName;
 	private String lastName;	
 	private String password;
-	
+	private boolean isEnabled;
 
 	public String getBannerId() {
 		return bannerId;
@@ -49,6 +52,13 @@ public class User {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public boolean isEnabled() {
+		return isEnabled;
+	}
+	public void setEnabled(boolean isEnabled) {
+		this.isEnabled = isEnabled;
 	}
 	
 }
