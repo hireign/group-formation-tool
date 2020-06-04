@@ -8,7 +8,7 @@ public class User {
 	private String firstName;
 	private String lastName;	
 	private String password;
-	
+	private boolean isEnabled;
 
 	public String getBannerId() {
 		return bannerId;
@@ -50,5 +50,11 @@ public class User {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
+	public boolean isEnabled() {
+		return isEnabled;
+	}
+	public void setEnabled(boolean isEnabled) {
+		this.isEnabled = isEnabled;
+	}
 }
