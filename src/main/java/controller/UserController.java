@@ -59,6 +59,10 @@ public class UserController {
 	@GetMapping({"/", "/index"})
 	public String homePage(HttpSession session) {
 		String username = (String) session.getAttribute("USER");
+		String role = (String) session.getAttribute("ROLE");
+		if(role!= null && role.equals("ADMIN")) {
+			return "redirect:/admin";
+		}
 		ArrayList<Course> course = (ArrayList<Course>) session.getAttribute("COURSES");
 		if (course == null && username != null) {
 			HashMap<Course, String> courseMap = userDBImpl.getRegisteredCourses(username);

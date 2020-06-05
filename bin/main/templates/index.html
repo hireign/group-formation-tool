@@ -23,6 +23,11 @@
 				</tr>
 	  		</table>
 	  	</div>
+	  	<div>
+			<td></td>
+			<td>View all Courses</td>
+			<td><a href="/getAllCourses">Click Here</a></td>
+		</div>
 		<div th:if="${not session.containsKey('USER')}">
 			<!-- Send them to login. -->
 			<p>This site requires you to be logged in.</p>

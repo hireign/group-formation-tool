@@ -1,10 +1,10 @@
 package controller;
 
-import dao.AdminCourse;
-import dao.Course;
-import exception.CopyCatMeDBConfigException;
-import exception.CourseGroupFormationException;
-import repository.impl.CourseDatabaseRepositoryImpl;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.List;
+import dao.AdminCourse;
+import dao.Course;
+import exception.CopyCatMeDBConfigException;
+import exception.CourseGroupFormationException;
+import repository.impl.CourseDatabaseRepositoryImpl;
 
 @Controller
 public class AdminCourseController {
@@ -22,7 +25,14 @@ public class AdminCourseController {
     private static final String courseNAME = "courseName";
 
     @GetMapping("/admin")
-    public String showAdminDashboard() { return "admin/dashboard"; }
+    public String showAdminDashboard(HttpSession session) { 
+    	String role = (String) session.getAttribute("ROLE");
+    	if(role != null){
+    		if(!role.equals("ADMIN")) {
+    			return "redirect:/login?error";
+    		}
+    	}
+    	return "admin/dashboard"; }
 
     @GetMapping("/admin/courses")
     public String showCourses(Model model) {
@@ -87,4 +97,9 @@ public class AdminCourseController {
     @GetMapping("/admin/addInstructor")
     public String addInstructor() { return "admin/addInstructor"; }
 
+    @GetMapping("/importUsers")
+    public String importUsers() {
+    	return ""
+    			+ "importusers";
+    }
 }
