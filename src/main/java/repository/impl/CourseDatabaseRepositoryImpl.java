@@ -57,39 +57,6 @@ public class CourseDatabaseRepositoryImpl implements CourseDatabaseRepository,Co
 
 	}
 
-//	@Override
-//	public Course fetchByCourseId(String courseId)
-//			throws CopyCatMeDBConfigException, CourseGroupFormationException {
-//		Connection con = null;
-//		Course course = null;
-//		try {
-//			con = DBConfig.getDBConfigInstance().getConnectionInstance();
-//			String selectSql = "SELECT * from COURSES WHERE COURSEID = ?";
-//			PreparedStatement insertionps = con.prepareStatement(selectSql);
-//			insertionps.setString(1, courseId);
-//			ResultSet rs = insertionps.executeQuery();
-//			while (rs.next()) {
-//				course = new Course();
-//				course.setCourseId(rs.getLong(COURSEID));
-//				course.setCourseName(rs.getString(COURSENAME));
-//			}
-//
-//		} catch (SQLException e) {
-//			myLogger.info("An exception occurred while fetching Course from Database ", e);
-//			throw new CourseGroupFormationException(String.format("There was an error while fetching the course record from database with course Id %s.",courseId));
-//		} finally {
-//			if (con != null) {
-//				try {
-//					con.close();
-//				} catch (SQLException e) {
-//					myLogger.info("Failed to close database connection ", e);
-//				}
-//			}
-//		}
-//		return course;
-//
-//	}
-
 	@Override
 	public Course loadCourseByID(long courseID, Course course) throws CourseGroupFormationException, CopyCatMeDBConfigException {
 		Connection con = null;
