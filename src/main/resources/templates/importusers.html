@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<form method="POST" th:action="@{/course/uploadcsv}" th:object="${course}"
+	enctype="multipart/form-data">
+	<input type="text" name="id" />
+	<div class="form-group mt-3">
+		<label for="file"><br>Import a CSV file</label> <br>
+		<input type="file" name="file" class="form-control-file" id="file"
+			accept=".csv">
+
+	</div>
+	<br>
+	<button type="submit" class="btn btn-primary">Import Students</button>
+</form>
+</html>

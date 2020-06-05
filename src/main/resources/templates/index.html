@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+	<head>
+		<title>CSCI5308 - CopyCatMe</title>
+	</head>
+	<body>
+		<div th:if="${session.containsKey('USER')}">
+	       <h4 th:inline="text">BannerID: [[${session.USER}]]</h4>
+	       <form th:action="@{/logout}" method="get">
+	           <input type="submit" value="Sign Out"/>
+	       </form>
+		</div>
+		<h1>Welcome to the CSCI5308 Group Formation Tool!</h1>
+		<div th:if="${session.containsKey('USER')}">
+			Available Courses:
+			<table>
+				<tr th:each="instance: ${session.COURSES}">
+					<td th:text="${instance}">Course ID</td>
+				</tr>
+	  		</table>
+	  	</div>
+	  	<div>
+			<td></td>
+			<td>View all Courses</td>
+			<td><a href="/getAllCourses">Click Here</a></td>
+		</div>
+		<div th:if="${not session.containsKey('USER')}">
+			<!-- Send them to login. -->
+			<p>This site requires you to be logged in.</p>
+			<a th:href="@{/login}">Click here to log in!</a>
+			<a th:href="@{/signup}">Click here to Sign Up!</a>
+		</div>
+	</body>
+</html>

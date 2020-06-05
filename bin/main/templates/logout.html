@@ -1,0 +1,23 @@
+<!DOCTYPE html>  
+<html xmlns:th="http://www.thymeleaf.org">  
+<head>  
+	<title>CSCI5308 Group Formation Tool - Login page</title>
+</head>  
+<body>  
+	<div th:if="${param.error}">
+		Invalid Banner ID or password.
+	</div>
+	<div th:if="${param.logout}">
+		You have been logged out.
+	</div>
+	<h1>Welcome to the group formation tool, please sign in:</h1>
+	<br/>
+	<form th:action="@{/login}" method="post">
+	    <div><label> BannerID : <input type="text" name="username"/> </label></div>
+	    <div><label> Password: <input type="password" name="password"/> </label></div>
+	    <div><input type="submit" value="Log In"/></div>
+	</form>
+	<br/>
+	<a th:href="@{signup}">Are you a new user? Click here to sign up!</a>
+</body>  
+</html>

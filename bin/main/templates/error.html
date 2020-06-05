@@ -1,0 +1,56 @@
+<!--
+	I've taken this concept from this URL:
+	https://www.logicbig.com/tutorials/spring-framework/spring-boot/custom-thymeleaf-error-page.html
+	
+	The idea here is that uncaught exceptions in the system should redirect automatically to this
+	page and show the stack trace. Later, when we learn error handling and logging I will log
+	the stack trace, not display it to the user.  It is a security risk to display too much
+	information about your system to the user when errors happen.
+ -->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<style>
+		table td{
+			vertical-align:top;
+			border:solid 1px #888;
+			padding:10px;
+		}
+    </style>
+</head>
+<body>
+	<h1>Oops, something went wrong!</h1>
+	<table>
+	    <tr>
+	        <td>Date</td>
+	        <td th:text="${timestamp}"/>
+	    </tr>
+	    <tr>
+	        <td>Path</td>
+	        <td th:text="${path}"/>
+	    </tr>
+	    <tr>
+	        <td>Error</td>
+	        <td th:text="${error}"/>
+	    </tr>
+	    <tr>
+	        <td>Status</td>
+	        <td th:text="${status}"/>
+	    </tr>
+	    <tr>
+	        <td>Message</td>
+	        <td th:text="${message}"/>
+	    </tr>
+	    <tr>
+	        <td>Exception</td>
+	        <td th:text="${exception}"/>
+	    </tr>
+	    <tr>
+	        <td>Trace</td>
+	        <td>
+	            <pre th:text="${trace}"/>
+	        </td>
+	    </tr>
+	</table>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    <head>
+        <meta charset="UTF-8">
+        <title>Add an Instructor</title>
+    </head>
+<body>
+<!--    <div sec:authorize="isAuthenticated()">-->
+    <div>
+        <h4 th:inline="text">BannerID: [[${#httpServletRequest.remoteUser}]]</h4>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+    </div>
+    <h2>Add an Instructor</h2>
+    <div>
+        <form th:action="@{/admin/addInstructor}" method="post">
+            <input placeholder="Instructor id" type="text" name="userID"/>
+            <input placeholder="Course id" type="text" name="courseID"/>
+            <br/>
+            <input type="submit" value="Add"/>
+        </form>
+    </div>
+</body>
+</html>
