@@ -5,6 +5,14 @@ public class Course {
 	private Long courseId;
 	private String courseName;
 
+	public Course() {
+		super();
+	}
+	public Course(Long courseId, String courseName) {
+		super();
+		this.courseId = courseId;
+		this.courseName = courseName;
+	}
 	public Long getCourseId() {
 		return courseId;
 	}

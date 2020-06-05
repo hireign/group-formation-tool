@@ -1,14 +1,17 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import dao.Course;
 import dao.User;
 import dao.UserAccountStatus;
 import dao.UserLogin;
@@ -52,23 +56,42 @@ public class UserController {
 		return "I'm alive!";
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String homePage() {
+	@GetMapping({"/", "/index"})
+	public String homePage(HttpSession session) {
+		String username = (String) session.getAttribute("USER");
+		ArrayList<Course> course = (ArrayList<Course>) session.getAttribute("COURSES");
+		if (course == null && username != null) {
+			HashMap<Course, String> courseMap = userDBImpl.getRegisteredCourses(username);
+			ArrayList<String> cL = new ArrayList<String>();
+			if (courseMap != null) {
+				for (Map.Entry<Course, String> e : courseMap.entrySet()) {
+					Course key = e.getKey();
+					cL.add("CSCI" + key.getCourseId() + ": " + key.getCourseName());
+					session.setAttribute("COURSES", cL);
+				}
+			}
+		}
 		return "index";
 	}
 
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
-	public String displaySignup() {
+	public String displaySignup(HttpSession session) {
+		if(session.getAttribute("USER") != null) {
+			return "index";
+		}
 		return "signup";
 	}
 
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
-	public ModelAndView createUser(HttpServletRequest request, @RequestParam(name = USERNAME) String bannerID,
+	public ModelAndView createUser(HttpSession session, HttpServletRequest request, @RequestParam(name = USERNAME) String bannerID,
 			@RequestParam(name = PASSWORD) String password,
 			@RequestParam(name = PASSWORD_CONFIRMATION) String passwordConfirm,
 			@RequestParam(name = FIRST_NAME) String firstName, @RequestParam(name = LAST_NAME) String lastName,
 			@RequestParam(name = EMAIL) String email) throws CopyCatMeDBConfigException, CourseGroupFormationException {
 
+		if(session.getAttribute("USER") != null) {
+			return new ModelAndView("index");
+		}
 		User user = new User();
 		user.setBannerId(bannerID);
 		user.setEmailId(email);
@@ -99,24 +122,35 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String displayLogIn() {
+	public String displayLogIn(HttpSession session) {
+		if(session.getAttribute("USER") != null) {
+			return "index";
+		}
 		return "login";
 	}
 
 	@PostMapping("/login")
-	public ModelAndView processLogin(@RequestParam(name = USERNAME) String bannerID,
+	public String processLogin(HttpSession session, @RequestParam(name = USERNAME) String bannerID,
 			@RequestParam(name = PASSWORD) String password) {
+		if(session.getAttribute("USER") != null) {
+			return "redirect:/index";
+		}
 		ModelAndView m = null;
 		UserLogin userLogin = new UserLogin(bannerID, password);
 		if (UserValidator.validateUserLogin(userLogin) && userDBImpl.getUserLogin(userLogin)) {
-			m = new ModelAndView("index");
-			m.addObject("USER", bannerID);
-			m.addObject("ROLE", userDBImpl.getUserRole(bannerID));
+			session.setAttribute("USER", bannerID);
+			session.setAttribute("ROLE", userDBImpl.getUserRole(bannerID));
+			return "redirect:/index";
 		} else {
 			m = new ModelAndView("login");
-			m.getModelMap().put("error", "");
+			return "redirect:/login?error";
 		}
-		return m;
+	}
+	
+	@GetMapping("/logout")
+	public String logoutUser(HttpSession session) {
+		session.invalidate();
+		return "redirect:/login?logout";
 	}
 	
 	@GetMapping("/confirm")

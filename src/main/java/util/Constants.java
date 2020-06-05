@@ -32,4 +32,8 @@ public interface Constants {
 	public static final String DatabaseUserName = "CSCI5308_23_DEVINT_USER";
 	
 	public static final String DatabasePassword = "CSCI5308_23_DEVINT_23272";
+	
+//	public static final String DatabaseURL = "jdbc:mysql://localhost:3306/local_program";
+//	public static final String DatabaseUserName = "root";
+//	public static final String DatabasePassword = "root";
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+<!--    <div sec:authorize="isAuthenticated()">-->
+    <div>
+        <h4 th:inline="text">BannerID: [[${#httpServletRequest.remoteUser}]]</h4>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+    </div>
+    <h3>Admin Dashboard</h3>
+<!--    <div sec:authorize="isAuthenticated()">-->
+    <div>
+        <form th:action="@{/admin/courses}">
+            <!-- Learned how to do this here: https://www.baeldung.com/thymeleaf-list -->
+            <input type="submit" value="Courses"/>
+        </form>
+        <form th:action="@{/admin/instructors}">
+            <input type="submit" value="Instructors"/>
+        </form>
+    </div>
+</body>
+</html>

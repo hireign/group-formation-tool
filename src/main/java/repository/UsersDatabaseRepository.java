@@ -1,7 +1,9 @@
 package repository;
 
+import java.util.HashMap;
 import java.util.List;
 
+import dao.Course;
 import dao.User;
 import dao.UserAccountStatus;
 import dao.UserLogin;
@@ -24,4 +26,6 @@ public interface UsersDatabaseRepository {
 	public void saveAccountStatus(UserAccountStatus uas);
 
 	boolean verifyUser(String token, int i);
+
+	public HashMap<Course, String> getRegisteredCourses(String username);
 }

@@ -6,12 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import config.DBConfig;
+import dao.Course;
 import dao.User;
 import dao.UserAccountStatus;
 import dao.UserLogin;
@@ -308,6 +310,40 @@ public class UsersDatabaseRepositoryImpl implements UsersDatabaseRepository, Con
 			}
 		} catch (Exception e) {
 			return false;
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) {
+			}
+		}
+	}
+	
+	public HashMap<Course, String> getRegisteredCourses(String bannerId) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		HashMap<Course, String> hm = null;
+		try {
+			conn = DBConfig.getDBConfigInstance().getConnectionInstance();
+			String sql = "select Course.id as courseId, Course.title as title, Role.role as role from Course join CourseRole on Course.id=CourseRole.courseID join Role on CourseRole.roleID=Role.id join User on CourseRole.userID=User.id where User.bannerID = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, bannerId);
+			rs = ps.executeQuery();
+			hm = new HashMap<Course, String>();
+			while (rs.next()) {
+				hm.put(new Course(rs.getLong("courseId"), rs.getString("title")), rs.getString("role"));
+			}
+			return hm;
+		} catch (Exception e) {
+			return null;
 		} finally {
 			try {
 				if (rs != null) {
