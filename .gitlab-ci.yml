@@ -1,39 +1,54 @@
-image: gradle:alpine
-
-variables:
-  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-  GIT_STRATEGY: clone
-
-before_script:
-  - chmod +x ./gradlew
-  - export GRADLE_USER_HOME=`pwd`/.gradle
+stages:
+    - build
+    - test
+    - deploy
 
 build:
-  stage: build
-  tags:
-    - grad
-  script: ./gradlew --build-cache assemble
-  only:
-    refs:
-      - branches
-test:
-  stage: test
-  tags:
-    - grad
-  script: ./gradlew check
-  only:
-    refs:
-      - branches
-
-deploy-test:
-    stage: deploy
+    image: gradle:alpine
+    stage: build
     tags:
     - dalfcs_gitlab_docker_ci
-    image: ruby:2.6
+    script: 
+        - ./gradlew assemble
+test:
+    stage: test
+    image: gradle:alpine
+    tags:
+    - dalfcs_gitlab_docker_ci
+    script:
+        - ./gradlew check
+deploy_master:
+    stage: deploy
+    
+    tags:
+    - dalfcs_gitlab_docker_ci
+ 
+    image: ruby:2.3
+ 
     script:
     - apt-get update -qy
     - apt-get install -y ruby-dev
     - gem install dpl
-    - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
+    - dpl --provider=heroku --app="sdcprojectproduction" --api-key="9f385ad0-214b-4765-b607-0005afe0c975"
+ 
+ 
+    only:
+    - master
+    
+deploy_develop:
+    stage: deploy
+    
+    tags:
+    - dalfcs_gitlab_docker_ci
+    
+    image: ruby:2.3
+ 
+    script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - dpl --provider=heroku --app="sdcprojecttest" --api-key="9f385ad0-214b-4765-b607-0005afe0c975"
+ 
+ 
     only:
     - develop
