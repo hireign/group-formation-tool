@@ -39,6 +39,34 @@ CREATE TABLE SystemRole (
     FOREIGN KEY (userID) REFERENCES User(id)
 );
 
+CREATE TABLE Question (
+	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(50) NOT NULL,
+    text VARCHAR(255) NOT NULL,
+    type VARCHAR(20) NOT NULL,
+    instructorId BIGINT NOT NULL,
+    createdDate DATE DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (instructorId) REFERENCES User(id)
+);
+
+CREATE TABLE Response (
+	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    text VARCHAR(255) NOT NULL,
+    type VARCHAR(20) NOT NULL,
+    studentId BIGINT NOT NULL,
+    questionId BIGINT NOT NULL,
+    createdDate DATE DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (studentId) REFERENCES User(id),
+    FOREIGN KEY (questionId) REFERENCES Question(id)
+);
+
+CREATE TABLE Options (
+	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    questionId BIGINT NOT NULL,
+    text VARCHAR(255) NOT NULL,
+    FOREIGN KEY (questionId) REFERENCES Question(id)
+);
+
 INSERT INTO Role(role)
 VALUES
     ('Admin'),
