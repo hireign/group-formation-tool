@@ -4,22 +4,22 @@ public enum QuestionType {
     TEXT {
         public String toString()
         {
-            return "text";
+            return "TEXT";
         }
     },
     NUMBER {
         public String toString()
         {
-            return "number";
+            return "NUMBER";
         }
     },
     MCQ {
         public String toString()
         {
-            return "mcq";
+            return "MCQ";
         }
     },
     CHECKBOX {
-        public String toString() { return "checkbox"; }
+        public String toString() { return "CHECKBOX"; }
     },
 }

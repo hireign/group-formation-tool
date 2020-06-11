@@ -1,14 +1,26 @@
 package CSCI5308.GroupFormationTool.QuestionManager;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Question {
+    private int questionId;
     private String questionTitle;
     private String questionText;
     private String questionType;
     private String questionInstructor;
-//    private List<String> questionOptions = null;
+    private ArrayList questionOptions;
+    private ArrayList optionNumber;
+    private Date questionDate;
+
+    public int getQuestionId(){
+        return questionId;
+    }
+
+    public void setQuestionId(int questionId) {
+            this.questionId = questionId;
+    }
 
     public String getQuestionTitle(){
         return questionTitle;
@@ -42,12 +54,26 @@ public class Question {
         this.questionInstructor = questionInstructor;
     }
 
-//    public List<String> getQuestionOptions(){
-//        return questionOptions;
-//    }
-//
-//    public void setQuestionOptions(List<String> questionOptions){
-//        this.questionOptions = questionOptions;
-//    }
+    public ArrayList getQuestionOptions(){
+        return questionOptions;
+    }
 
+    public void setQuestionOptions(ArrayList questionOptions) {
+        this.questionOptions = questionOptions;
+    }
+
+    public ArrayList getOptionNumber() {
+        return optionNumber;
+    }
+
+    public void setOptionNumber(ArrayList optionNumber) {
+        this.optionNumber = optionNumber;
+    }
+    public Date getQuestionDate() {
+        return questionDate;
+    }
+
+    public void setQuestionDate(Date questionDate) {
+        this.questionDate = questionDate;
+    }
 }
