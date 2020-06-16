@@ -5,7 +5,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;  
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+
+import CSCI5308.GroupFormationTool.Courses.Role;  
 
 /*
  * This code comes from this tutorial:
@@ -15,7 +17,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * security mechanisms to enforce this. If a user is not authenticated this is the class that will
  * redirect them somewhere to login/sign up.
  */
-@Configuration  
+@Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 {
@@ -28,10 +30,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 	@Override  
 	public void configure(HttpSecurity http) throws Exception
 	{
-		http.authorizeRequests()
+		http.csrf().disable();
+		http.authorizeRequests().antMatchers("/admin/*").access("hasRole('"+Role.ADMIN.toString()+"')")
 			.antMatchers("/public/**", "/**").permitAll()
-			.antMatchers("/admin/**").hasRole("ADMIN")
-			.anyRequest().authenticated()
 			.and().formLogin()
 				.loginPage("/login")
 				.permitAll()

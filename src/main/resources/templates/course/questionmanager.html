@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Question Manager</title>
+<script th:src="@{/styles/cssandjs/generateQuestion.js}"></script>
+<script>
+function changeVisibility() {
+  document.getElementById("addOptionButton").style.visibility = "hidden";
+}
+</script>
+</head>
+<body onload="changeVisibility()">
+	<form id="questionForm" th:action="@{/course/question/create(id=${course.id})}" method="post">
+		<label for="questionTitle"> Question Title:</label>
+		<input id="questionTitle" type="text" name="questionTitle"/>
+		<label for="questionText"> Question Text:</label>
+		<input id="questionText" type="text" name="questionText"/>
+		<select id="questionType" name="questionType" onchange="generateQuestions(this.value)">
+			<option selected="selected" disabled="disabled" value="">-- Select type --</option>
+			<option value ="TEXT">Text</option>
+			<option value ="NUMBER">Number</option>
+			<option value ="MCQ">MCQ</option>
+			<option value ="CHECKBOX">Checkbox</option>
+		</select>
+		<button id="addOptionButton" type="button" >Add Option</button>
+		<input id="createQuestionButton" type="submit" value="Create"/>
+	</form>
+
+</body>
+</html>
