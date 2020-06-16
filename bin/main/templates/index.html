@@ -30,9 +30,9 @@
 			<aside class="mainGridRow welcomeInfoBox">
 				<h2>Welcome to the CSCI5308 Group Formation Tool!!</h2>
 			</aside>
-			<div class="adminPanel" sec:authorize="hasAuthority('Admin')">
+			<div class="adminPanel" sec:authorize="hasRole('Admin')">
 				<h4>ADMIN LINKS:</h4>
-				<a href="/admin/course">COURSE</a>
+				<a href="/admin/course">MANAGE COURSE</a>
 			</div>
 			<div class="mainGridRow" sec:authorize="isAuthenticated()">
 				<!-- Display list of courses. -->
