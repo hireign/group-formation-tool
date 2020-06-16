@@ -18,7 +18,7 @@ import CSCI5308.GroupFormationTool.Courses.Role;
 
 public class CustomAuthenticationManager implements AuthenticationManager
 {
-	private static final String ADMIN_BANNER_ID = "B00835825";
+	private static final String ADMIN_BANNER_ID = "B-000000";
 	
 	private Authentication checkAdmin(String password, User u, Authentication authentication) throws AuthenticationException
 	{

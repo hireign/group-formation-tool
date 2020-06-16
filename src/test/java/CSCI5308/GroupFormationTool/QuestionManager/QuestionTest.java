@@ -1,11 +1,18 @@
 package CSCI5308.GroupFormationTool.QuestionManager;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SpringBootTest
+@SuppressWarnings("deprecation")
 public class QuestionTest {
+	private static final int instructorId = 1;
+	private static final int questionId = 1;
 	@Test
 	public void getIdTest() {
 		Question question = new Question();
@@ -74,5 +81,29 @@ public class QuestionTest {
 		Question question = new Question();
 		question.setInstructorId(7);
 		Assert.isTrue(question.getInstructorId() == 7);
+	}
+
+	@Test
+	public void loadAllQuestionsByInstructor() {
+		QuestionDBMock questionDBMock = new QuestionDBMock();
+		List<Question> questionList = new ArrayList<>();
+		questionList = questionDBMock.loadAllQuestionsByInstructor(instructorId);
+		Assert.isTrue(questionList.size()==2);
+	}
+
+	@Test
+	public void createQuestionTest(){
+		QuestionDBMock questionDBMock = new QuestionDBMock();
+		Question question = new Question();
+		Boolean result = questionDBMock.create(question);
+		Assert.isTrue(question.getTitle()=="Code Quality");
+		Assert.isTrue(result);
+	}
+
+	@Test
+	public void deleteQuestionTest(){
+		QuestionDBMock questionDBMock = new QuestionDBMock();
+		Boolean result = questionDBMock.delete(questionId);
+		Assert.isTrue(result);
 	}
 }

@@ -75,5 +75,4 @@ class CourseTest
 		Assert.isTrue(course.getId() == 0);
 		Assert.isTrue(course.getTitle().equals("Software Engineering"));
 	}
-
 }

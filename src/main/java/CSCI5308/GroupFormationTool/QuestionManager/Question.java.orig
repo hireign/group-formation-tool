@@ -157,5 +157,5 @@ public class Question {
     public boolean create(IQuestionPersistence questionDB) {
         return questionDB.create(this);
     }
->>>>>>> remotes/origin/feature_QuestionManager1
+>>>>>>> origin/feature_QuestionManager1
 }
