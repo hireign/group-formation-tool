@@ -18,14 +18,14 @@ Necessary to reset some default browser styles for consistent appearance across 
 			<h1>CSCI5308 Group Formation Tool</h1>
 		</header>
 		<!-- I got the idea for how to do this from https://www.thymeleaf.org/doc/articles/springsecurity.html -->
-	  	<div sec:authorize="isAuthenticated()">
+		<div class="mainGridRow" sec:authorize="isAuthenticated()">
 	       <h4 th:inline="text">BannerID: [[${#httpServletRequest.remoteUser}]]</h4>
 	       <form th:action="@{/logout}" method="post">
 	           <input type="submit" value="Sign Out"/>
 	       </form>
 		</div>
 		<h1 th:text="'Course: ' + ${course.title}">Course: Title Not Found</h1>
-		<div th:if="${instructor} or ${ta}">
+		<div  class="mainGridRow" th:if="${instructor} or ${ta}">
 			<br/>
 			<a th:href="@{/course/instructoradmin(id=${course.id})}">Course Administration</a>
 		</div>
