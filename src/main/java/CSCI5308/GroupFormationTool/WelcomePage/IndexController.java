@@ -17,7 +17,7 @@ import CSCI5308.GroupFormationTool.Courses.ICoursePersistence;
 @Controller
 public class IndexController
 {
-	@GetMapping("/")
+	@GetMapping({"/", "/index"})
 	public String greeting(Model model)
 	{
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

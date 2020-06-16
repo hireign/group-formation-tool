@@ -1,12 +1,11 @@
 package CSCI5308.GroupFormationTool.QuestionManager;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @SpringBootTest
 @SuppressWarnings("deprecation")

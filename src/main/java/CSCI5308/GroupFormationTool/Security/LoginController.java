@@ -15,7 +15,7 @@ public class LoginController
 	public String login(HttpServletRequest request, Model model)
 	{
 		if(null != CurrentUser.instance().getCurrentAuthenticatedUser()) {
-			return "index.html";
+			return "redirect:/index";
 		}
 		return "login.html";
 	}
