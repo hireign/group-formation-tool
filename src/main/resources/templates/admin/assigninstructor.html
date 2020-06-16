@@ -18,27 +18,36 @@ Necessary to reset some default browser styles for consistent appearance across 
 			<h1>CSCI5308 Group Formation Tool</h1>
 		</header>
 		<!-- I got the idea for how to do this from https://www.thymeleaf.org/doc/articles/springsecurity.html -->
-	  	<div sec:authorize="isAuthenticated()">
-	       <h4 th:inline="text">BannerID: [[${#httpServletRequest.remoteUser}]]</h4>
-	       <form th:action="@{/logout}" method="post">
-	           <input type="submit" value="Sign Out"/>
-	       </form>
+		<div class="bodyGridRow userProfileGridContainer" sec:authorize="isAuthenticated()">
+			<h4 class="userProfileGridCol1" th:inline="text">BannerID: [[${#httpServletRequest.remoteUser}]]</h4>
+			<form class="userProfileGridCol4" th:action="@{/logout}" method="post">
+				<input type="submit" value="Sign Out"/>
+			</form>
 		</div>
-		<h1 th:text="'Choose from these users to assign as the instructor for ' + ${course.title} + ':'">
-			Choose from these users to assign as the instructor:
-		</h1>
-		<form th:action="@{/admin/assigninstructor(id=${course.id})}" method="post">
-			<div>
-		  		<table>
-					<tr th:each="user : ${users}">
-						<td>
-							<input type="checkbox" name="instructor" th:value="${user.id}">
-							<label th:text="${user.banner} + ', ' + ${user.firstName} + ' ' + ${user.lastName}"></label>
-						</td>
-					</tr>
-		  		</table>
+		<main class="bodyGridRow mainGridContainer">
+			<aside class="mainGridRow welcomeInfoBox">
+				<h2 th:text="'Choose from these users to assign as the instructor for ' + ${course.title} + ':'">
+					Choose from these users to assign as the instructor:
+				</h2>
+			</aside>
+			<div class="mainGridRow" sec:authorize="isAuthenticated()">
+				<form class="mainGridRow" th:action="@{/admin/assigninstructor(id=${course.id})}" method="post">
+					<div>
+						<table class="tableAssignInstructor">
+							<tr th:each="user : ${users}">
+								<td>
+									<input type="checkbox" name="instructor" th:value="${user.id}">
+									<label th:text="${user.banner} + ', ' + ${user.firstName} + ' ' + ${user.lastName}"></label>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<input type="submit" value="Assign Instructors"/>
+				</form>
 			</div>
-			<input type="submit" value="Assign Instructors"/>
-		</form>
+		</main>
+		<footer class="bodyGridRow footerGridContainer">
+			<p><strong>CSCI5308 (Advanced Topics in Software Development)</strong> is a graduate course offered for students enrolled in the <a href="https://www.dal.ca/macs" target="_blank">Master of Applied Computer Science (MACS)</a> at the <a href="https://www.dal.ca/cs" target="_blank">Faculty of Computer Science</a>, <a href="https://www.dal.ca" target="_blank">Dalhousie University</a>.</p>
+		</footer>
 	</body>
 </html>

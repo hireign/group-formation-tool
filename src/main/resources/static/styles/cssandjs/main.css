@@ -35,6 +35,12 @@ footer {
 	border-top: thin solid lightgray;
 }
 
+table td{
+	vertical-align:top;
+	border:solid 1px #888;
+	padding:10px;
+}
+
 /* 
  * Main heading has a steelblue coloured background.
  * It also has a top and bottom padding to space the content better.
