@@ -39,6 +39,6 @@ public class CourseController
 			model.addAttribute("student", userRoles.contains(Role.STUDENT));
 			model.addAttribute("guest", userRoles.isEmpty());
 		}
-		return "/course";
+		return "course/course";
 	}
 }
