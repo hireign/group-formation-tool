@@ -8,4 +8,5 @@ public interface IQuestionPersistence {
 	public boolean create(Question question);
 
 	public boolean delete(long id);
+
 }

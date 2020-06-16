@@ -1,8 +1,7 @@
 package CSCI5308.GroupFormationTool.QuestionManager;
 
 import java.util.Date;
-
-import CSCI5308.GroupFormationTool.Courses.ICoursePersistence;
+import java.util.List;
 
 public class Question {
 	private long id;
@@ -11,6 +10,7 @@ public class Question {
 	private String type;
 	private long instructorId;
 	private Date date;
+	private List<Option> options;
 
 	public long getId() {
 		return id;
@@ -59,14 +59,20 @@ public class Question {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
-	public boolean delete(IQuestionPersistence questionDB)
-	{
+
+	public List<Option> getOptions() {
+		return options;
+	}
+
+	public void setOptions(List<Option> options) {
+		this.options = options;
+	}
+
+	public boolean delete(IQuestionPersistence questionDB) {
 		return questionDB.delete(id);
 	}
-	
-	public boolean create(IQuestionPersistence questionDB)
-	{
+
+	public boolean create(IQuestionPersistence questionDB) {
 		return questionDB.create(this);
 	}
 }

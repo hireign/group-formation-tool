@@ -39,4 +39,9 @@ public class CurrentUser
 		}
 		return null;
 	}
+	
+	public static void deleteInstance()
+	{
+		uniqueInstance = null;
+	}
 }
