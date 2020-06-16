@@ -78,7 +78,7 @@ public class QuestionDB implements IQuestionPersistence {
 			proc.registerOutputParameterLong(5);
 			proc.execute();
 
-			long questionId = proc.getReturnedValueLong(1);
+			long questionId = proc.getReturnedValueLong(5);
 
 			for (Option option : question.getOptions()) {
 				proc = new CallStoredProcedure("spCreateOption(?, ?, ?)");

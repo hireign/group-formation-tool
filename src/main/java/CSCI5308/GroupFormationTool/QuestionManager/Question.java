@@ -3,6 +3,9 @@ package CSCI5308.GroupFormationTool.QuestionManager;
 import java.util.Date;
 import java.util.List;
 
+import CSCI5308.GroupFormationTool.SystemConfig;
+import CSCI5308.GroupFormationTool.AccessControl.CurrentUser;
+
 public class Question {
 	private long id;
 	private String title;
@@ -73,6 +76,12 @@ public class Question {
 	}
 
 	public boolean create(IQuestionPersistence questionDB) {
-		return questionDB.create(this);
+		if(null != CurrentUser.instance().getCurrentAuthenticatedUser()) {
+			this.setInstructorId(CurrentUser.instance().getCurrentAuthenticatedUser().getId());
+			return questionDB.create(this);
+		}
+		else {
+			return false;
+		}
 	}
 }

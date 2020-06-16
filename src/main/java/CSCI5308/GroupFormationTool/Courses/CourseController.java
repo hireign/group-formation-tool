@@ -14,7 +14,7 @@ public class CourseController
 {
 	private static final String ID = "id";
 	
-	@GetMapping("/course")
+	@GetMapping("/course/course")
 	public String course(Model model, @RequestParam(name = ID) long courseID)
 	{
 		ICoursePersistence courseDB = SystemConfig.instance().getCourseDB();
@@ -39,6 +39,6 @@ public class CourseController
 			model.addAttribute("student", userRoles.contains(Role.STUDENT));
 			model.addAttribute("guest", userRoles.isEmpty());
 		}
-		return "/course";
+		return "course/course";
 	}
 }
