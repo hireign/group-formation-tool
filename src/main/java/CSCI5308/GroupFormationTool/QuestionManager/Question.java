@@ -1,79 +1,78 @@
 package CSCI5308.GroupFormationTool.QuestionManager;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Question {
-    private int questionId;
-    private String questionTitle;
-    private String questionText;
-    private String questionType;
-    private String questionInstructor;
-    private ArrayList questionOptions;
-    private ArrayList optionNumber;
-    private Date questionDate;
+    private long id;
+    private String title;
+    private String text;
+    private String type;
+    private long instructorId;
+    private Date date;
+    private List<Option> options;
 
-    public int getQuestionId(){
-        return questionId;
+    public long getId() {
+        return id;
     }
 
-    public void setQuestionId(int questionId) {
-            this.questionId = questionId;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getQuestionTitle(){
-        return questionTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setQuestionTitle(String questionTitle) {
-        this.questionTitle = questionTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getQuestionText(){
-        return questionText;
+    public String getText() {
+        return text;
     }
 
-    public void setQuestionText(String questionText) {
-        this.questionText = questionText;
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public String getQuestionType(){
-        return questionType;
+    public String getType() {
+        return type;
     }
 
-    public void setQuestionType(String questionType) {
-        this.questionType = questionType;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getQuestionInstructor(){
-        return questionInstructor;
+    public long getInstructorId() {
+        return instructorId;
     }
 
-    public void setQuestionInstructor(String questionInstructor) {
-        this.questionInstructor = questionInstructor;
+    public void setInstructorId(long instructorId) {
+        this.instructorId = instructorId;
     }
 
-    public ArrayList getQuestionOptions(){
-        return questionOptions;
+    public Date getDate() {
+        return date;
     }
 
-    public void setQuestionOptions(ArrayList questionOptions) {
-        this.questionOptions = questionOptions;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public ArrayList getOptionNumber() {
-        return optionNumber;
+    public List<Option> getOptions() {
+        return options;
     }
 
-    public void setOptionNumber(ArrayList optionNumber) {
-        this.optionNumber = optionNumber;
-    }
-    public Date getQuestionDate() {
-        return questionDate;
+    public void setOptions(List<Option> options) {
+        this.options = options;
     }
 
-    public void setQuestionDate(Date questionDate) {
-        this.questionDate = questionDate;
+    public boolean delete(IQuestionPersistence questionDB) {
+        return questionDB.delete(id);
+    }
+
+    public boolean create(IQuestionPersistence questionDB) {
+        return questionDB.create(this);
     }
 }
