@@ -9,7 +9,6 @@
 		<!-- Normalize.css by Nicolas Gallagher, used from https://necolas.github.io/normalize.css/ 
 			 Necessary to reset some default browser styles for consistent appearance across browsers. -->
 		<link th:href="@{/styles/cssandjs/normalize.css}" rel="stylesheet" />
-
 		<!-- This file includes all default styles for this application. -->
 		<link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
 	</head>
@@ -17,7 +16,6 @@
 		<header class="bodyGridRow headerGridContainer">
 			<h1>CSCI5308 Group Formation Tool</h1>
 		</header>
-
 		<!-- I got the idea for how to do this from https://www.thymeleaf.org/doc/articles/springsecurity.html -->
 		<div class="bodyGridRow userProfileGridContainer" sec:authorize="isAuthenticated()">
 			<h4 class="userProfileGridCol1" th:inline="text">BannerID: [[${#httpServletRequest.remoteUser}]]</h4>
@@ -25,22 +23,21 @@
 				<input type="submit" value="Sign Out"/>
 			</form>
 		</div>
-	
 		<main class="bodyGridRow mainGridContainer">
 			<aside class="mainGridRow welcomeInfoBox">
 				<h2>Welcome to the CSCI5308 Group Formation Tool!!</h2>
 			</aside>
-			<div class="adminPanel" sec:authorize="hasRole('Admin')">
-				<h4>ADMIN LINKS:</h4>
+			<div class="adminPanel mainGridCentreInfoBox" sec:authorize="hasRole('Admin')">
+				<h4>Admin Links:</h4>
 				<a href="/admin/course">MANAGE COURSE</a>
 			</div>
-			<div class="mainGridRow" sec:authorize="isAuthenticated()">
+			<div class="mainGridCentreInfoBox" sec:authorize="isAuthenticated()">
 				<!-- Display list of courses. -->
 				<!-- Learned how to do this here: https://www.baeldung.com/thymeleaf-list -->
 				<h4>Available courses:</h4>
 				<table>
 					<tr th:each="course : ${courses}">
-						<td><a th:href="@{/course/course(id=${course.id})}" th:text="${course.title}">Title</a></td>
+						<td><a th:href="@{/course(id=${course.id})}" th:text="${course.title}">Title</a></td>
 					</tr>
 				</table>
 			</div>

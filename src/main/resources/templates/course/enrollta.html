@@ -9,7 +9,6 @@
 		<!-- Normalize.css by Nicolas Gallagher, used from https://necolas.github.io/normalize.css/
 	Necessary to reset some default browser styles for consistent appearance across browsers. -->
 		<link th:href="@{/styles/cssandjs/normalize.css}" rel="stylesheet" />
-
 		<!-- This file includes all default styles for this application. -->
 		<link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
 	</head>
@@ -18,21 +17,28 @@
 			<h1>CSCI5308 Group Formation Tool</h1>
 		</header>
 		<!-- I got the idea for how to do this from https://www.thymeleaf.org/doc/articles/springsecurity.html -->
-	  	<div sec:authorize="isAuthenticated()">
-	       <h4 th:inline="text">BannerID: [[${#httpServletRequest.remoteUser}]]</h4>
-	       <form th:action="@{/logout}" method="post">
-	           <input type="submit" value="Sign Out"/>
-	       </form>
+		<div class="bodyGridRow userProfileGridContainer" sec:authorize="isAuthenticated()">
+			<h4 class="userProfileGridCol1" th:inline="text">BannerID: [[${#httpServletRequest.remoteUser}]]</h4>
+			<form class="userProfileGridCol4" th:action="@{/logout}" method="post">
+				<input type="submit" value="Sign Out"/>
+			</form>
 		</div>
-		<h1 th:text="'Course: ' + ${course.title}">Course: Title Not Found</h1>
-		<br/>
-		<p>
-			This tool allows you to import and enroll students in the system by uploading a CSV
-			file (banner ID, first name, last name, email). Each student will have an account
-			created if they do not already exist in the system, and will be emailed with their
-			login credentials.
-		</p>
-		<br/>
-		<a th:href="@{/course/enrollta(id=${course.id})}">Enroll TAs</a>
+		<main class="bodyGridRow mainGridContainer">
+			<aside class="mainGridRow welcomeInfoBox">
+				<h2 th:text="'Course: ' + ${course.title}">Course: Title Not Found</h2>
+			</aside>
+			<div class="mainGridRow">
+				<p>
+					This tool allows you to import and enroll students in the system by uploading a CSV
+					file (banner ID, first name, last name, email). Each student will have an account
+					created if they do not already exist in the system, and will be emailed with their
+					login credentials.
+				</p>
+				<a th:href="@{/course/enrollta(id=${course.id})}">Enroll TAs</a>
+			</div>
+		</main>
+		<footer class="bodyGridRow footerGridContainer">
+			<p><strong>CSCI5308 (Advanced Topics in Software Development)</strong> is a graduate course offered for students enrolled in the <a href="https://www.dal.ca/macs" target="_blank">Master of Applied Computer Science (MACS)</a> at the <a href="https://www.dal.ca/cs" target="_blank">Faculty of Computer Science</a>, <a href="https://www.dal.ca" target="_blank">Dalhousie University</a>.</p>
+		</footer>
 	</body>
 </html>
