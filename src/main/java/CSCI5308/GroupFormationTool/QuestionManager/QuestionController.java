@@ -20,7 +20,8 @@ import CSCI5308.GroupFormationTool.Courses.ICoursePersistence;
 public class QuestionController {
 
 	private static final String ID = "id";
-	
+	private static final String instructorID = "instructorID";
+
 	@GetMapping("/course/question/create")
 	public String returnCreateQuestionView(Model model, @RequestParam(name = ID) long courseID) {
 		ICoursePersistence courseDB = SystemConfig.instance().getCourseDB();
@@ -48,14 +49,19 @@ public class QuestionController {
             	options.add(option);
             }
         }
-        
         question.setTitle(questionTitle);
         question.setText(questionText);
         question.setType(questionType);
         question.setOptions(options);
-        
         question.create(questionDB);
-
         return "redirect:/index";
+	}
+	@GetMapping("/questionmanager/questiondirectory")
+	public String questionDirectory(Model model) {
+		IQuestionPersistence questionDB = SystemConfig.instance().getQuestionDB();
+		List<Question> questions = new ArrayList<>();
+		questions = questionDB.loadAllQuestionsByInstructor(2);
+		model.addAttribute("questions", questions);
+		return "questionmanager/questiondirectory";
 	}
 }

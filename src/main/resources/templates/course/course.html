@@ -9,7 +9,6 @@
 		<!-- Normalize.css by Nicolas Gallagher, used from https://necolas.github.io/normalize.css/
 Necessary to reset some default browser styles for consistent appearance across browsers. -->
 		<link th:href="@{/styles/cssandjs/normalize.css}" rel="stylesheet" />
-
 		<!-- This file includes all default styles for this application. -->
 		<link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
 	</head>
@@ -31,6 +30,9 @@ Necessary to reset some default browser styles for consistent appearance across 
 			<div class="mainGridRow" th:if="${instructor} or ${ta}">
 				<br/>
 				<a th:href="@{/course/instructoradmin(id=${course.id})}">Course Administration</a>
+				<br/>
+				<a th:href="@{/questionmanager/questiondirectory(id=${instructor})}">Question Directory</a>
+				<br/>
 			</div>
 		</main>
 		<footer class="bodyGridRow footerGridContainer">

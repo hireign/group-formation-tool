@@ -34,10 +34,25 @@ footer {
 	padding: 1em 0 0 0;
 	border-top: thin solid lightgray;
 }
+table th{
+	vertical-align:top;
+	border:solid 1px #888;
+	padding:10px;
+}
 
 table td{
 	vertical-align:top;
 	border:solid 1px #888;
+	padding:10px;
+}
+.showQuestions td{
+	vertical-align:top;
+	border: solid 0px #888;
+	padding:10px;
+}
+.showQuestions th{
+	vertical-align:top;
+	border: solid 0px #888;
 	padding:10px;
 }
 

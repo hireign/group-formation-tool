@@ -14,7 +14,6 @@ public class QuestionDB implements IQuestionPersistence {
 		CallStoredProcedure proc = null;
 		ResultSet rs = null, rsOptions = null;
 		List<Question> questions = new ArrayList<Question>();
-
 		try {
 			proc = new CallStoredProcedure("spLoadAllQuestionsByInstructor(?)");
 			proc.setParameter(1, instructorId);
@@ -43,7 +42,6 @@ public class QuestionDB implements IQuestionPersistence {
 							options.add(option);
 						}
 					}
-
 					question.setOptions(options);
 					questions.add(question);
 				}
