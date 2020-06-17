@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import CSCI5308.GroupFormationTool.SystemConfig;
+import CSCI5308.GroupFormationTool.AccessControl.CurrentUser;
+import CSCI5308.GroupFormationTool.AccessControl.User;
 import CSCI5308.GroupFormationTool.Courses.Course;
 import CSCI5308.GroupFormationTool.Courses.ICoursePersistence;
 
@@ -59,8 +61,9 @@ public class QuestionController {
 	@GetMapping("/questionmanager/questiondirectory")
 	public String questionDirectory(Model model) {
 		IQuestionPersistence questionDB = SystemConfig.instance().getQuestionDB();
+		User currentUser = CurrentUser.instance().getCurrentAuthenticatedUser();
 		List<Question> questions = new ArrayList<>();
-		questions = questionDB.loadAllQuestionsByInstructor(2);
+		questions = questionDB.loadAllQuestionsByInstructor(currentUser.getId());
 		model.addAttribute("questions", questions);
 		return "questionmanager/questiondirectory";
 	}

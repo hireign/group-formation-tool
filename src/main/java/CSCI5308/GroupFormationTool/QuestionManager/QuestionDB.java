@@ -10,7 +10,7 @@ import CSCI5308.GroupFormationTool.Database.CallStoredProcedure;
 public class QuestionDB implements IQuestionPersistence {
 
 	@Override
-	public List<Question> loadAllQuestionsByInstructor(int instructorId) {
+	public List<Question> loadAllQuestionsByInstructor(long instructorId) {
 		CallStoredProcedure proc = null;
 		ResultSet rs = null, rsOptions = null;
 		List<Question> questions = new ArrayList<Question>();
@@ -37,8 +37,8 @@ public class QuestionDB implements IQuestionPersistence {
 						while (rsOptions.next()) {
 							Option option = new Option();
 							option.setQuestionId(questionId);
-							option.setText(rsOptions.getString(1));
-							option.setValue(rsOptions.getInt(2));
+							option.setText(rsOptions.getString(2));
+							option.setValue(rsOptions.getInt(3));
 							options.add(option);
 						}
 					}

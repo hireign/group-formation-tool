@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionDBMock implements IQuestionPersistence  {
-    public List<Question> loadAllQuestionsByInstructor(int instructorId) {
+    public List<Question> loadAllQuestionsByInstructor(long instructorId) {
     	List<Question> questionList = new ArrayList<>();
 		Question question = new Question();
 		question.setId(0);
