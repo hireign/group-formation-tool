@@ -6,4 +6,5 @@ public interface IUserPersistence
 	public void loadUserByBannerID(String bannerID, User user);
 	public boolean createUser(User user);
 	public boolean updateUser(User user);
+	public boolean updateUserPassword(User user);
 }

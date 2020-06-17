@@ -7,7 +7,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.AccessControl.*;
-import CSCI5308.GroupFormationTool.Security.IPasswordEncryption;
+import CSCI5308.GroupFormationTool.PasswordPolicy.IPasswordPolicy;
+import CSCI5308.GroupFormationTool.PasswordPolicy.IPasswordPolicyPersistence;
+import CSCI5308.GroupFormationTool.PasswordPolicy.PasswordPolicy;
 
 @Controller
 public class SignupController
@@ -18,6 +20,11 @@ public class SignupController
 	private final String FIRST_NAME = "firstName";
 	private final String LAST_NAME = "lastName";
 	private final String EMAIL = "email";
+	IPasswordPolicyPersistence iPasswordPolicy = SystemConfig.instance().getiPasswordPolicyPersistance();
+	IPasswordPolicy passwordPolicy = SystemConfig.instance().getPasswordPolicy();
+	IPasswordEncryption passwordEncryption = SystemConfig.instance().getPasswordEncryption();
+	PasswordPolicy passwordPolicyObject = new PasswordPolicy(iPasswordPolicy);
+	
 	
 	@GetMapping("/signup")
 	public String displaySignup(Model model)
@@ -33,12 +40,16 @@ public class SignupController
    	@RequestParam(name = FIRST_NAME) String firstName,
    	@RequestParam(name = LAST_NAME) String lastName,
    	@RequestParam(name = EMAIL) String email)
-	{
+	{	
+		
+		String error = passwordPolicy.validatePassword(password, passwordPolicyObject);
+		
 		boolean success = false;
 		if (User.isBannerIDValid(bannerID) &&
 			 User.isEmailValid(email) &&
 			 User.isFirstNameValid(firstName) &&
 			 User.isLastNameValid(lastName) &&
+			 error.isEmpty() &&
 			 password.equals(passwordConfirm))
 		{
 			User u = new User();
@@ -48,7 +59,6 @@ public class SignupController
 			u.setLastName(lastName);
 			u.setEmail(email);
 			IUserPersistence userDB = SystemConfig.instance().getUserDB();
-			IPasswordEncryption passwordEncryption = SystemConfig.instance().getPasswordEncryption();
 			success = u.createUser(userDB, passwordEncryption, null);
 		}
 		ModelAndView m;
@@ -61,7 +71,13 @@ public class SignupController
 		{
 			// Something wrong with the input data.
 			m = new ModelAndView("signup");
-			m.addObject("errorMessage", "Invalid data, please check your values.");
+			if(error.isEmpty()) {
+				m.addObject("errorMessage", "Invalid data, please check your values.");
+			}
+			else {
+				m.addObject("errorMessage", error);
+			}
+			
 		}
 		return m;
 	}

@@ -47,6 +47,10 @@
 			<a class="signupLogin mainGridRow mainGridCentreCard" sec:authorize="!isAuthenticated()" th:href="@{/login}">Click here to log in!</a>
 		</main>
 		<footer class="bodyGridRow footerGridContainer">
+			<div sec:authorize="isAuthenticated()">
+				<!-- Show change password -->
+				<p><strong><a th:href="@{changePassword}" target="_blank">Change password</a></strong></p>
+			</div>
 			<p><strong>CSCI5308 (Advanced Topics in Software Development)</strong> is a graduate course offered for students enrolled in the <a href="https://www.dal.ca/macs" target="_blank">Master of Applied Computer Science (MACS)</a> at the <a href="https://www.dal.ca/cs" target="_blank">Faculty of Computer Science</a>, <a href="https://www.dal.ca" target="_blank">Dalhousie University</a>.</p>
 		</footer>
 	</body>

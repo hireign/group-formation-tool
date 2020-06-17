@@ -45,4 +45,11 @@ public class UserDBMock implements IUserPersistence
 		user.setEmail("rhawkey@dal.ca");
 		return true;
 	}
+
+	@Override
+	public boolean updateUserPassword(User user) {
+		user.setID(0);
+		user.setPassword("UpdatedPass");
+		return true;
+	}
 }

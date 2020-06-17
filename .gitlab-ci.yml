@@ -52,3 +52,22 @@ deploy_develop:
  
     only:
     - develop
+
+
+deploy_release:
+    stage: deploy
+    
+    tags:
+    - dalfcs_gitlab_docker_ci
+    
+    image: ruby:2.3
+ 
+    script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - dpl --provider=heroku --app="group23release" --api-key="ed7fbf94-b942-4565-aa74-4275b9c170d5"
+ 
+ 
+    only:
+    - release
