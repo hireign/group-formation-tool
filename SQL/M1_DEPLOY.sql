@@ -39,14 +39,16 @@ CREATE TABLE SystemRole (
     FOREIGN KEY (userID) REFERENCES User(id)
 );
 
-CREATE TABLE Question (
-	id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    title VARCHAR(50) NOT NULL,
-    text VARCHAR(255) NOT NULL,
-    type VARCHAR(20) NOT NULL,
-    instructorId BIGINT NOT NULL,
-    createdDate DATE DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (instructorId) REFERENCES User(id)
+CREATE TABLE `Question` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `title` varchar(50) NOT NULL,
+  `text` varchar(255) NOT NULL,
+  `type` varchar(20) NOT NULL,
+  `instructorId` bigint(20) NOT NULL,
+  `createdDate` date DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `instructorId` (`instructorId`),
+  CONSTRAINT `Question_ibfk_1` FOREIGN KEY (`instructorId`) REFERENCES `User` (`id`)
 );
 
 CREATE TABLE Response (
@@ -60,11 +62,14 @@ CREATE TABLE Response (
     FOREIGN KEY (questionId) REFERENCES Question(id)
 );
 
-CREATE TABLE Options (
-	id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    questionId BIGINT NOT NULL,
-    text VARCHAR(255) NOT NULL,
-    FOREIGN KEY (questionId) REFERENCES Question(id)
+CREATE TABLE `Options` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `questionId` bigint(20) NOT NULL,
+  `text` varchar(255) NOT NULL,
+  `value` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `questionId` (`questionId`),
+  CONSTRAINT `Options_ibfk_1` FOREIGN KEY (`questionId`) REFERENCES `Question` (`id`)
 );
 
 INSERT INTO Role(role)

@@ -12,7 +12,7 @@ CREATE PROCEDURE spCreateQuestion (
 BEGIN
 	INSERT INTO Question(title, text, type, instructorId)
     VALUES (title, text, type, instructorId);
-	SET @id = LAST_INSERT_ID();
+	SET id = LAST_INSERT_ID();
 END $$
 
 DELIMITER ;
