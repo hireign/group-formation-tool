@@ -8,7 +8,7 @@ CREATE PROCEDURE spCreateOption (
     IN value VARCHAR(20)
 )
 BEGIN
-	INSERT INTO Options(qustionId, text, value)
+	INSERT INTO Options(questionId, text, value)
     VALUES (questionId, text, value);
 END $$
 
