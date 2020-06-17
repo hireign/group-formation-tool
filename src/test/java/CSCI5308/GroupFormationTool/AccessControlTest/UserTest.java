@@ -116,6 +116,16 @@ public class UserTest
 		Assert.isTrue(user.getId() == 0);
 		Assert.isTrue(user.getBannerID().equals("B00000000"));
 	}
+	
+	@Test
+	public void updateUser()
+	{
+		IUserPersistence userDB = new UserDBMock();
+		User user = new User();
+		userDB.updateUserPassword(user);
+		Assert.isTrue(user.getId() == 0);
+		Assert.isTrue(user.getPassword().equals("UpdatedPass"));
+	}
 
 	@Test
 	public void isBannerIDValidTest()
