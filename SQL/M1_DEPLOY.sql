@@ -70,3 +70,55 @@ VALUES (@adminRoleID, @adminID);
 
 SELECT * FROM Role;
 SELECT * FROM User;
+
+CREATE TABLE `UserPasswordArchive` (
+  `UserID` bigint(20) NOT NULL,
+  `Password` varchar(80) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ;
+
+CREATE TABLE `PasswordPolicies` (
+  `idPasswordPolicies` int(11) NOT NULL AUTO_INCREMENT,
+  `Minimum_length` int(11) NOT NULL,
+  `Maximum_length` int(11) NOT NULL,
+  `Minimum_uppercase_Chars` int(11) NOT NULL,
+  `Minimum_lowercase_Chars` int(11) NOT NULL,
+  `Minimum_special_characters` int(11) NOT NULL,
+  `Disallowed_Chars` varchar(80) DEFAULT NULL,
+  `Password_History_Constraint_No` int(11) NOT NULL,
+  `Enable_Policy` tinyint(4) NOT NULL,
+  PRIMARY KEY (`idPasswordPolicies`)
+); 
+
+CREATE TABLE `Question` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `title` varchar(50) NOT NULL,
+  `text` varchar(255) NOT NULL,
+  `type` varchar(20) NOT NULL,
+  `instructorId` bigint(20) NOT NULL,
+  `createdDate` date DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `instructorId` (`instructorId`),
+  CONSTRAINT `Question_ibfk_1` FOREIGN KEY (`instructorId`) REFERENCES `User` (`id`)
+);
+
+CREATE TABLE `Response` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `text` varchar(255) NOT NULL,
+  `type` varchar(20) NOT NULL,
+  `studentId` bigint(20) NOT NULL,
+  `questionId` bigint(20) NOT NULL,
+  `createdDate` date DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `studentId` (`studentId`),
+  KEY `questionId` (`questionId`),
+  CONSTRAINT `Response_ibfk_1` FOREIGN KEY (`studentId`) REFERENCES `User` (`id`),
+  CONSTRAINT `Response_ibfk_2` FOREIGN KEY (`questionId`) REFERENCES `Question` (`id`)
+);
+
+CREATE TABLE Options (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    questionId BIGINT NOT NULL,
+    text VARCHAR(255) NOT NULL,
+    FOREIGN KEY (questionId) REFERENCES Question(id)
+); 
