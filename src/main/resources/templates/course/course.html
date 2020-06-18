@@ -29,10 +29,9 @@ Necessary to reset some default browser styles for consistent appearance across 
 			</aside>
 			<div class="mainGridRow" th:if="${instructor} or ${ta}">
 				<br/>
-				<a th:href="@{/course/instructoradmin(id=${course.id})}">Course Administration</a>
+				<a class="linkToButton" th:href="@{/course/instructoradmin(id=${course.id})}">Course Administration</a>
 				<br/>
-				<a th:href="@{/questionmanager/questiondirectory(id=${instructor})}">Question Directory</a>
-				<br/>
+
 			</div>
 		</main>
 		<footer class="bodyGridRow footerGridContainer">

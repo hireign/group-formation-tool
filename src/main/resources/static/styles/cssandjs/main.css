@@ -204,8 +204,25 @@ a.signupLogin:active {
 .mainGridCentreInfoBox {
 	grid-column: 2/3;
 }
-
-
+.displayQuestionsCard {
+	grid-column: 3/3;
+	background-color: #eeeeee;
+	margin: 10px;
+}
+.linkToButton{
+	padding: 4px;
+	border-radius: 3px;
+	border: 1px black solid;
+	text-decoration: none;
+	background-color: #87ceeb;
+	color: black;
+	margin-bottom: 20px;
+	margin-left: 17px;
+}
+.linkToButton:hover{
+	background-color: #4682b4;
+	color: yellow;
+}
 .footerGridContainer {
 	grid-row: 4;
 	height: 120px;
@@ -215,7 +232,16 @@ a.signupLogin:active {
 .footerGridRow {
 	grid-row: -2/-1;
 }
-
+.buttonOnQM{
+	padding: 9px;
+	border-radius: 0px;
+	background-color: #87ceeb;
+	color: black;
+}
+.buttonOnQM:hover{
+	background-color: #4682b4;
+	color: yellow;
+}
 /*
  * Styles for the containers holding login and registration forms
  */
