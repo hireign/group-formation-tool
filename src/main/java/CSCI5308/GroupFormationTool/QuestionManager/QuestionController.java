@@ -45,7 +45,7 @@ public class QuestionController {
         Option option = new Option();
         for(String key : requestParameterMap.keySet()){
             if (key.contains("btn")) {
-            	option.setText("qwery");
+            	option.setText(requestParameterMap.get(key)[0].toString());
             }
 			if (key.contains("val")) {
 				option.setValue(Integer.parseInt(requestParameterMap.get(key)[0]));
