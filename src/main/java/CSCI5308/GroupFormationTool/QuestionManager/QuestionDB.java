@@ -97,8 +97,25 @@ public class QuestionDB implements IQuestionPersistence {
 
 	@Override
 	public boolean delete(long id) {
-		// TODO Auto-generated method stub
-		return false;
+		CallStoredProcedure proc = null;
+		try
+		{
+			proc = new CallStoredProcedure("spDeleteQuestionById(?)");
+			proc.setParameter(1, id);
+			proc.execute();
+		}
+		catch (SQLException e)
+		{
+			// Logging needed
+			return false;
+		}
+		finally
+		{
+			if (null != proc)
+			{
+				proc.cleanup();
+			}
+		}
+		return true;
 	}
-
 }
