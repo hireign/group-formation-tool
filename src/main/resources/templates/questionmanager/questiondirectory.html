@@ -39,7 +39,7 @@
                     <td><a th:text="${counter.index+1}">error fetching index</a></td>
                     <td>Title: </td>
                     <td><a th:text="${question.getTitle()}">error fetching title</a></td>
-                    <td><input type="submit" value="Delete"/></td>
+                    <td><a th:href="@{/questionmanager/deletequestion(questionID=${question.getId()})}">Delete</a></td>
                 </tr>
                 <tr>
                     <td></td>
@@ -59,7 +59,7 @@
                     <td><a th:text="${question.getType()}">error fetching type</a></td>
                     <td></td>
                 </tr>
-                <tr>
+                <tr th:if="${question.getType() == 'MCQ' || question.getType() == 'CHECKBOX'}">
                     <td></td>
                     <td>Options: </td>
                     <td>
@@ -72,6 +72,7 @@
                                 <td th:text="${optionDetail.getValue()}">error</td>
                                 <td th:text="${optionDetail.getText()}">error</td>
                             </tr>
+                        </table>
                         </table>
                     </td>
                     <td></td>

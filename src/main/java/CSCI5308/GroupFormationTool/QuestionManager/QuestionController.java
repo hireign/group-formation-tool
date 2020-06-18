@@ -23,6 +23,7 @@ public class QuestionController {
 
 	private static final String ID = "id";
 	private static final String instructorID = "instructorID";
+	private static final String questionID = "questionID";
 
 	@GetMapping("/course/question/create")
 	public String returnCreateQuestionView(Model model, @RequestParam(name = ID) long courseID) {
@@ -32,7 +33,7 @@ public class QuestionController {
 		model.addAttribute("course", course);
 		return "course/questionmanager";
 	}
-	
+
 	@PostMapping("/course/question/create")
 	public String createQuestion(Model model, HttpServletRequest request, @RequestParam(name = ID) long courseID) {
 		IQuestionPersistence questionDB = SystemConfig.instance().getQuestionDB();
@@ -40,7 +41,6 @@ public class QuestionController {
 		String questionTitle = (String) request.getParameter("questionTitle");
 		String questionText = (String) request.getParameter("questionText");
 		String questionType = (String) request.getParameter("questionType");
-		
 		Map<String, String[]> requestParameterMap = request.getParameterMap();
         List<Option> options = new ArrayList<Option>();
         for(String key : requestParameterMap.keySet()){
@@ -66,5 +66,13 @@ public class QuestionController {
 		questions = questionDB.loadAllQuestionsByInstructor(currentUser.getId());
 		model.addAttribute("questions", questions);
 		return "questionmanager/questiondirectory";
+	}
+	@GetMapping("/questionmanager/deletequestion")
+	public String deleteQuestionById(@RequestParam(name = questionID) long questionId, Model model) {
+		IQuestionPersistence questionDB = SystemConfig.instance().getQuestionDB();
+		Question question = new Question();
+		question.setId(questionId);
+		question.delete(questionDB);
+		return "redirect:/questionmanager/questiondirectory";
 	}
 }
