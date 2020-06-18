@@ -27,45 +27,42 @@
               <h2>Question Directory</h2>
             </aside>
         <div class="mainGridRow">
-            <a th:href="@{/questionmanager/sortbytitle}">Title</a>
-            <a th:href="@{/questionmanager/sortbydate}">Date Created</a>
-            <table class="showQuestions" th:each="question, counter : ${questions}">
+            <label><b>Sort By: </b></label>
+            <a class="linkToButton" th:href="@{/questionmanager/sortbytitle}">Title</a>
+            <a class="linkToButton" th:href="@{/questionmanager/sortbydate}">Date Created</a>
+            <table class="showQuestions displayQuestionsCard" th:each="question, counter : ${questions}">
                 <tr>
-                    <td><a th:text="${counter.index+1}">error fetching index</a></td>
-                    <td>Title: </td>
+                    <td><b><a th:text="${counter.index+1}">error fetching index</b></a></td>
+                    <td><b>Title: </b></td>
                     <td><a th:text="${question.getTitle()}">error fetching title</a></td>
-                    <td><a th:href="@{/questionmanager/deletequestion(questionID=${question.getId()})}">Delete</a></td>
+                    <td><a class="linkToButton" th:href="@{/questionmanager/deletequestion(questionID=${question.getId()})}">Delete</a></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td>Text: </td>
+                    <td><b>Text: </b></td>
                     <td><a th:text="${question.getText()}">error fetching text</a></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td>Date Created: </td>
+                    <td><b>Date Created: </b></td>
                     <td><a th:text="${question.getDate()}">error fetching date</a></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td>Question Type: </td>
+                    <td><b>Question Type: </b></td>
                     <td><a th:text="${question.getType()}">error fetching type</a></td>
                     <td></td>
                 </tr>
                 <tr th:if="${question.getType() == 'MCQ' || question.getType() == 'CHECKBOX'}">
                     <td></td>
-                    <td>Options: </td>
+                    <td><b>Options: </b></td>
                     <td>
                         <table>
-                            <tr>
-                                <th>Value</th>
-                                <th>Text</th>
-                            </tr>
                             <tr th:each="optionDetail : ${question.getOptions()}">
-                                <td th:text="${optionDetail.getValue()}">error</td>
-                                <td th:text="${optionDetail.getText()}">error</td>
+                                <td th:text="${optionDetail.getValue() + '.'}">error getting option value</td>
+                                <td th:text="${optionDetail.getText()}">error getting option text</td>
                             </tr>
                         </table>
                         </table>

@@ -37,6 +37,7 @@ function createOption(btnVal, questionForm) {
 	optionInput2.placeholder = "Option value";
 	optionInput2.setAttribute("id", "val" + btnVal);
 	optionInput2.setAttribute("name", "val" + btnVal);
+	optionInput2.setAttribute("value",  btnVal+1);
 	questionForm.appendChild(optionInput2);
 	unhideOptionButton(btnVal, questionForm);
 }
