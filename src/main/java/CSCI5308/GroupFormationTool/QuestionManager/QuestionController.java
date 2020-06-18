@@ -31,9 +31,8 @@ public class QuestionController {
 		Course course = new Course();
 		courseDB.loadCourseByID(courseID, course);
 		model.addAttribute("course", course);
-		return "course/questionmanager";
+		return "questionmanager/questionmanager";
 	}
-
 	@PostMapping("/course/question/create")
 	public String createQuestion(Model model, HttpServletRequest request, @RequestParam(name = ID) long courseID) {
 		IQuestionPersistence questionDB = SystemConfig.instance().getQuestionDB();
@@ -56,7 +55,7 @@ public class QuestionController {
         question.setType(questionType);
         question.setOptions(options);
         question.create(questionDB);
-        return "redirect:/index";
+        return "redirect:/questionmanager/questiondirectory";
 	}
 	@GetMapping("/questionmanager/questiondirectory")
 	public String questionDirectory(Model model) {
