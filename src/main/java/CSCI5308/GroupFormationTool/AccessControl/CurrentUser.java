@@ -24,7 +24,7 @@ public class CurrentUser
 	}
 	
 	public User getCurrentAuthenticatedUser()
-	{ 
+	{
 		IUserPersistence userDB = SystemConfig.instance().getUserDB();
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication.isAuthenticated())
@@ -38,5 +38,10 @@ public class CurrentUser
 			}
 		}
 		return null;
+	}
+	
+	public static void deleteInstance()
+	{
+		uniqueInstance = null;
 	}
 }
