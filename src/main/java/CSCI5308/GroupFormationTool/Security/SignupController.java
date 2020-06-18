@@ -1,5 +1,8 @@
 package CSCI5308.GroupFormationTool.Security;
 
+import CSCI5308.GroupFormationTool.Services.EmailService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +13,7 @@ import CSCI5308.GroupFormationTool.AccessControl.*;
 import CSCI5308.GroupFormationTool.PasswordPolicy.IPasswordPolicy;
 import CSCI5308.GroupFormationTool.PasswordPolicy.IPasswordPolicyPersistence;
 import CSCI5308.GroupFormationTool.PasswordPolicy.PasswordPolicy;
-
+import CSCI5308.GroupFormationTool.AccessControl.User;
 @Controller
 public class SignupController
 {
@@ -20,12 +23,17 @@ public class SignupController
 	private final String FIRST_NAME = "firstName";
 	private final String LAST_NAME = "lastName";
 	private final String EMAIL = "email";
+	@Autowired
+	private EmailService emailService;
 	IPasswordPolicyPersistence iPasswordPolicy = SystemConfig.instance().getiPasswordPolicyPersistance();
 	IPasswordPolicy passwordPolicy = SystemConfig.instance().getPasswordPolicy();
 	IPasswordEncryption passwordEncryption = SystemConfig.instance().getPasswordEncryption();
 	PasswordPolicy passwordPolicyObject = new PasswordPolicy(iPasswordPolicy);
-	
-	
+	User user = new User();
+	private String Useremail = null;
+	private String UserFirstName = null;
+	private String UserLastName = null;
+
 	@GetMapping("/signup")
 	public String displaySignup(Model model)
 	{
@@ -58,6 +66,9 @@ public class SignupController
 			u.setFirstName(firstName);
 			u.setLastName(lastName);
 			u.setEmail(email);
+			Useremail=email;
+			UserFirstName=firstName;
+			UserLastName=lastName;
 			IUserPersistence userDB = SystemConfig.instance().getUserDB();
 			success = u.createUser(userDB, passwordEncryption, null);
 		}
@@ -66,6 +77,14 @@ public class SignupController
 		{
 			// This is lame, I will improve this with auto-signin for M2.
 			m = new ModelAndView("login");
+
+			SimpleMailMessage signupEmail = new SimpleMailMessage();
+			signupEmail.setFrom("bobbyjoe19950627@gmail.com");
+			signupEmail.setTo(Useremail);
+
+			signupEmail.setSubject("Welcome to Copy Cat Me");
+			signupEmail.setText("Thank you for signing up "+UserFirstName+" "+UserLastName+" You have successfully registered the account");
+			emailService.sendEmail(signupEmail);
 		}
 		else
 		{
