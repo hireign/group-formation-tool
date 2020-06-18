@@ -145,6 +145,10 @@ public class User
 		return userDB.updateUser(this);
 	}
 	
+	public boolean UpdateUserPassword(IUserPersistence userDB) {
+		return userDB.updateUserPassword(this);
+	}
+	
 	private static boolean isStringNullOrEmpty(String s)
 	{
 		if (null == s)

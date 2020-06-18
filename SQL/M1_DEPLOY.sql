@@ -72,6 +72,25 @@ CREATE TABLE `Options` (
   CONSTRAINT `Options_ibfk_1` FOREIGN KEY (`questionId`) REFERENCES `Question` (`id`)
 );
 
+CREATE TABLE `UserPasswordArchive` (
+  `UserID` bigint(20) NOT NULL,
+  `Password` varchar(80) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ;
+
+CREATE TABLE `PasswordPolicies` (
+  `idPasswordPolicies` int(11) NOT NULL AUTO_INCREMENT,
+  `Minimum_length` int(11) NOT NULL,
+  `Maximum_length` int(11) NOT NULL,
+  `Minimum_uppercase_Chars` int(11) NOT NULL,
+  `Minimum_lowercase_Chars` int(11) NOT NULL,
+  `Minimum_special_characters` int(11) NOT NULL,
+  `Disallowed_Chars` varchar(80) DEFAULT NULL,
+  `Password_History_Constraint_No` int(11) NOT NULL,
+  `Enable_Policy` tinyint(4) NOT NULL,
+  PRIMARY KEY (`idPasswordPolicies`)
+); 
+
 INSERT INTO Role(role)
 VALUES
     ('Admin'),

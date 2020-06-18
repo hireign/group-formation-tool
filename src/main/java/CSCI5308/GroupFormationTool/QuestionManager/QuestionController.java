@@ -42,14 +42,15 @@ public class QuestionController {
 		String questionType = (String) request.getParameter("questionType");
 		Map<String, String[]> requestParameterMap = request.getParameterMap();
         List<Option> options = new ArrayList<Option>();
+        Option option = new Option();
         for(String key : requestParameterMap.keySet()){
-			Option option = new Option();
             if (key.contains("btn")) {
-            	option.setText((String) requestParameterMap.get(key)[0]);
+            	option.setText("qwery");
             }
-			else if (key.contains("val")) {
+			if (key.contains("val")) {
 				option.setValue(Integer.parseInt(requestParameterMap.get(key)[0]));
 				options.add(option);
+				option = new Option();
 			}
         }
         question.setTitle(questionTitle);

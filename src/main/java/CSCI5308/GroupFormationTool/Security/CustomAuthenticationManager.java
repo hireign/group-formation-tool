@@ -14,7 +14,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 
 import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.AccessControl.*;
-import CSCI5308.GroupFormationTool.Courses.Role;
 
 public class CustomAuthenticationManager implements AuthenticationManager
 {
@@ -27,7 +26,7 @@ public class CustomAuthenticationManager implements AuthenticationManager
 		{
 			// Grant ADMIN rights system-wide, this is used to protect controller mappings.
 			List<GrantedAuthority> rights = new ArrayList<GrantedAuthority>();
-			rights.add(new SimpleGrantedAuthority("ROLE_" + Role.ADMIN.toString()));
+			rights.add(new SimpleGrantedAuthority("ADMIN"));
 			// Return valid authentication token.
 			UsernamePasswordAuthenticationToken token;
 			token = new UsernamePasswordAuthenticationToken(authentication.getPrincipal(),
@@ -48,7 +47,7 @@ public class CustomAuthenticationManager implements AuthenticationManager
 		{
 			// Grant USER rights system-wide, this is used to protect controller mappings.
 			List<GrantedAuthority> rights = new ArrayList<GrantedAuthority>();
-			rights.add(new SimpleGrantedAuthority("ROLE_" + Role.GUEST.toString()));
+			rights.add(new SimpleGrantedAuthority("USER"));
 			// Return valid authentication token.
 			UsernamePasswordAuthenticationToken token;
 			token = new UsernamePasswordAuthenticationToken(authentication.getPrincipal(),
