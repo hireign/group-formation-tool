@@ -2,7 +2,10 @@ package CSCI5308.GroupFormationTool.QuestionManager;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import CSCI5308.GroupFormationTool.Database.CallStoredProcedure;
@@ -26,7 +29,7 @@ public class QuestionDB implements IQuestionPersistence {
 					question.setTitle(rs.getString(2));
 					question.setText(rs.getString(3));
 					question.setType(rs.getString(4));
-					question.setDate(rs.getDate(5));
+					question.setDate(rs.getTimestamp(5).toLocalDateTime());
 
 					proc = new CallStoredProcedure("spLoadAllOptionsByQuestion(?)");
 					proc.setParameter(1, questionId);
@@ -117,5 +120,25 @@ public class QuestionDB implements IQuestionPersistence {
 			}
 		}
 		return true;
+	}
+
+	@Override
+	public List<Question> sortByDate(List<Question> questions) {
+		Collections.sort(questions, new Comparator<Question>() {
+			public int compare(Question q1, Question q2) {
+				return q2.getDate().compareTo(q1.getDate());
+			}
+		});
+		return questions;
+	}
+	
+	@Override
+	public List<Question> sortByTitle(List<Question> questions) {
+		Collections.sort(questions, new Comparator<Question>() {
+			public int compare(Question q1, Question q2) {
+				return Character.compare(q1.getTitle().charAt(0), q2.getTitle().charAt(0));
+			}
+		});
+		return questions;
 	}
 }

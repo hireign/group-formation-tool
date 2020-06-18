@@ -27,13 +27,8 @@
               <h2>Question Directory</h2>
             </aside>
         <div class="mainGridRow">
-            <form>
-                <select id="sort" name="sort" onchange="sortQuestions(this.value)">
-                    <option selected="selected" disabled="disabled" value="">-- Sort By --</option>
-                    <option value ="TITLE">Title</option>
-                    <option value ="DATE">Date Created</option>
-                </select>
-            </form>
+            <a th:href="@{/questionmanager/sortbytitle}">Title</a>
+            <a th:href="@{/questionmanager/sortbydate}">Date Created</a>
             <table class="showQuestions" th:each="question, counter : ${questions}">
                 <tr>
                     <td><a th:text="${counter.index+1}">error fetching index</a></td>

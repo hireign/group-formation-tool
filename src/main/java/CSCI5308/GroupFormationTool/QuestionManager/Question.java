@@ -1,9 +1,9 @@
 package CSCI5308.GroupFormationTool.QuestionManager;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
-import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.AccessControl.CurrentUser;
 
 public class Question {
@@ -12,7 +12,7 @@ public class Question {
 	private String text;
 	private String type;
 	private long instructorId;
-	private Date date;
+	private LocalDateTime date;
 	private List<Option> options;
 
 	public long getId() {
@@ -55,11 +55,11 @@ public class Question {
 		this.instructorId = instructorId;
 	}
 
-	public Date getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
 

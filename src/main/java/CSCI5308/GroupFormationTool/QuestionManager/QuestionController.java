@@ -77,4 +77,26 @@ public class QuestionController {
 		question.delete(questionDB);
 		return "redirect:/questionmanager/questiondirectory";
 	}
+	
+	@GetMapping("/questionmanager/sortbytitle")
+	public String sortByTitle(Model model) {
+		IQuestionPersistence questionDB = SystemConfig.instance().getQuestionDB();
+		User currentUser = CurrentUser.instance().getCurrentAuthenticatedUser();
+		List<Question> questions = new ArrayList<>();
+		questions = questionDB.loadAllQuestionsByInstructor(currentUser.getId());
+		questions = questionDB.sortByTitle(questions);
+		model.addAttribute("questions", questions);
+		return "questionmanager/questiondirectory";
+	}
+	
+	@GetMapping("questionmanager/sortbydate")
+	public String sortByDate(Model model) {
+		IQuestionPersistence questionDB = SystemConfig.instance().getQuestionDB();
+		User currentUser = CurrentUser.instance().getCurrentAuthenticatedUser();
+		List<Question> questions = new ArrayList<>();
+		questions = questionDB.loadAllQuestionsByInstructor(currentUser.getId());
+		questions = questionDB.sortByDate(questions);
+		model.addAttribute("questions", questions);
+		return "questionmanager/questiondirectory";
+	}
 }

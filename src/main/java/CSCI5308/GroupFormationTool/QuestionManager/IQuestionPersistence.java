@@ -9,4 +9,8 @@ public interface IQuestionPersistence {
 
 	public boolean delete(long id);
 
+	public List<Question> sortByTitle(List<Question> questions);
+	
+	public List<Question> sortByDate(List<Question> questions);
+
 }
