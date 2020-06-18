@@ -1,5 +1,7 @@
 package CSCI5308.GroupFormationTool.QuestionManager;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,5 +106,31 @@ public class QuestionTest {
 		QuestionDBMock questionDBMock = new QuestionDBMock();
 		Boolean result = questionDBMock.delete(questionId);
 		Assert.isTrue(result);
+	}
+	
+	@Test
+	public void sortByTitleTest(){
+		QuestionDBMock questionDBMock = new QuestionDBMock();
+		Question question1 = new Question();
+		question1.setTitle("B");
+		Question question2 = new Question();
+		question2.setTitle("A");
+		List<Question> questions = new ArrayList<Question>();
+		questions.add(question2);
+		questions.add(question1);
+		Assert.isTrue(questionDBMock.sortByTitle(questions).get(0).getTitle().equals("A"));
+	}
+	
+	@Test
+	public void sortByDateTest(){
+		QuestionDBMock questionDBMock = new QuestionDBMock();
+		Question question1 = new Question();
+		question1.setDate(LocalDateTime.of(2021, Month.JUNE, 18, 19, 30, 40));
+		Question question2 = new Question();
+		question2.setDate(LocalDateTime.of(2020, Month.JUNE, 18, 19, 30, 40));
+		List<Question> questions = new ArrayList<Question>();
+		questions.add(question2);
+		questions.add(question1);
+		Assert.isTrue(questionDBMock.sortByDate(questions).get(0).getDate().compareTo(LocalDateTime.of(2020, Month.JUNE, 18, 19, 30, 40)) == 0);
 	}
 }

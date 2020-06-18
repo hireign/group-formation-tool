@@ -1,5 +1,7 @@
 package CSCI5308.GroupFormationTool.QuestionManager;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,4 +43,20 @@ public class QuestionDBMock implements IQuestionPersistence  {
 		question.setInstructorId(1);
 		return true;
     }
+
+	@Override
+	public List<Question> sortByTitle(List<Question> questions) {
+		QuestionDBMock questionDBMock = new QuestionDBMock();
+		questions.get(0).setTitle("A");
+		questions.get(1).setTitle("B");
+		return questions;
+	}
+
+	@Override
+	public List<Question> sortByDate(List<Question> questions) {
+		QuestionDBMock questionDBMock = new QuestionDBMock();
+		questions.get(0).setDate(LocalDateTime.of(2020, Month.JUNE, 18, 19, 30, 40));
+		questions.get(1).setDate(LocalDateTime.of(2021, Month.JUNE, 18, 19, 30, 40));
+		return questions;
+	}
 }

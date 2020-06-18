@@ -45,7 +45,7 @@ CREATE TABLE `Question` (
   `text` varchar(255) NOT NULL,
   `type` varchar(20) NOT NULL,
   `instructorId` bigint(20) NOT NULL,
-  `createdDate` date DEFAULT current_timestamp(),
+  `createdDate` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `instructorId` (`instructorId`),
   CONSTRAINT `Question_ibfk_1` FOREIGN KEY (`instructorId`) REFERENCES `User` (`id`)
