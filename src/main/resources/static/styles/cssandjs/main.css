@@ -216,6 +216,8 @@ a.signupLogin:active {
 	text-decoration: none;
 	background-color: #87ceeb;
 	color: black;
+	margin-bottom: 20px;
+	margin-left: 17px;
 }
 .linkToButton:hover{
 	background-color: #4682b4;
@@ -231,7 +233,7 @@ a.signupLogin:active {
 	grid-row: -2/-1;
 }
 .buttonOnQM{
-	padding: 7px;
+	padding: 9px;
 	border-radius: 0px;
 	background-color: #87ceeb;
 	color: black;

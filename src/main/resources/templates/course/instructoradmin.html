@@ -68,15 +68,12 @@
 					<button type="submit">Upload CSV File</button>
 				</form>
 				<br/>
-				<a th:href="@{/course/enrollta(id=${course.id})}">Enroll TAs</a>
+				<div><a class="linkToButton" th:href="@{/course/enrollta(id=${course.id})}">Enroll TAs</a></div>
 				<br/>
-				<a th:href="@{/course/question/create(id=${course.id})}">Create Question</a>
+				<div><a class="linkToButton" th:href="@{/course/question/create(id=${course.id})}">Create Question</a></div>
 				<br/>
-				<a th:href="@{/questionmanager/questiondirectory}">Question Directory</a>
-
-
-
-
+				<div><a class="linkToButton" th:href="@{/questionmanager/questiondirectory}">Question Directory</a></div>
+				<br/>
 			</div>
 		</main>
 		<footer class="bodyGridRow footerGridContainer">

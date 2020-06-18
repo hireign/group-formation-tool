@@ -29,7 +29,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 			<input type="submit" value="Sign Out"/>
 		</form>
 	</div>
-	<main class="bodyGridRow mainGridContainer">
+	<main id="mainId" class="bodyGridRow mainGridContainer">
 		<aside class="mainGridRow welcomeInfoBox">
 			<h2>Create Question</h2>
 		</aside>
@@ -39,14 +39,14 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 				<input id="questionTitle" type="text" name="questionTitle"/>
 				<label for="questionText"> Question Text:</label>
 				<input id="questionText" type="text" name="questionText"/>
-				<select id="questionType" name="questionType" onchange="generateQuestions(this.value)">
+				<select style="padding-bottom: 9px; padding-top: 9px;" id="questionType" name="questionType" onchange="generateQuestions(this.value)">
 					<option selected="selected" disabled="disabled" value="">-- Select type --</option>
 					<option value ="TEXT">Text</option>
 					<option value ="NUMBER">Number</option>
 					<option value ="MCQ">MCQ</option>
 					<option value ="CHECKBOX">Checkbox</option>
 				</select>
-				<button id="addOptionButton" type="button" >Add Option</button>
+				<button class="buttonOnQM" id="addOptionButton" type="button" >Add Option</button>
 				<input id="createQuestionButton" type="submit" value="Create"/>
 			</form>
 		</div>
