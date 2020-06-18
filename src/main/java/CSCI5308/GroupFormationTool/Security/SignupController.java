@@ -79,9 +79,8 @@ public class SignupController
 			m = new ModelAndView("login");
 
 			SimpleMailMessage signupEmail = new SimpleMailMessage();
-			signupEmail.setFrom("bobbyjoe19950627@gmail.com");
+			signupEmail.setFrom("CopyCatMeSupport@gmail.com");
 			signupEmail.setTo(Useremail);
-
 			signupEmail.setSubject("Welcome to Copy Cat Me");
 			signupEmail.setText("Thank you for signing up "+UserFirstName+" "+UserLastName+" You have successfully registered the account");
 			emailService.sendEmail(signupEmail);
