@@ -64,7 +64,7 @@ public class UserDB implements IUserPersistence
 				}
 			}
 		}
-		catch (SQLException e)
+		catch (Exception e)
 		{
 			// Logging needed.
 		}
