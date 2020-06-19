@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.AccessControl.CurrentUser;
+import CSCI5308.GroupFormationTool.AccessControl.IUserPersistence;
 import CSCI5308.GroupFormationTool.AccessControl.User;
 import CSCI5308.GroupFormationTool.Courses.Course;
 import CSCI5308.GroupFormationTool.Courses.ICoursePersistence;
@@ -36,6 +37,7 @@ public class QuestionController {
 	@PostMapping("/course/question/create")
 	public String createQuestion(Model model, HttpServletRequest request, @RequestParam(name = ID) long courseID) {
 		IQuestionPersistence questionDB = SystemConfig.instance().getQuestionDB();
+		User currentUser = CurrentUser.instance().getCurrentAuthenticatedUser();
 		Question question = new Question();
 		String questionTitle = (String) request.getParameter("questionTitle");
 		String questionText = (String) request.getParameter("questionText");
@@ -43,11 +45,12 @@ public class QuestionController {
 		Map<String, String[]> requestParameterMap = request.getParameterMap();
         List<Option> options = new ArrayList<Option>();
         Option option = new Option();
+        
         for(String key : requestParameterMap.keySet()){
             if (key.contains("btn")) {
             	option.setText(requestParameterMap.get(key)[0].toString());
             }
-			if (key.contains("val")) {
+            else if (key.contains("val")) {
 				option.setValue(Integer.parseInt(requestParameterMap.get(key)[0]));
 				options.add(option);
 				option = new Option();
@@ -57,6 +60,7 @@ public class QuestionController {
         question.setText(questionText);
         question.setType(questionType);
         question.setOptions(options);
+        question.setInstructorId(currentUser.getId());
         question.create(questionDB);
         return "redirect:/questionmanager/questiondirectory";
 	}

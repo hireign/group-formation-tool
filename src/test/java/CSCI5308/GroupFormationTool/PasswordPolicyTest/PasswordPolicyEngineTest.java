@@ -89,7 +89,7 @@ public class PasswordPolicyEngineTest {
 		IUserPersistence userMockObject = new UserDBMock();
 		userMockObject.createUser(user);
 		
-		boolean success = iPasswordPolicy.validatePasswordHistory(user, "RAHUL", passwordPolicy, uHist);
-		Assert.isTrue(!success);
+		boolean matchFound = iPasswordPolicy.validatePasswordHistory(user, "RAHUL", passwordPolicy, uHist);
+		Assert.isTrue(matchFound);
 	}
 }

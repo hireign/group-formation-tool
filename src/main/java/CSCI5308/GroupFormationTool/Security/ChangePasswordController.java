@@ -37,15 +37,15 @@ public class ChangePasswordController {
 	   	@RequestParam(name = PASSWORD) String password)
 		{
 		User user = CurrentUser.instance().getCurrentAuthenticatedUser();
-		boolean isPasswordHistoryClean = passwordPolicy.validatePasswordHistory(user, password, passwordPolicyObject, iUserHist);
+		boolean passwordPresent = passwordPolicy.validatePasswordHistory(user, password, passwordPolicyObject, iUserHist);
 		String error = passwordPolicy.validatePassword(password, passwordPolicyObject);
 		
 		ModelAndView m;
-		if(!isPasswordHistoryClean) {
+		if(passwordPresent) {
 			m = new ModelAndView("changePassword");
 			m.addObject("errorMessage", "Password cannot be the same as last used passwords.");
 		}
-		else if(!error.isEmpty()) {
+		else if(error.length() > 0) {
 			m = new ModelAndView("changePassword");
 			m.addObject("errorMessage", error);
 		}

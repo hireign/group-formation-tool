@@ -26,7 +26,6 @@ public class UserPasswordHistory implements IUserPasswordHistoryPersistence{
 		}
 		catch (SQLException e)
 		{
-			System.out.println("Exception Occurred");
 			e.printStackTrace();
 		}
 		finally
