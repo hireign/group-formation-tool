@@ -10,16 +10,13 @@ import CSCI5308.GroupFormationTool.Security.IPasswordEncryption;
 
 public class PasswordPolicyImplementer implements IPasswordPolicy {
 
-//	IPasswordPolicyPersistence Passwordpersistence = new PasswordPolicyPopulator();
-//	PasswordPolicy passwordPolicy = new PasswordPolicy(Passwordpersistence);
-
 	@Override
 	public String validatePassword(String password,PasswordPolicy passwordPolicy) {
 
 		if (passwordPolicy.getMaximum_length() != 0 && password.length() > passwordPolicy.getMaximum_length()) {
 			return "Password Length is more than maximum length";
 		}
-		if (password.length() < passwordPolicy.getMinimum_length()) {
+		else if (password.length() < passwordPolicy.getMinimum_length()) {
 			return "Password Length is less than Minimum length";
 		}
 
@@ -50,11 +47,11 @@ public class PasswordPolicyImplementer implements IPasswordPolicy {
 			return "Password should contain atleast minimum number of uppercase letters";
 		}
 
-		if (lowerCase < passwordPolicy.getMinimum_lowercase_Chars()) {
+		else if (lowerCase < passwordPolicy.getMinimum_lowercase_Chars()) {
 			return "Password should contain atleast minimum number of lowercase letters";
 		}
 
-		if (specialChars < passwordPolicy.getMinimum_special_characters()) {
+		else if (specialChars < passwordPolicy.getMinimum_special_characters()) {
 			return "Password should contain atleast minimum number of special characters";
 		}
 
@@ -63,7 +60,7 @@ public class PasswordPolicyImplementer implements IPasswordPolicy {
 
 	@Override
 	public boolean validatePasswordHistory(User user, String rawPassword, PasswordPolicy passwordPolicy, IUserPasswordHistoryPersistence iUserHist) {
-		boolean success = true;
+		boolean matchFound = false;
 		IPasswordEncryption iPasswordEncryption = SystemConfig.instance().getPasswordEncryption();
 		
 		int passwordHistoryLimit = passwordPolicy.getPassword_History_Constraint_No();
@@ -74,11 +71,11 @@ public class PasswordPolicyImplementer implements IPasswordPolicy {
 			String currentPassword = i.next();
 			boolean match = iPasswordEncryption.matches(rawPassword, currentPassword);
 			if(match) {
-				success = false;
+				matchFound = true;
 			}
 		}
 		
-		return success;
+		return matchFound;
 	}
 
 }

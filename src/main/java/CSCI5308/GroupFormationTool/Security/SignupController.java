@@ -23,6 +23,7 @@ public class SignupController
 	private final String FIRST_NAME = "firstName";
 	private final String LAST_NAME = "lastName";
 	private final String EMAIL = "email";
+	
 	@Autowired
 	private EmailService emailService;
 	IPasswordPolicyPersistence iPasswordPolicy = SystemConfig.instance().getiPasswordPolicyPersistance();
@@ -48,10 +49,8 @@ public class SignupController
    	@RequestParam(name = FIRST_NAME) String firstName,
    	@RequestParam(name = LAST_NAME) String lastName,
    	@RequestParam(name = EMAIL) String email)
-	{	
-		
+	{
 		String error = passwordPolicy.validatePassword(password, passwordPolicyObject);
-		
 		boolean success = false;
 		if (User.isBannerIDValid(bannerID) &&
 			 User.isEmailValid(email) &&
@@ -75,9 +74,7 @@ public class SignupController
 		ModelAndView m;
 		if (success)
 		{
-			// This is lame, I will improve this with auto-signin for M2.
 			m = new ModelAndView("login");
-
 			SimpleMailMessage signupEmail = new SimpleMailMessage();
 			signupEmail.setFrom("CopyCatMeSupport@gmail.com");
 			signupEmail.setTo(Useremail);
@@ -87,7 +84,6 @@ public class SignupController
 		}
 		else
 		{
-			// Something wrong with the input data.
 			m = new ModelAndView("signup");
 			if(error.isEmpty()) {
 				m.addObject("errorMessage", "Invalid data, please check your values.");

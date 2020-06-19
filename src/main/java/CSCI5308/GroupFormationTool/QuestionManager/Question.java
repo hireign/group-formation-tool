@@ -76,12 +76,6 @@ public class Question {
 	}
 
 	public boolean create(IQuestionPersistence questionDB) {
-		if(null != CurrentUser.instance().getCurrentAuthenticatedUser()) {
-			this.setInstructorId(CurrentUser.instance().getCurrentAuthenticatedUser().getId());
-			return questionDB.create(this);
-		}
-		else {
-			return false;
-		}
+		return questionDB.create(this);
 	}
 }

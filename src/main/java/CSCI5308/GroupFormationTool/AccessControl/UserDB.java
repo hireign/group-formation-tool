@@ -135,10 +135,4 @@ public class UserDB implements IUserPersistence
 		}
 		return true;
 	}
-
-	@Override
-	public boolean updateUser(User user) {
-		// Improve in M3
-		return false;
-	}
 }
