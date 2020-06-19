@@ -39,6 +39,58 @@ CREATE TABLE SystemRole (
     FOREIGN KEY (userID) REFERENCES User(id)
 );
 
+CREATE TABLE `Question` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `title` varchar(50) NOT NULL,
+  `text` varchar(255) NOT NULL,
+  `type` varchar(20) NOT NULL,
+  `instructorId` bigint(20) NOT NULL,
+  `createdDate` datetime DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `instructorId` (`instructorId`),
+  CONSTRAINT `Question_ibfk_1` FOREIGN KEY (`instructorId`) REFERENCES `User` (`id`)
+);
+
+CREATE TABLE Response (
+	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    text VARCHAR(255) NOT NULL,
+    type VARCHAR(20) NOT NULL,
+    studentId BIGINT NOT NULL,
+    questionId BIGINT NOT NULL,
+    createdDate DATE DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (studentId) REFERENCES User(id),
+    FOREIGN KEY (questionId) REFERENCES Question(id)
+);
+
+CREATE TABLE `Options` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `questionId` bigint(20) NOT NULL,
+  `text` varchar(255) NOT NULL,
+  `value` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `questionId` (`questionId`),
+  CONSTRAINT `Options_ibfk_1` FOREIGN KEY (`questionId`) REFERENCES `Question` (`id`)
+);
+
+CREATE TABLE `UserPasswordArchive` (
+  `UserID` bigint(20) NOT NULL,
+  `Password` varchar(80) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ;
+
+CREATE TABLE `PasswordPolicies` (
+  `idPasswordPolicies` int(11) NOT NULL AUTO_INCREMENT,
+  `Minimum_length` int(11) NOT NULL,
+  `Maximum_length` int(11) NOT NULL,
+  `Minimum_uppercase_Chars` int(11) NOT NULL,
+  `Minimum_lowercase_Chars` int(11) NOT NULL,
+  `Minimum_special_characters` int(11) NOT NULL,
+  `Disallowed_Chars` varchar(80) DEFAULT NULL,
+  `Password_History_Constraint_No` int(11) NOT NULL,
+  `Enable_Policy` tinyint(4) NOT NULL,
+  PRIMARY KEY (`idPasswordPolicies`)
+); 
+
 INSERT INTO Role(role)
 VALUES
     ('Admin'),

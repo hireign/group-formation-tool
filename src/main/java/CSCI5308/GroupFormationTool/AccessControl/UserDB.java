@@ -64,7 +64,7 @@ public class UserDB implements IUserPersistence
 				}
 			}
 		}
-		catch (SQLException e)
+		catch (Exception e)
 		{
 			// Logging needed.
 		}
@@ -111,9 +111,28 @@ public class UserDB implements IUserPersistence
 		return true;
 	}
 	
-	public boolean updateUser(User user)
+	public boolean updateUserPassword(User user)
 	{
-		// Coming in M2!
-		return false;
+		CallStoredProcedure proc = null;
+		try
+		{
+			proc = new CallStoredProcedure("spUpdateUserPassword(?, ?)");
+			proc.setParameter(1, user.getID());
+			proc.setParameter(2, user.getPassword());
+			proc.execute();
+		}
+		catch (SQLException e)
+		{
+			// Logging needed
+			return false;
+		}
+		finally
+		{
+			if (null != proc)
+			{
+				proc.cleanup();
+			}
+		}
+		return true;
 	}
 }

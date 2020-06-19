@@ -140,9 +140,8 @@ public class User
 		return success;
 	}
 	
-	public boolean updateUser(IUserPersistence userDB)
-	{
-		return userDB.updateUser(this);
+	public boolean UpdateUserPassword(IUserPersistence userDB) {
+		return userDB.updateUserPassword(this);
 	}
 	
 	private static boolean isStringNullOrEmpty(String s)
