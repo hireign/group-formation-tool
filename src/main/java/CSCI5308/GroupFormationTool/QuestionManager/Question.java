@@ -1,81 +1,87 @@
 package CSCI5308.GroupFormationTool.QuestionManager;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
+import java.sql.Timestamp;
 
-import CSCI5308.GroupFormationTool.AccessControl.CurrentUser;
-
-public class Question {
+public class Question 
+{
 	private long id;
 	private String title;
 	private String text;
-	private String type;
-	private long instructorId;
-	private LocalDateTime date;
-	private List<Option> options;
-
-	public long getId() {
+	private QuestionType type;
+	private Timestamp timestamp;
+	
+	public Question() 
+	{
+		setDefaults();
+	}
+	
+	public void setDefaults() 
+	{
+		id=-1;
+		title="";
+		text="";
+		type=null;
+		timestamp=null;
+	}
+	
+	public Timestamp getTimestamp() 
+	{
+		return timestamp;
+	}
+	
+	public void setTimestamp(Timestamp timestamp) 
+	{
+		this.timestamp = timestamp;
+	}
+	
+	public long getId() 
+	{
 		return id;
 	}
-
-	public void setId(long id) {
+	
+	public void setId(long id) 
+	{
 		this.id = id;
 	}
-
-	public String getTitle() {
+	
+	public String getTitle() 
+	{
 		return title;
 	}
-
-	public void setTitle(String title) {
+	
+	public void setTitle(String title) 
+	{
 		this.title = title;
 	}
-
-	public String getText() {
+	
+	public String getText() 
+	{
 		return text;
 	}
-
-	public void setText(String text) {
+	
+	public void setText(String text) 
+	{
 		this.text = text;
 	}
-
-	public String getType() {
+	
+	public QuestionType getType() 
+	{
 		return type;
 	}
-
-	public void setType(String type) {
+	
+	public void setType(QuestionType type) 
+	{
 		this.type = type;
 	}
-
-	public long getInstructorId() {
-		return instructorId;
+	
+	public boolean deleteQuestion(IQuestionPersistence questionDB, long questionID) 
+	{
+		return questionDB.deleteQuestionByQuestionId(questionID);
 	}
-
-	public void setInstructorId(long instructorId) {
-		this.instructorId = instructorId;
+	
+	public long createQuestion(IQuestionPersistence questionDB, String bannerID) 
+	{
+		return questionDB.createQuestion(this, bannerID);
 	}
-
-	public LocalDateTime getDate() {
-		return date;
-	}
-
-	public void setDate(LocalDateTime date) {
-		this.date = date;
-	}
-
-	public List<Option> getOptions() {
-		return options;
-	}
-
-	public void setOptions(List<Option> options) {
-		this.options = options;
-	}
-
-	public boolean delete(IQuestionPersistence questionDB) {
-		return questionDB.delete(id);
-	}
-
-	public boolean create(IQuestionPersistence questionDB) {
-		return questionDB.create(this);
-	}
+	
 }

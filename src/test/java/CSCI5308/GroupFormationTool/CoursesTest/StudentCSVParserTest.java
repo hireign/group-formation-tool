@@ -23,5 +23,4 @@ class StudentCSVParserTest
 		assertThat(records).isNotEmpty();
 		Assert.isTrue(records.size() > 0);
 	}
-
 }

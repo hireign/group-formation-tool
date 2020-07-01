@@ -1,136 +1,120 @@
 package CSCI5308.GroupFormationTool.QuestionManager;
 
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Timestamp;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
 
-@SpringBootTest
 @SuppressWarnings("deprecation")
-public class QuestionTest {
-	private static final int instructorId = 1;
-	private static final int questionId = 1;
+public class QuestionTest
+{
 	@Test
-	public void getIdTest() {
-		Question question = new Question();
-		question.setId(7);
-		Assert.isTrue(question.getId() == 7);
-	}
-
-	@Test
-	public void setIdTest() {
-		Question question = new Question();
-		question.setId(7);
-		Assert.isTrue(question.getId() == 7);
-	}
-
-	@Test
-	public void getTitleTest() {
-		Question question = new Question();
-		question.setTitle("CSCI 5308");
-		Assert.isTrue(question.getTitle().equals("CSCI 5308"));
-	}
-
-	@Test
-	public void setTitleTest() {
-		Question question = new Question();
-		question.setTitle("CSCI 5308");
-		Assert.isTrue(question.getTitle().equals("CSCI 5308"));
-	}
-
-	@Test
-	public void getTextTest() {
-		Question question = new Question();
-		question.setText("CSCI 5308");
-		Assert.isTrue(question.getText().equals("CSCI 5308"));
-	}
-
-	@Test
-	public void setTextTest() {
-		Question question = new Question();
-		question.setText("CSCI 5308");
-		Assert.isTrue(question.getText().equals("CSCI 5308"));
-	}
-
-	@Test
-	public void getTypeTest() {
-		Question question = new Question();
-		question.setType(QuestionType.NUMBER.toString());
-		Assert.isTrue(question.getType() == QuestionType.NUMBER.toString());
-	}
-
-	@Test
-	public void setTypeTest() {
-		Question question = new Question();
-		question.setType(QuestionType.NUMBER.toString());
-		Assert.isTrue(question.getType() == QuestionType.NUMBER.toString());
-	}
-
-	@Test
-	public void getInstructorIdTest() {
-		Question question = new Question();
-		question.setInstructorId(7);
-		Assert.isTrue(question.getInstructorId() == 7);
-	}
-
-	@Test
-	public void setInstructorIdTest() {
-		Question question = new Question();
-		question.setInstructorId(7);
-		Assert.isTrue(question.getInstructorId() == 7);
-	}
-
-	@Test
-	public void loadAllQuestionsByInstructor() {
-		QuestionDBMock questionDBMock = new QuestionDBMock();
-		List<Question> questionList = new ArrayList<>();
-		questionList = questionDBMock.loadAllQuestionsByInstructor(instructorId);
-		Assert.isTrue(questionList.size()==2);
-	}
-
-	@Test
-	public void createQuestionTest(){
-		QuestionDBMock questionDBMock = new QuestionDBMock();
-		Question question = new Question();
-		Boolean result = questionDBMock.create(question);
-		Assert.isTrue(question.getTitle()=="Code Quality");
-		Assert.isTrue(result);
-	}
-
-	@Test
-	public void deleteQuestionTest(){
-		QuestionDBMock questionDBMock = new QuestionDBMock();
-		Boolean result = questionDBMock.delete(questionId);
-		Assert.isTrue(result);
+	public void ConstructorTests()
+	{
+		Question q = new Question();
+		Assert.isTrue(q.getTitle().isEmpty());
+		Assert.isTrue(q.getText().isEmpty());
+		Assert.isNull(q.getType());
+		Assert.isNull(q.getTimestamp());
 	}
 	
 	@Test
-	public void sortByTitleTest(){
-		QuestionDBMock questionDBMock = new QuestionDBMock();
-		Question question1 = new Question();
-		question1.setTitle("B");
-		Question question2 = new Question();
-		question2.setTitle("A");
-		List<Question> questions = new ArrayList<Question>();
-		questions.add(question2);
-		questions.add(question1);
-		Assert.isTrue(questionDBMock.sortByTitle(questions).get(0).getTitle().equals("A"));
+	public void getTimestamp() 
+	{
+		Question q = new Question();
+		Timestamp time = Timestamp.valueOf("2020-06-16 00:00:00");
+		q.setTimestamp(time);
+		Assert.isTrue(time == q.getTimestamp());
 	}
 	
 	@Test
-	public void sortByDateTest(){
-		QuestionDBMock questionDBMock = new QuestionDBMock();
-		Question question1 = new Question();
-		question1.setDate(LocalDateTime.of(2021, Month.JUNE, 18, 19, 30, 40));
-		Question question2 = new Question();
-		question2.setDate(LocalDateTime.of(2020, Month.JUNE, 18, 19, 30, 40));
-		List<Question> questions = new ArrayList<Question>();
-		questions.add(question2);
-		questions.add(question1);
-		Assert.isTrue(questionDBMock.sortByDate(questions).get(0).getDate().compareTo(LocalDateTime.of(2020, Month.JUNE, 18, 19, 30, 40)) == 0);
+	public void setTimestamp() 
+	{
+		Question q = new Question();
+		Timestamp time = Timestamp.valueOf("2020-06-16 00:00:00");
+		q.setTimestamp(time);
+		Assert.isTrue(time == q.getTimestamp());
+	}
+	
+	@Test
+	public void getId() 
+	{
+		Question q = new Question();
+		q.setId(7);
+		Assert.isTrue(q.getId() == 7);
+	}
+	
+	@Test
+	public void setId() 
+	{
+		Question q = new Question();
+		q.setId(7);
+		Assert.isTrue(q.getId() == 7);
+	}
+	
+	@Test
+	public void getTitle() 
+	{
+		Question q = new Question();
+		q.setTitle("Test title");
+		Assert.isTrue(q.getTitle().equals("Test title"));
+	}
+	
+	@Test
+	public void setTitle() 
+	{
+		Question q = new Question();
+		q.setTitle("Test title");
+		Assert.isTrue(q.getTitle().equals("Test title"));
+	}
+	
+	@Test
+	public void getText() 
+	{
+		Question q = new Question();
+		q.setText("Test text");
+		Assert.isTrue(q.getText().equals("Test text"));
+	}
+	
+	@Test
+	public void setText() 
+	{
+		Question q = new Question();
+		q.setText("Test text");
+		Assert.isTrue(q.getText().equals("Test text"));
+	}
+	
+	@Test
+	public void getType() 
+	{
+		Question q = new Question();
+		q.setType(QuestionType.TEXT);
+		Assert.isTrue(q.getType() == QuestionType.TEXT);
+	}
+	
+	@Test
+	public void setType() 
+	{
+		Question q = new Question();
+		q.setType(QuestionType.TEXT);
+		Assert.isTrue(q.getType() == QuestionType.TEXT);
+	}
+	
+	@Test
+	public void deleteQuestion() 
+	{
+		Question q = new Question();
+		IQuestionPersistence questionDB = new QuestionDBMock();
+		q.setDefaults();
+		boolean status = questionDB.deleteQuestionByQuestionId(q.getId());
+		Assert.isTrue(status == false);
+		
+		q.setId(1);
+		q.setTitle("Test title");
+		q.setText("Test text");
+		q.setType(QuestionType.TEXT);
+		q.setTimestamp(Timestamp.valueOf("2020-06-16 00:00:00"));
+		status = questionDB.deleteQuestionByQuestionId(q.getId());
+		Assert.isTrue(status == true);
 	}
 }

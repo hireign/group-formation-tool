@@ -36,7 +36,7 @@ public class InstructorAdminController
 		}
 		else
 		{
-			return "redirect:/logout";
+			return "logout";
 		}
 	}
 
@@ -75,7 +75,8 @@ public class InstructorAdminController
 		Course course = new Course();
 		courseDB.loadCourseByID(courseID, course);
 		model.addAttribute("course", course);
-		if (course.isCurrentUserEnrolledAsRoleInCourse(Role.INSTRUCTOR))
+		if (course.isCurrentUserEnrolledAsRoleInCourse(Role.INSTRUCTOR) ||
+			 course.isCurrentUserEnrolledAsRoleInCourse(Role.TA))
 		{
 			return "course/enrollta";
 		}

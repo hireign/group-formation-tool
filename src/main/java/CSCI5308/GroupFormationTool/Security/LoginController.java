@@ -18,10 +18,4 @@ public class LoginController
 	{
 		return "login-error.html";
 	}
-	
-	@GetMapping("/logout")
-	public String logout(Model model)
-	{
-		return "redirect:/login?logout";
-	}
 }
