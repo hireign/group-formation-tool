@@ -6,16 +6,14 @@ import java.util.List;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import CSCI5308.GroupFormationTool.SystemConfig;
-import CSCI5308.GroupFormationTool.AccessControl.IUserPersistence;
-import CSCI5308.GroupFormationTool.AccessControl.User;
-import CSCI5308.GroupFormationTool.Courses.Role;
+import CSCI5308.GroupFormationTool.AccessControl.*;
 
 public class CustomAuthenticationManager implements AuthenticationManager
 {
@@ -28,7 +26,7 @@ public class CustomAuthenticationManager implements AuthenticationManager
 		{
 			// Grant ADMIN rights system-wide, this is used to protect controller mappings.
 			List<GrantedAuthority> rights = new ArrayList<GrantedAuthority>();
-			rights.add(new SimpleGrantedAuthority("ROLE_" + Role.ADMIN.toString()));
+			rights.add(new SimpleGrantedAuthority("ADMIN"));
 			// Return valid authentication token.
 			UsernamePasswordAuthenticationToken token;
 			token = new UsernamePasswordAuthenticationToken(authentication.getPrincipal(),
@@ -49,7 +47,7 @@ public class CustomAuthenticationManager implements AuthenticationManager
 		{
 			// Grant USER rights system-wide, this is used to protect controller mappings.
 			List<GrantedAuthority> rights = new ArrayList<GrantedAuthority>();
-			rights.add(new SimpleGrantedAuthority("ROLE_" + Role.GUEST.toString()));
+			rights.add(new SimpleGrantedAuthority("USER"));
 			// Return valid authentication token.
 			UsernamePasswordAuthenticationToken token;
 			token = new UsernamePasswordAuthenticationToken(authentication.getPrincipal(),

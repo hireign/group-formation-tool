@@ -82,14 +82,4 @@ public class CallStoredProcedure
 	{
 		statement.execute();
 	}
-	
-	public Long getReturnedValueLong(int id) throws SQLException 
-	{
-		return statement.getLong(id);
-	}
-	
-	public String getReturnedValueString(int id) throws SQLException 
-	{
-		return statement.getString(id);
-	}
 }
