@@ -124,9 +124,9 @@ public class User
 		return email;
 	}
 	
-	public boolean isValidUser()
+	public boolean isInvalidUser()
 	{
-		return id != -1; 
+		return id == -1; 
 	}
 	
 	public boolean createUser(
