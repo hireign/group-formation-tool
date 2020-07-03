@@ -41,7 +41,7 @@ public class StudentCSVImport
 			User user = new User();
 			userDB.loadUserByBannerID(bannerID, user);
 			
-			if (!user.isValidUser())
+			if (user.isInvalidUser())
 			{
 				user.setBannerID(bannerID);
 				user.setFirstName(firstName);

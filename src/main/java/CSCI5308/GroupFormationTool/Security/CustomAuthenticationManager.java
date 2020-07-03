@@ -76,7 +76,12 @@ public class CustomAuthenticationManager implements AuthenticationManager
 		{
 			throw new AuthenticationServiceException("1000");
 		}
-		if (u.isValidUser())
+		if (u.isInvalidUser())
+		{
+			// No user with this banner id found.
+			throw new BadCredentialsException("1001");
+		}
+		else
 		{
 			if (bannerID.toUpperCase().equals(ADMIN_BANNER_ID))
 			{
@@ -86,11 +91,6 @@ public class CustomAuthenticationManager implements AuthenticationManager
 			{
 				return checkNormal(password, u, authentication);
 			}
-		}
-		else
-		{
-			// No user with this banner id found.
-			throw new BadCredentialsException("1001");
 		}			
 	}
 }
