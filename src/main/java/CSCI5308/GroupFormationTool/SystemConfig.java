@@ -1,23 +1,14 @@
 package CSCI5308.GroupFormationTool;
 
-import CSCI5308.GroupFormationTool.AccessControl.IUserPersistence;
-import CSCI5308.GroupFormationTool.AccessControl.UserDB;
-import CSCI5308.GroupFormationTool.Courses.CourseDB;
-import CSCI5308.GroupFormationTool.Courses.CourseUserRelationshipDB;
-import CSCI5308.GroupFormationTool.Courses.ICoursePersistence;
-import CSCI5308.GroupFormationTool.Courses.ICourseUserRelationshipPersistence;
-import CSCI5308.GroupFormationTool.Database.DefaultDatabaseConfiguration;
-import CSCI5308.GroupFormationTool.Database.IDatabaseConfiguration;
-import CSCI5308.GroupFormationTool.PasswordPolicy.IPasswordPolicy;
-import CSCI5308.GroupFormationTool.PasswordPolicy.IPasswordPolicyPersistence;
-import CSCI5308.GroupFormationTool.PasswordPolicy.IUserPasswordHistoryPersistence;
-import CSCI5308.GroupFormationTool.PasswordPolicy.PasswordPolicyImplementer;
-import CSCI5308.GroupFormationTool.PasswordPolicy.PasswordPolicyPopulator;
-import CSCI5308.GroupFormationTool.PasswordPolicy.UserPasswordHistory;
+import CSCI5308.GroupFormationTool.Security.*;
+import CSCI5308.GroupFormationTool.AccessControl.*;
+import CSCI5308.GroupFormationTool.Database.*;
 import CSCI5308.GroupFormationTool.QuestionManager.IQuestionPersistence;
 import CSCI5308.GroupFormationTool.QuestionManager.QuestionDB;
-import CSCI5308.GroupFormationTool.Security.BCryptPasswordEncryption;
-import CSCI5308.GroupFormationTool.Security.IPasswordEncryption;
+import CSCI5308.GroupFormationTool.PasswordValidation.IPasswordValidatorEnumerator;
+import CSCI5308.GroupFormationTool.PasswordValidation.IPasswordValidatorPersistence;
+import CSCI5308.GroupFormationTool.PasswordValidation.PasswordValidatorDB;
+import CSCI5308.GroupFormationTool.Courses.*;
 
 /*
  * This is a singleton, we will learn about these when we learn design patterns.
@@ -37,10 +28,9 @@ public class SystemConfig
 	private IDatabaseConfiguration databaseConfiguration;
 	private ICoursePersistence courseDB;
 	private ICourseUserRelationshipPersistence courseUserRelationshipDB;
-	private IPasswordPolicy passwordPolicy;
-	private IPasswordPolicyPersistence iPasswordPolicyPersistance;
-	private IUserPasswordHistoryPersistence iUserPasswordHistory;
 	private IQuestionPersistence questionDB;
+	private IPasswordValidatorPersistence validatorDB;
+	private IPasswordValidatorEnumerator passwordValidatorEnumerator;
 	
 	// This private constructor ensures that no class other than System can allocate
 	// the System object. The compiler would prevent it.
@@ -54,10 +44,8 @@ public class SystemConfig
 		databaseConfiguration = new DefaultDatabaseConfiguration();
 		courseDB = new CourseDB();
 		courseUserRelationshipDB = new CourseUserRelationshipDB();
-		passwordPolicy = new PasswordPolicyImplementer();
-		iPasswordPolicyPersistance = new PasswordPolicyPopulator();
-		iUserPasswordHistory = new UserPasswordHistory();
 		questionDB = new QuestionDB();
+		validatorDB = new PasswordValidatorDB();
 	}
 	
 	// This is the way the rest of the application gets access to the System object.
@@ -71,7 +59,6 @@ public class SystemConfig
 		}
 		return uniqueInstance;
 	}
-	
 	
 	public IPasswordEncryption getPasswordEncryption()
 	{
@@ -122,30 +109,6 @@ public class SystemConfig
 	{
 		return courseUserRelationshipDB;
 	}
-
-	public IPasswordPolicy getPasswordPolicy() {
-		return passwordPolicy;
-	}
-
-	public void setPasswordPolicy(IPasswordPolicy passwordPolicy) {
-		this.passwordPolicy = passwordPolicy;
-	}
-
-	public IPasswordPolicyPersistence getiPasswordPolicyPersistance() {
-		return iPasswordPolicyPersistance;
-	}
-
-	public void setiPasswordPolicyPersistance(IPasswordPolicyPersistence iPasswordPolicyPersistance) {
-		this.iPasswordPolicyPersistance = iPasswordPolicyPersistance;
-	}
-
-	public IUserPasswordHistoryPersistence getiUserPasswordHistory() {
-		return iUserPasswordHistory;
-	}
-
-	public void setiUserPasswordHistory(IUserPasswordHistoryPersistence iUserPasswordHistory) {
-		this.iUserPasswordHistory = iUserPasswordHistory;
-	}
 	
 	public void setQuestionDB(IQuestionPersistence questionDB)
 	{
@@ -156,5 +119,24 @@ public class SystemConfig
 	{
 		return questionDB;
 	}
-
+	public void setPasswordValidatorDB(IPasswordValidatorPersistence validatorDB)
+	{
+		this.validatorDB = validatorDB;
+	}
+	
+	public IPasswordValidatorPersistence getPasswordValidatorDB()
+	{
+		return validatorDB;
+	}
+	
+	public void setPasswordValidatorEnumerator(IPasswordValidatorEnumerator passwordValidatorEnumerator)
+	{
+		this.passwordValidatorEnumerator = passwordValidatorEnumerator;
+	}
+	
+	public IPasswordValidatorEnumerator getPasswordValidatorEnumerator()
+	{
+		return passwordValidatorEnumerator;
+	}
+	
 }

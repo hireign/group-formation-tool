@@ -24,9 +24,6 @@
 		<div class="mainGridCentreInfoBox" th:if="${param.logout}">
 			<p class="confirmation">You have been logged out.</p>
 		</div>
-		<div class="mainGridCentreInfoBox" th:if="${SuccessMessage}">
-			<h3 class="PasswordConfirmation" th:text="${SuccessMessage}"></h3>
-		</div>		
 		<div class="mainGridCentreCard">
 			<form class="regnLoginGridContainer" th:action="@{/login}" method="post">
 				<label class="regnLoginGridLeftCol" for="lBannerInput"> Banner ID:</label> 

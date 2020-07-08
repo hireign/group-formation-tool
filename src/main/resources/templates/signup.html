@@ -21,6 +21,13 @@
 		<div class="mainGridCentreInfoBox" th:if="${errorMessage}">
 			<h3 class="errorInfo" th:text="${errorMessage}"></h3>
 		</div>
+		<div class="mainGridCentreInfoBox" th:if="${not #lists.isEmpty(passwordInvalid)}">
+			<h3 class="errorInfo">Password criteria not met!</h3>
+			<tr th:each="val: ${passwordInvalid}">
+			<td>
+				<h5 th:text="${val}"></h5>
+			</td>
+		</div>
 		<div class="mainGridCentreCard">
 			<form class="regnLoginGridContainer" th:action="@{/signup}" method="post">
 				<label class="regnLoginGridLeftCol" for="sBannerInput">Banner ID:</label><input id="sBannerInput" class="regnLoginGridRightCol" type="text" name="username"/>

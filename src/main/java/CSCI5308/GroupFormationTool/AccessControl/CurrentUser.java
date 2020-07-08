@@ -30,18 +30,17 @@ public class CurrentUser
 		if (authentication.isAuthenticated())
 		{
 			String bannerID = authentication.getPrincipal().toString();
-			User u = new User();
-			userDB.loadUserByBannerID(bannerID, u);
-			if (u.isValidUser())
+			User currentUser = new User();
+			userDB.loadUserByBannerID(bannerID, currentUser);
+			if (currentUser.isInvalidUser())
 			{
-				return u;
+				return null;
+			}
+			else {
+				return currentUser;
 			}
 		}
 		return null;
 	}
 	
-	public static void deleteInstance()
-	{
-		uniqueInstance = null;
-	}
 }

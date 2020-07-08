@@ -40,7 +40,8 @@ public class StudentCSVImport
 			
 			User user = new User();
 			userDB.loadUserByBannerID(bannerID, user);
-			if (!user.isValidUser())
+			
+			if (user.isInvalidUser())
 			{
 				user.setBannerID(bannerID);
 				user.setFirstName(firstName);
@@ -60,7 +61,8 @@ public class StudentCSVImport
 			if (course.enrollUserInCourse(Role.STUDENT, user))
 			{
 				successResults.add("User enrolled in course: " + userDetails);
-			}else {
+			}else 
+			{
 				failureResults.add("Unable to enroll user in course: " + userDetails);
 			}
 		}
@@ -75,4 +77,5 @@ public class StudentCSVImport
 	{
 		return failureResults;
 	}
+	
 }

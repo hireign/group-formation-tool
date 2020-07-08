@@ -1,8 +1,11 @@
 package CSCI5308.GroupFormationTool.AccessControl;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import CSCI5308.GroupFormationTool.PasswordValidation.IPasswordValidatorEnumerator;
+import CSCI5308.GroupFormationTool.PasswordValidation.PasswordValidator;
 import CSCI5308.GroupFormationTool.Security.IPasswordEncryption;
 
 public class User
@@ -60,6 +63,7 @@ public class User
 	{
 		this.id = id;
 	}
+	
 	public long getId()
 	{
 		return id;
@@ -120,15 +124,45 @@ public class User
 		return email;
 	}
 	
-	public boolean isValidUser()
+	public boolean isInvalidUser()
 	{
-		return id != -1; 
+		return id == -1; 
+	}
+	
+	public boolean createUser(
+			IUserPersistence userDB,
+			IPasswordValidatorEnumerator passwordEnumerator,
+			IPasswordEncryption passwordEncryption,
+			IUserNotifications notification,
+			List<String> errorMessages
+			)
+	{
+			String rawPassword = password;
+			boolean success = true;
+			
+			List<PasswordValidator> passwordValidators = passwordEnumerator.getActiveValidators(this);
+			for(int i=0;i<passwordValidators.size();i++) 
+			{
+				PasswordValidator validator = passwordValidators.get(i);
+				if(validator.isValid(rawPassword) == false) 
+				{
+					System.out.println("Password criteria not met!");
+					errorMessages.add(validator.getValidatorName() + " - " + validator.constraint);
+					success = false;
+				}
+			}
+			if (success)
+			{
+				success = this.createUser(userDB, passwordEncryption, notification);
+			}
+			return success;
 	}
 	
 	public boolean createUser(
 		IUserPersistence userDB,
 		IPasswordEncryption passwordEncryption,
-		IUserNotifications notification)
+		IUserNotifications notification
+		)
 	{
 		String rawPassword = password;
 		this.password = passwordEncryption.encryptPassword(this.password);
@@ -140,8 +174,9 @@ public class User
 		return success;
 	}
 	
-	public boolean UpdateUserPassword(IUserPersistence userDB) {
-		return userDB.updateUserPassword(this);
+	public boolean updateUser(IUserPersistence userDB)
+	{
+		return userDB.updateUser(this);
 	}
 	
 	private static boolean isStringNullOrEmpty(String s)
