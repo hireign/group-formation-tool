@@ -5,10 +5,10 @@ import java.util.List;
 
 public interface IPasswordValidatorPersistence 
 {
-	public HashMap<Long,String> loadActivePasswordValidators();
+	public HashMap<Long,String> loadActivePasswordValidators() throws Exception;
 
-	public String loadConstraintByValidatorId(long id);
+	public String loadConstraintByValidatorId(long id) throws Exception;
 	
-	public List<String> fetchPreviousPasswordsByBannerID(String bannerID, int constraint);
+	public List<String> fetchPreviousPasswordsByBannerID(String bannerID, int constraint) throws Exception;
 
 }

@@ -12,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 
+import CSCI5308.GroupFormationTool.LoggerUtil;
+import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.AccessControl.User;
 
 public class StudentCSVParser implements IStudentCSVParser
@@ -19,6 +21,7 @@ public class StudentCSVParser implements IStudentCSVParser
 
 	private MultipartFile uploadedFile;
 	private List<User> studentList = new ArrayList<>(); 
+	private LoggerUtil logger = SystemConfig.instance().getLogger();
 
 	public StudentCSVParser(MultipartFile file) 
 	{
@@ -57,10 +60,12 @@ public class StudentCSVParser implements IStudentCSVParser
 		catch (IOException e)
 		{
 			failureResults.add("Failure reading uploaded file: " + e.getMessage());
+			logger.error(StudentCSVParser.class.toString(), String.format("Failed to read uploaded CSV"));
 		}
 		catch (Exception e)
 		{
 			failureResults.add("Failure parsing CSV file: " + e.getMessage());
+			logger.error(StudentCSVParser.class.toString(), String.format("Failed to read uploaded CSV"));
 		}
 
 		return studentList;

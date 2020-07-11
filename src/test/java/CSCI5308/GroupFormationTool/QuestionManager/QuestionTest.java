@@ -101,7 +101,7 @@ public class QuestionTest
 	}
 	
 	@Test
-	public void deleteQuestion() 
+	public void deleteQuestion() throws Exception 
 	{
 		Question q = new Question();
 		IQuestionPersistence questionDB = new QuestionDBMock();

@@ -17,6 +17,9 @@
 		</div>
 		<h1>Course Administration Page</h1>
 		<div>
+		<div class="mainGridCentreInfoBox" th:if="${errorMessage}">
+					<h3 class="errorInfo" th:text="${errorMessage}"></h3>
+		</div>
 	  		<table>
 				<tr th:each="course : ${courses}">
 					<td><a th:href="@{/course/course(id=${course.id})}" th:text="${course.title}">Title</a></td>

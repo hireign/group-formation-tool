@@ -13,14 +13,14 @@ public class PasswordValidatorEnumerator implements IPasswordValidatorEnumerator
 	private List<PasswordValidator> activeValidators;
 	private HashMap<Long, String> validators;
 	
-	public PasswordValidatorEnumerator(IPasswordValidatorPersistence validatorDB) 
+	public PasswordValidatorEnumerator(IPasswordValidatorPersistence validatorDB) throws Exception 
 	{
 		this.validatorDB = validatorDB;
 		activeValidators = new ArrayList<PasswordValidator>();
 		validators = validatorDB.loadActivePasswordValidators();
 	}
 
-	public List<PasswordValidator> getActiveValidators(User user)
+	public List<PasswordValidator> getActiveValidators(User user) throws Exception
 	{
 		System.out.println("Validators active: \n"+validators.values());
 		activeValidators = new ArrayList<PasswordValidator>();

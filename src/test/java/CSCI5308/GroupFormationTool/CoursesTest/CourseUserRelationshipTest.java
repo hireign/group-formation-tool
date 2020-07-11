@@ -26,7 +26,7 @@ class CourseUserRelationshipTest
 	}
 
 	@Test
-	public void userHasRoleInCourse() 
+	public void userHasRoleInCourse() throws Exception 
 	{
 		Course course = new Course();
 		course.setId(0);
@@ -39,7 +39,7 @@ class CourseUserRelationshipTest
 	}
 
 	@Test
-	public void loadAllRoluesForUserInCourse() 
+	public void loadAllRoluesForUserInCourse() throws Exception 
 	{
 		Course course = new Course();
 		course.setId(0);
@@ -50,13 +50,13 @@ class CourseUserRelationshipTest
 	}
 
 	@Test
-	public void enrollUserInCourse() 
+	public void enrollUserInCourse() throws Exception 
 	{
 		Course course = new Course();
 		CurrentUserMock currentUser = new CurrentUserMock();
 		User user = currentUser.getCurrentAuthenticatedUser();
-		boolean result = courseUserRelationshipDB.enrollUser(course, user, Role.STUDENT);
-		Assert.isTrue(result);
+		courseUserRelationshipDB.enrollUser(course, user, Role.STUDENT);
+		assertThat(course.getTitle().equalsIgnoreCase("Software Engineering"));
 	}
 
 }

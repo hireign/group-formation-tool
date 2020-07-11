@@ -46,7 +46,7 @@ class OptionsTest
 	}
 	
 	@Test
-	public void saveOptions() 
+	public void saveOptions() throws Exception 
 	{
 		OptionValue option = new OptionValue("Test Text", "1");
 		IQuestionPersistence questionDB = new QuestionDBMock();
