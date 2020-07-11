@@ -23,7 +23,7 @@ public class CurrentUser
 		return uniqueInstance;
 	}
 	
-	public User getCurrentAuthenticatedUser()
+	public User getCurrentAuthenticatedUser() throws Exception
 	{
 		IUserPersistence userDB = SystemConfig.instance().getUserDB();
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

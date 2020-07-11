@@ -30,8 +30,13 @@ public class QuestionAdminController
 	public ModelAndView deleteQuestion(Model model,  @RequestParam(name = ID) long questionId,
 										@RequestParam(name = BannerID) String bannerId) 
 	{
-		questionDB.deleteQuestionByQuestionId(questionId);
 		ModelAndView mav = new ModelAndView("redirect:/question/questionmanager/title?bannerID="+bannerId);
+		try {
+			questionDB.deleteQuestionByQuestionId(questionId);
+		} catch (Exception e) {
+			mav.addObject("errorMessage", "unable to delete question, try again later.");
+		}
+		
 		return mav;
 	}
 	
@@ -63,9 +68,15 @@ public class QuestionAdminController
     public ModelAndView saveQuestion(Model model,@ModelAttribute Question question, @ModelAttribute Options options, 
     										@RequestParam(name = BannerID) String bannerId) 
 	{
-		long questionID = question.createQuestion(questionDB, bannerId);
-		options.saveOptions(questionDB, questionID);
+		long questionID;
 		ModelAndView mav = new ModelAndView("redirect:/question/questionmanager/title?bannerID="+bannerId);
+		try {
+			questionID = question.createQuestion(questionDB, bannerId);
+			options.saveOptions(questionDB, questionID);
+		} catch (Exception e) {
+			mav.addObject("errorMessage", "unable to create question, try again later.");
+		}
+		
 		return mav;
     }
 	

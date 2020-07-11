@@ -13,7 +13,7 @@ import org.springframework.util.Assert;
 public class UserTest
 {
 	@Test
-	public void ConstructorTests()
+	public void ConstructorTests() throws Exception
 	{
 		User u = new User();
 		Assert.isTrue(u.getBannerID().isEmpty());
@@ -110,7 +110,7 @@ public class UserTest
 	}
 	
 	@Test
-	public void createUser()
+	public void createUser() throws Exception
 	{		
 		IUserPersistence userDB = new UserDBMock();
 		User user = new User();
