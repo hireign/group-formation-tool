@@ -146,22 +146,6 @@ public class SystemConfig
 		this.logger = logger;
 	}
 	
-	
-	
-	public LoggerUtil getLogger() {
-		return logger;
-	}
-
-
-
-	
-	public void setLogger(LoggerUtil logger) {
-		this.logger = logger;
-	}
-
-
-
-	
 	public ISurveyPersistence getSurveyDB()
 	{
 		return surveyDB;
