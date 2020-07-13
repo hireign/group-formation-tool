@@ -137,6 +137,16 @@ public class SystemConfig
 	{
 		return passwordValidatorEnumerator;
 	}
+
+	public LoggerUtil getLogger() {
+		return logger;
+	}
+
+	public void setLogger(LoggerUtil logger) {
+		this.logger = logger;
+	}
+	
+	
 	
 	public LoggerUtil getLogger() {
 		return logger;
