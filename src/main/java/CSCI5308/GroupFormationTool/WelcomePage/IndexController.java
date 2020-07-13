@@ -20,7 +20,12 @@ public class IndexController
 		if (authentication.isAuthenticated())
 		{
 			ICoursePersistence courseDB = SystemConfig.instance().getCourseDB();
-			List<Course> allCourses = courseDB.loadAllCourses();
+			List<Course> allCourses = null;
+			try {
+				allCourses = courseDB.loadAllCourses();
+			} catch (Exception e) {
+				model.addAttribute("errorMessage", "Unable to load the courses now!!");
+			}
 			model.addAttribute("courses", allCourses);
 		}
 		return "index";

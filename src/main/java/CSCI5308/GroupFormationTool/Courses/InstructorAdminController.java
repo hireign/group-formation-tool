@@ -26,17 +26,29 @@ public class InstructorAdminController
 	{
 		ICoursePersistence courseDB = SystemConfig.instance().getCourseDB();
 		Course course = new Course();
-		courseDB.loadCourseByID(courseID, course);
-		model.addAttribute("course", course);
-		model.addAttribute("displayresults", false);
-		if (course.isCurrentUserEnrolledAsRoleInCourse(Role.INSTRUCTOR) ||
-			 course.isCurrentUserEnrolledAsRoleInCourse(Role.TA))
-		{
+		try {
+			courseDB.loadCourseByID(courseID, course);
+		} catch (Exception e) {
+			model.addAttribute("errorMessage","Unable to load courses at this moment!!!");
 			return "course/instructoradmin";
 		}
-		else
-		{
-			return "logout";
+		
+		model.addAttribute("displayresults", false);
+		try {
+			if (course.isCurrentUserEnrolledAsRoleInCourse(Role.INSTRUCTOR) ||
+				 course.isCurrentUserEnrolledAsRoleInCourse(Role.TA))
+			{
+				model.addAttribute("course", course);
+				return "course/instructoradmin";
+			}
+			else
+			{
+				model.addAttribute("logout");
+				return "login";
+			}
+		} catch (Exception e) {
+			model.addAttribute("errorMessage","Unable to load your courses at this moment!!!");
+			return "course/instructoradmin";
 		}
 	}
 
@@ -50,20 +62,32 @@ public class InstructorAdminController
 	{
 		ICoursePersistence courseDB = SystemConfig.instance().getCourseDB();
 		Course course = new Course();
-		courseDB.loadCourseByID(courseID, course);
-		model.addAttribute("course", course);
+		try {
+			courseDB.loadCourseByID(courseID, course);
+		} catch (Exception e) {
+			model.addAttribute("errorMessage","Unable to load courses at this moment!!!");
+			return "course/instructoradmin";
+		}
+		
 		model.addAttribute("displayresults", false);
 		model.addAttribute(SUCCESSFUL, successful);
 		model.addAttribute(FAILURES, failures);
 		model.addAttribute(DISPLAY_RESULTS, displayResults);
-		if (course.isCurrentUserEnrolledAsRoleInCourse(Role.INSTRUCTOR) ||
-			 course.isCurrentUserEnrolledAsRoleInCourse(Role.TA))
-		{
+		try {
+			if (course.isCurrentUserEnrolledAsRoleInCourse(Role.INSTRUCTOR) ||
+				 course.isCurrentUserEnrolledAsRoleInCourse(Role.TA))
+			{
+				model.addAttribute("course", course);
+				return "course/instructoradmin";
+			}
+			else
+			{
+				model.addAttribute("logout");
+				return "login";
+			}
+		} catch (Exception e) {
+			model.addAttribute("errorMessage","Unable to load your courses at this moment!!!");
 			return "course/instructoradmin";
-		}
-		else
-		{
-			return "logout";
 		}
 	}
 
@@ -73,16 +97,26 @@ public class InstructorAdminController
 	{
 		ICoursePersistence courseDB = SystemConfig.instance().getCourseDB();
 		Course course = new Course();
-		courseDB.loadCourseByID(courseID, course);
-		model.addAttribute("course", course);
-		if (course.isCurrentUserEnrolledAsRoleInCourse(Role.INSTRUCTOR) ||
-			 course.isCurrentUserEnrolledAsRoleInCourse(Role.TA))
-		{
+		try {
+			courseDB.loadCourseByID(courseID, course);
+		} catch (Exception e) {
+			model.addAttribute("errorMessage","Unable to enroll TA at this moment!!!");
 			return "course/enrollta";
 		}
-		else
-		{
-			return "logout";
+		model.addAttribute("course", course);
+		try {
+			if (course.isCurrentUserEnrolledAsRoleInCourse(Role.INSTRUCTOR) ||
+				 course.isCurrentUserEnrolledAsRoleInCourse(Role.TA))
+			{
+				return "course/enrollta";
+			}
+			else
+			{
+				return "logout";
+			}
+		} catch (Exception e) {
+			model.addAttribute("errorMessage","Unable to enroll TA at this moment!!!");
+			return "course/enrollta";
 		}
 	}
 
@@ -91,7 +125,14 @@ public class InstructorAdminController
    {
 		ICoursePersistence courseDB = SystemConfig.instance().getCourseDB();
 		Course course = new Course();
-		courseDB.loadCourseByID(courseID, course);
+		try {
+			courseDB.loadCourseByID(courseID, course);
+		} catch (Exception e) {
+			ModelAndView mav = new ModelAndView("redirect:/course/instructoradminresults?id=" + Long.toString(courseID));
+			mav.addObject("errorMessage","Unable to upload CSV at this moment!!!");
+			mav.addObject("displayresults", false);
+			return mav;
+		}
 		IStudentCSVParser parser = new StudentCSVParser(file);
 		StudentCSVImport importer = new StudentCSVImport(parser, course);
 		ModelAndView mav = new ModelAndView("redirect:/course/instructoradminresults?id=" + Long.toString(courseID));

@@ -14,7 +14,7 @@ import CSCI5308.GroupFormationTool.PasswordValidation.IPasswordValidatorPersiste
 class PasswordValidatorEnumeratorTest
 {
 	@Test
-	public void getActiveValidators() 
+	public void getActiveValidators() throws Exception 
 	{
 		IPasswordValidatorPersistence validatorDB = new PasswordValidatorDBMock();
 		HashMap<Long, String> activeValidators = validatorDB.loadActivePasswordValidators();

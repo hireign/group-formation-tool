@@ -13,7 +13,7 @@ import CSCI5308.GroupFormationTool.PasswordValidation.IPasswordValidatorPersiste
 class PasswordHistoryValidatorTest 
 {
 	@Test
-	public void isValid() 
+	public void isValid() throws Exception 
 	{
 		IPasswordValidatorPersistence validatorDB = new PasswordValidatorDBMock();
 		int historyCount=3;

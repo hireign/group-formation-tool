@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration status="DEBUG">
+
+	<Properties>
+        <property name="fileName">group23-GFT</property>
+    </Properties>
+
+    <Appenders>
+        <Console name="LogToConsole" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <RollingFile name="LogToFile" fileName="logs\${fileName}-${date:yyyy-MM-dd}.log" filePattern="logs\${fileName}-%d{yyyy-MM-dd}.log.%i">
+	        <PatternLayout>
+				<pattern>[%-5level] %d{dd-MM HH:mm:ss.SSS} [%t] %c{1} - %m%n</pattern>
+			</PatternLayout>
+			<Policies>
+		        <SizeBasedTriggeringPolicy size="25 MB"/>
+		        <TimeBasedTriggeringPolicy />
+	      	</Policies>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="CSCI5308.GroupFormationTool" level="debug" additivity="false">
+            <AppenderRef ref="LogToFile"/>
+            <AppenderRef ref="LogToConsole"/>
+        </Logger>
+        <Logger name="org.springframework.boot" level="error" additivity="false">
+        	<AppenderRef ref="LogToFile"/>
+            <AppenderRef ref="LogToConsole"/>
+        </Logger>
+        <Root level="error">
+            <AppenderRef ref="LogToFile"/>
+            <AppenderRef ref="LogToConsole"/>
+        </Root>
+    </Loggers>
+</Configuration>

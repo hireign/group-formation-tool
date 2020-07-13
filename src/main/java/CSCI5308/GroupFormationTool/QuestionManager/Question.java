@@ -74,12 +74,12 @@ public class Question
 		this.type = type;
 	}
 	
-	public boolean deleteQuestion(IQuestionPersistence questionDB, long questionID) 
+	public void deleteQuestion(IQuestionPersistence questionDB, long questionID) throws Exception 
 	{
-		return questionDB.deleteQuestionByQuestionId(questionID);
+		questionDB.deleteQuestionByQuestionId(questionID);
 	}
 	
-	public long createQuestion(IQuestionPersistence questionDB, String bannerID) 
+	public long createQuestion(IQuestionPersistence questionDB, String bannerID) throws Exception 
 	{
 		return questionDB.createQuestion(this, bannerID);
 	}

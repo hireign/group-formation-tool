@@ -1,0 +1,17 @@
+[INFO ] 11-07 15:57:22.065 [main] UserTest - Starting UserTest on Superman with PID 55964 (started by Rahul Shewani in C:\Users\Rahul Shewani\Desktop\ADV SDC\Milestone 3\LoggingAndErrorHandling\group23)
+[DEBUG] 11-07 15:57:22.078 [main] UserTest - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 11-07 15:57:22.079 [main] UserTest - No active profile set, falling back to default profiles: default
+[INFO ] 11-07 15:57:25.372 [main] UserTest - Started UserTest in 3.592 seconds (JVM running for 6.744)
+[INFO ] 11-07 16:00:49.711 [main] UserTest - Starting UserTest on Superman with PID 50040 (started by Rahul Shewani in C:\Users\Rahul Shewani\Desktop\ADV SDC\Milestone 3\LoggingAndErrorHandling\group23)
+[DEBUG] 11-07 16:00:49.725 [main] UserTest - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 11-07 16:00:49.725 [main] UserTest - No active profile set, falling back to default profiles: default
+[INFO ] 11-07 16:00:52.717 [main] UserTest - Started UserTest in 3.274 seconds (JVM running for 5.274)
+[INFO ] 11-07 16:01:32.677 [main] UserTest - Starting UserTest on Superman with PID 69116 (started by Rahul Shewani in C:\Users\Rahul Shewani\Desktop\ADV SDC\Milestone 3\LoggingAndErrorHandling\group23)
+[DEBUG] 11-07 16:01:32.686 [main] UserTest - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 11-07 16:01:32.687 [main] UserTest - No active profile set, falling back to default profiles: default
+[INFO ] 11-07 16:01:35.738 [main] UserTest - Started UserTest in 3.331 seconds (JVM running for 5.327)
+[ERROR] 11-07 16:01:36.396 [main] CourseUserRelationshipDB - user=B00000000 course=-1 action=enrollUser status=failure exception e=Cannot add or update a child row: a foreign key constraint fails (`CSCI5308_23_DEVINT`.`CourseRole`, CONSTRAINT `CourseRole_ibfk_1` FOREIGN KEY (`courseID`) REFERENCES `Course` (`id`))
+[INFO ] 11-07 16:06:25.289 [main] UserTest - Starting UserTest on Superman with PID 66804 (started by Rahul Shewani in C:\Users\Rahul Shewani\Desktop\ADV SDC\Milestone 3\LoggingAndErrorHandling\group23)
+[DEBUG] 11-07 16:06:25.301 [main] UserTest - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 11-07 16:06:25.302 [main] UserTest - No active profile set, falling back to default profiles: default
+[INFO ] 11-07 16:06:28.344 [main] UserTest - Started UserTest in 3.341 seconds (JVM running for 5.317)

@@ -6,12 +6,17 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import CSCI5308.GroupFormationTool.LoggerUtil;
+import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.Database.CallStoredProcedure;
 
 public class QuestionDB implements IQuestionPersistence 
 {
+	
+	private static LoggerUtil logger = SystemConfig.instance().getLogger();
+	
 	@Override
-	public List<Question> loadQuestionsSortedByTitle(String bannerID) 
+	public List<Question> loadQuestionsSortedByTitle(String bannerID) throws SQLException 
 	{
 		List<Question> questionList = new ArrayList<Question>();
 		CallStoredProcedure proc = null;
@@ -40,12 +45,15 @@ public class QuestionDB implements IQuestionPersistence
 					question.setTimestamp(timestamp);
 					questionList.add(question);
 				}
+				logger.info(QuestionDB.class.toString(),String.format("action=loadQuestionsSortedByTitle status=success"));
 			}
 		}
 		catch (SQLException e)
 		{
-			System.out.println(e);
-			// Logging needed.
+			logger.error(QuestionDB.class.toString(),String.format("action=loadQuestionsSortedByTitle status=failure"
+					+ " exception=%s", e.getMessage()) );
+			throw e;
+			
 		}
 		finally
 		{
@@ -58,7 +66,7 @@ public class QuestionDB implements IQuestionPersistence
 	}
 	
 	@Override
-	public List<Question> loadSortedQuestionsSortedByDate(String bannerID) 
+	public List<Question> loadSortedQuestionsSortedByDate(String bannerID) throws SQLException 
 	{
 		List<Question> questionList = new ArrayList<Question>();
 		CallStoredProcedure proc = null;
@@ -87,12 +95,14 @@ public class QuestionDB implements IQuestionPersistence
 					question.setTimestamp(timestamp);
 					questionList.add(question);
 				}
+				logger.info(QuestionDB.class.toString(),String.format("action=loadSortedQuestionsSortedByDate status=success"));
 			}
 		}
 		catch (SQLException e)
 		{
-			System.out.println(e);
-			// Logging needed.
+			logger.error(QuestionDB.class.toString(),String.format("action=loadSortedQuestionsSortedByDate status=failure"
+					+ " exception=%s", e.getMessage()) );
+			throw e;
 		}
 		finally
 		{
@@ -105,7 +115,7 @@ public class QuestionDB implements IQuestionPersistence
 	}
 	
 	@Override
-	public boolean deleteQuestionByQuestionId(long questionID) 
+	public boolean deleteQuestionByQuestionId(long questionID) throws SQLException 
 	{
 		CallStoredProcedure proc = null;
 		try
@@ -113,11 +123,15 @@ public class QuestionDB implements IQuestionPersistence
 			proc = new CallStoredProcedure("spDeleteQuestionsByQuestionID(?)");
 			proc.setParameter(1, questionID);
 			proc.execute();
+			logger.info(QuestionDB.class.toString(),String.format("questionID=%d action= status=success",questionID));
+			
+			return true;
 		}
 		catch (SQLException e)
 		{
-			System.out.println(e);
-			return false;
+			logger.error(QuestionDB.class.toString(),String.format("questionID=%d action= status=success"
+					+ " exception=%s", questionID,e.getMessage()) );
+			throw e;
 		}
 		finally
 		{
@@ -126,11 +140,10 @@ public class QuestionDB implements IQuestionPersistence
 				proc.cleanup();
 			}
 		}
-		return true;
 	}
 	
 	@Override
-	public long createQuestion(Question question, String bannerID) 
+	public long createQuestion(Question question, String bannerID) throws SQLException 
 	{
 		long id=-1;
 		CallStoredProcedure proc = null;
@@ -149,12 +162,15 @@ public class QuestionDB implements IQuestionPersistence
 				{
 					id = results.getLong(1);
 				}
+				logger.info(QuestionDB.class.toString(),String.format("title= %s action=createQuestion status=success"
+						, question.getTitle()) );
 			}
 		}
 		catch (SQLException e)
 		{
-			System.out.println(e);
-			// Logging needed.
+			logger.error(QuestionDB.class.toString(),String.format("title= %s action=createQuestion status=failure"
+					+ " exception=%s", question.getTitle(),e.getMessage()) );
+			throw e;
 		}
 		finally
 		{
@@ -167,7 +183,7 @@ public class QuestionDB implements IQuestionPersistence
 	}
 	
 	@Override
-	public boolean createQuestionOption(OptionValue option, int order, long questionID) 
+	public boolean createQuestionOption(OptionValue option, int order, long questionID) throws SQLException 
 	{
 		CallStoredProcedure proc = null;
 		try
@@ -178,13 +194,18 @@ public class QuestionDB implements IQuestionPersistence
 			proc.setParameter(3, option.getStoredAs());
 			proc.setParameter(4, order);
 			proc.execute();
+			logger.info(QuestionDB.class.toString(),String.format("action=createQuestionOption "
+					+ "id = %d", questionID) );
+			
+			return true;
 			
 		}
 		catch (SQLException e)
 		{
-			System.out.println(e);
-			return false;
-			// Logging needed.
+			logger.error(QuestionDB.class.toString(),String.format("action=createQuestionOption question"
+					+ "id = %d"
+					+ " exception=%s", questionID,e.getMessage()) );
+			throw e;
 		}
 		finally
 		{
@@ -193,7 +214,6 @@ public class QuestionDB implements IQuestionPersistence
 				proc.cleanup();
 			}
 		}
-		return true;
 	}
 	
 }

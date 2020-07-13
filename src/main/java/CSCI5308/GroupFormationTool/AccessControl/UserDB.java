@@ -3,11 +3,16 @@ package CSCI5308.GroupFormationTool.AccessControl;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import CSCI5308.GroupFormationTool.LoggerUtil;
+import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.Database.CallStoredProcedure;
 
 public class UserDB implements IUserPersistence
 {	
-	public void loadUserByID(long id, User user)
+	
+	private static LoggerUtil logger = SystemConfig.instance().getLogger();
+	
+	public void loadUserByID(long id, User user) throws SQLException
 	{
 		CallStoredProcedure proc = null;
 		try
@@ -32,11 +37,13 @@ public class UserDB implements IUserPersistence
 					user.setLastName(lastName);
 					user.setEmail(email);
 				}
+				logger.info(UserDB.class.toString(),String.format("userID=%d action=getUserByID status=success",id));
 			}
 		}
 		catch (SQLException e)
 		{
-			// Logging needed.
+			logger.error(UserDB.class.toString(),String.format("userID=%d action=getUserByID status=failure exception e=%s",id,e.getMessage()));
+			throw e;
 		}
 		finally
 		{
@@ -47,7 +54,7 @@ public class UserDB implements IUserPersistence
 		}
 	}
 
-	public void loadUserByBannerID(String bannerID, User user)
+	public void loadUserByBannerID(String bannerID, User user) throws SQLException
 	{
 		CallStoredProcedure proc = null;
 		long userID = -1;
@@ -66,7 +73,8 @@ public class UserDB implements IUserPersistence
 		}
 		catch (SQLException e)
 		{
-			// Logging needed.
+			logger.error(UserDB.class.toString(),String.format("userID=%s action=getUserByBannerID status=failure exception e=%s",bannerID,e.getMessage()));
+			throw e;
 		}
 		finally
 		{
@@ -75,14 +83,14 @@ public class UserDB implements IUserPersistence
 				proc.cleanup();
 			}
 		}
-		// If we found the ID load the full details.
+		
 		if (userID > -1)
 		{
 			loadUserByID(userID, user);
 		}
 	}
 	
-	public boolean createUser(User user)
+	public void createUser(User user) throws SQLException
 	{
 		CallStoredProcedure proc = null;
 		try
@@ -95,11 +103,12 @@ public class UserDB implements IUserPersistence
 			proc.setParameter(5, user.getEmail());
 			proc.registerOutputParameterLong(6);
 			proc.execute();
+			logger.info(UserDB.class.toString(),String.format("user=%s action=createUser status=success",user.getBannerID()));
 		}
 		catch (SQLException e)
 		{
-			// Logging needed
-			return false;
+			logger.error(UserDB.class.toString(),String.format("user=%s action=createUser status=failure exception e=%s",user.getBannerID(),e.getMessage()));
+			throw e;
 		}
 		finally
 		{
@@ -108,11 +117,6 @@ public class UserDB implements IUserPersistence
 				proc.cleanup();
 			}
 		}
-		return true;
 	}
 	
-	public boolean updateUser(User user)
-	{
-		return false;
-	}
 }

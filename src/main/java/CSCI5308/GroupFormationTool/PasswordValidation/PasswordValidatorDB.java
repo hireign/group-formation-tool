@@ -6,12 +6,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import CSCI5308.GroupFormationTool.LoggerUtil;
+import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.Database.CallStoredProcedure;
 
 public class PasswordValidatorDB implements IPasswordValidatorPersistence
 {
+	
+	private static LoggerUtil logger = SystemConfig.instance().getLogger();
+	
 	@Override
-	public HashMap<Long,String> loadActivePasswordValidators()
+	public HashMap<Long,String> loadActivePasswordValidators() throws SQLException
 	{
 		HashMap<Long,String> activeValidators = new HashMap<Long,String>();
 		CallStoredProcedure proc = null;
@@ -31,8 +36,9 @@ public class PasswordValidatorDB implements IPasswordValidatorPersistence
 		}
 		catch (SQLException e)
 		{
-			// Logging needed.
-			System.out.println(e);
+			logger.error(PasswordValidatorDB.class.toString(), String.format("action=loadActivePasswordValidators status=failed "
+					+ "exception=%s",e.getMessage()));
+			throw e;
 		}
 		finally
 		{
@@ -45,7 +51,7 @@ public class PasswordValidatorDB implements IPasswordValidatorPersistence
 	}
 	
 	@Override
-	public String loadConstraintByValidatorId(long id)
+	public String loadConstraintByValidatorId(long id) throws SQLException
 	{
 		CallStoredProcedure proc = null;
 		String constraint=null;
@@ -64,8 +70,10 @@ public class PasswordValidatorDB implements IPasswordValidatorPersistence
 		}
 		catch (SQLException e)
 		{
-			// Logging needed.
-			System.out.println(e);
+			logger.error(PasswordValidatorDB.class.toString(), String.format("action=loadConstraintByValidatorId"
+					+ " status=failed "
+					+ "exception=%s"+e.getMessage()));
+			throw e;
 		}
 		finally
 		{
@@ -78,7 +86,7 @@ public class PasswordValidatorDB implements IPasswordValidatorPersistence
 	}
 	
 	@Override
-	public List<String> fetchPreviousPasswordsByBannerID(String bannerID, int constraint) 
+	public List<String> fetchPreviousPasswordsByBannerID(String bannerID, int constraint) throws SQLException 
 	{
 		CallStoredProcedure proc = null;
 		List<String> passwordList = new ArrayList<String>();
@@ -98,8 +106,10 @@ public class PasswordValidatorDB implements IPasswordValidatorPersistence
 		}
 		catch (SQLException e)
 		{
-			// Logging needed.
-			System.out.println(e);
+			logger.error(PasswordValidatorDB.class.toString(), String.format("bannedID=%s action=fetchPreviousPasswordsByBannerID "
+					+ "status=failed"
+					+ " exception=%s",bannerID,e.getMessage()));
+			throw e;
 		}
 		finally
 		{

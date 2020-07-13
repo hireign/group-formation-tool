@@ -5,7 +5,7 @@ import CSCI5308.GroupFormationTool.AccessControl.User;
 
 public class CurrentUserMock 
 {
-	public User getCurrentAuthenticatedUser() 
+	public User getCurrentAuthenticatedUser() throws Exception 
 	{
 		IUserPersistence userDB = new UserDBMock();
 		String bannerID = "B00000000";

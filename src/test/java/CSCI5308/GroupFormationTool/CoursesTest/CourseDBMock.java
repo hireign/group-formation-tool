@@ -28,11 +28,10 @@ public class CourseDBMock implements ICoursePersistence
 		course.setTitle("Software Engineering");
 	}
 
-	public boolean createCourse(Course course) 
+	public void createCourse(Course course) 
 	{
 		course.setId(0);
 		course.setTitle("Software Engineering");
-		return true;
 	}
 
 	public boolean deleteCourse(long id) 

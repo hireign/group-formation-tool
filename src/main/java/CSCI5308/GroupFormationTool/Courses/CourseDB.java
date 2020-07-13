@@ -2,15 +2,19 @@ package CSCI5308.GroupFormationTool.Courses;
 
 import java.util.List;
 
+import CSCI5308.GroupFormationTool.LoggerUtil;
+import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.Database.CallStoredProcedure;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CourseDB implements ICoursePersistence
 {
-	public List<Course> loadAllCourses()
+	
+	private static LoggerUtil logger = SystemConfig.instance().getLogger();
+	
+	public List<Course> loadAllCourses() throws SQLException
 	{
 		List<Course> courses = new ArrayList<Course>();
 		CallStoredProcedure proc = null;
@@ -33,7 +37,8 @@ public class CourseDB implements ICoursePersistence
 		}
 		catch (SQLException e)
 		{
-			// Logging needed.
+			logger.error(CourseDB.class.toString(),String.format("action=getCourses status=failure Exception=" + e.getMessage()));
+			throw e;
 		}
 		finally
 		{
@@ -45,7 +50,7 @@ public class CourseDB implements ICoursePersistence
 		return courses;
 	}
 
-	public void loadCourseByID(long id, Course course)
+	public void loadCourseByID(long id, Course course) throws SQLException
 	{
 		CallStoredProcedure proc = null;
 		try
@@ -61,11 +66,13 @@ public class CourseDB implements ICoursePersistence
 					course.setId(id);
 					course.setTitle(title);
 				}
+				logger.info(CourseDB.class.toString(),String.format("courseID=%d action=getCourseByID status=success",id));
 			}
 		}
 		catch (SQLException e)
 		{
-			// Logging needed.
+			logger.error(CourseDB.class.toString(),String.format("courseID=%d action=getCourseByID status=failure exception e=%s",id,e.getMessage()));
+			throw e;
 		}
 		finally
 		{
@@ -76,7 +83,7 @@ public class CourseDB implements ICoursePersistence
 		}
 	}
 	
-	public boolean createCourse(Course course)
+	public void createCourse(Course course) throws SQLException
 	{
 		CallStoredProcedure proc = null;
 		try
@@ -85,11 +92,12 @@ public class CourseDB implements ICoursePersistence
 			proc.setParameter(1, course.getTitle());
 			proc.registerOutputParameterLong(2);
 			proc.execute();
+			logger.info(CourseDB.class.toString(),String.format("course=%s action=createCourse status=success",course.getTitle()));
 		}
 		catch (SQLException e)
 		{
-			// Logging needed
-			return false;
+			logger.error(CourseDB.class.toString(),String.format("course=%s action=createCourse status=failure exception e=%s",course.getTitle(),e.getMessage()));
+			throw e;
 		}
 		finally
 		{
@@ -98,10 +106,10 @@ public class CourseDB implements ICoursePersistence
 				proc.cleanup();
 			}
 		}
-		return true;
+		
 	}
 	
-	public boolean deleteCourse(long id)
+	public boolean deleteCourse(long id) throws SQLException
 	{
 		CallStoredProcedure proc = null;
 		try
@@ -109,11 +117,13 @@ public class CourseDB implements ICoursePersistence
 			proc = new CallStoredProcedure("spDeleteCourse(?)");
 			proc.setParameter(1, id);
 			proc.execute();
+			logger.info(CourseDB.class.toString(),String.format("courseID=%d action=deleteCourse status=success",id));
+			return true;
 		}
 		catch (SQLException e)
 		{
-			// Logging needed
-			return false;
+			logger.error(CourseDB.class.toString(),String.format("courseID=%d action=deleteCourse status=failure exception e=%s",id,e.getMessage()));
+			throw e;
 		}
 		finally
 		{
@@ -122,6 +132,5 @@ public class CourseDB implements ICoursePersistence
 				proc.cleanup();
 			}
 		}
-		return true;
 	}
 }

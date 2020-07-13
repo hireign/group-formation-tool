@@ -6,5 +6,5 @@ import CSCI5308.GroupFormationTool.AccessControl.User;
 
 public interface IPasswordValidatorEnumerator 
 {
-	public List<PasswordValidator> getActiveValidators(User user);
+	public List<PasswordValidator> getActiveValidators(User user) throws Exception;
 }

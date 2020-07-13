@@ -8,12 +8,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import CSCI5308.GroupFormationTool.LoggerUtil;
 import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.AccessControl.*;
 import CSCI5308.GroupFormationTool.PasswordValidation.IPasswordValidatorEnumerator;
 import CSCI5308.GroupFormationTool.PasswordValidation.IPasswordValidatorPersistence;
 import CSCI5308.GroupFormationTool.PasswordValidation.PasswordValidatorEnumerator;
-import CSCI5308.GroupFormationTool.Security.IPasswordEncryption;
+
 
 @Controller
 public class SignupController
@@ -24,11 +25,17 @@ public class SignupController
 	private final String FIRST_NAME = "firstName";
 	private final String LAST_NAME = "lastName";
 	private final String EMAIL = "email";
+	LoggerUtil logger = SystemConfig.instance().getLogger();
 	private IPasswordValidatorEnumerator passwordValidatorEnumerator;
 	
 	public SignupController() {
 		IPasswordValidatorPersistence validatorDB = SystemConfig.instance().getPasswordValidatorDB();
-		passwordValidatorEnumerator = new PasswordValidatorEnumerator(validatorDB);
+		try {
+			passwordValidatorEnumerator = new PasswordValidatorEnumerator(validatorDB);
+		} catch (Exception e) {
+			logger.fatal(SignupController.class.toString(), String.format("action=loadActivePasswordValidators status=failed "
+					+ "exception=%s",e.getMessage()));
+		}
 		SystemConfig.instance().setPasswordValidatorEnumerator(passwordValidatorEnumerator);
 	}
 	
@@ -64,7 +71,13 @@ public class SignupController
 			IUserPersistence userDB = SystemConfig.instance().getUserDB();
 			IPasswordEncryption passwordEncryption = SystemConfig.instance().getPasswordEncryption();
 			passwordValidatorEnumerator = SystemConfig.instance().getPasswordValidatorEnumerator();
-			success = u.createUser(userDB, passwordValidatorEnumerator, passwordEncryption, null, errorMessages);
+			try {
+				u.createUser(userDB, passwordValidatorEnumerator, passwordEncryption, null, errorMessages);
+			} catch (Exception e) {
+				ModelAndView m = new ModelAndView("signup");
+				m.addObject("errorMessage", "Unable to create your account now!!");
+				return m;
+			}
 		}
 		ModelAndView m = new ModelAndView("login");
 		if (success == false)
@@ -72,7 +85,6 @@ public class SignupController
 			m = new ModelAndView("signup");
 			m.addObject("errorMessage", "Invalid data, please check your values.");
 			m.addObject("passwordInvalid",errorMessages);
-			System.out.println(errorMessages);
 		}
 		return m;
 	}

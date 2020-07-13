@@ -34,13 +34,11 @@ class CourseUserRelationshipDBMock implements ICourseUserRelationshipPersistence
 		return userList;
 	}
 
-	public boolean enrollUser(Course course, User user, Role role) 
+	public void enrollUser(Course course, User user, Role role) 
 	{
 		user.setId(0);
 		course.setId(0);
 		course.setTitle("Software Engineering");
-		return true;
-
 	}
 
 	public List<Role> loadUserRolesForCourse(Course course, User user) 

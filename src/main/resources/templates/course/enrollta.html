@@ -15,6 +15,10 @@
 	           <input type="submit" value="Sign Out"/>
 	       </form>
 		</div>
+		<div class="mainGridCentreInfoBox" th:if="${errorMessage}">
+					<h3 class="errorInfo" th:text="${errorMessage}"></h3>
+		</div>
+		<div th:if="${course}">
 		<h1 th:text="'Course: ' + ${course.title}">Course: Title Not Found</h1>
 		<br/>
 		<p>
@@ -25,5 +29,6 @@
 		</p>
 		<br/>
 		<a th:href="@{/course/enrollta(id=${course.id})}">Enroll TAs</a>
+		</div>
 	</body>
 </html>
