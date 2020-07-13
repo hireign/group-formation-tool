@@ -7,7 +7,6 @@ public class QuestionDBMock implements IQuestionPersistence
 {
 	List<Question> questions;
 	
-	@Override
 	public List<Question> loadQuestionsSortedByTitle(String bannerId) 
 	{
 		questions = new ArrayList<Question>();
@@ -30,7 +29,6 @@ public class QuestionDBMock implements IQuestionPersistence
 		return questions;
 	}
 
-	@Override
 	public List<Question> loadSortedQuestionsSortedByDate(String bannerId) 
 	{
 		questions = new ArrayList<Question>();
@@ -53,7 +51,6 @@ public class QuestionDBMock implements IQuestionPersistence
 		return questions;
 	}
 
-	@Override
 	public boolean deleteQuestionByQuestionId(long questionId) 
 	{
 		Question q = new Question();

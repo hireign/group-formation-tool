@@ -17,7 +17,7 @@ public class PasswordHistoryValidator extends PasswordValidator
 	}
 	
 	@Override
-	public boolean isValid(String password) 
+	public boolean isValid(String password) throws Exception 
 	{
 		IPasswordValidatorPersistence validatorDB = new PasswordValidatorDB();
 		IPasswordEncryption passwordEncryption = SystemConfig.instance().getPasswordEncryption();

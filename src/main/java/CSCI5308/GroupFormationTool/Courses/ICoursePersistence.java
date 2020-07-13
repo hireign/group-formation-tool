@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface ICoursePersistence
 {
-	public List<Course> loadAllCourses();
-	public void loadCourseByID(long id, Course course);
-	public boolean createCourse(Course course);
-	public boolean deleteCourse(long id);
+	public List<Course> loadAllCourses() throws Exception;
+	public void loadCourseByID(long id, Course course) throws Exception;
+	public void createCourse(Course course) throws Exception;
+	public boolean deleteCourse(long id) throws Exception;
 }

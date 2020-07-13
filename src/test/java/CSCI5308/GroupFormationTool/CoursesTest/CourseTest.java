@@ -12,7 +12,7 @@ import CSCI5308.GroupFormationTool.Courses.ICoursePersistence;
 class CourseTest 
 {
 	@Test
-	public void ConstructorTests() 
+	public void ConstructorTests() throws Exception 
 	{
 		Course course = new Course();
 		Assert.isTrue(course.getId() == -1);
@@ -57,7 +57,7 @@ class CourseTest
 	}
 
 	@Test
-	public void deleteCourseTest() 
+	public void deleteCourseTest() throws Exception 
 	{
 		ICoursePersistence courseDB = new CourseDBMock();
 		boolean status = courseDB.deleteCourse(0);
@@ -65,7 +65,7 @@ class CourseTest
 	}
 
 	@Test
-	public void createCourseTest() 
+	public void createCourseTest() throws Exception 
 	{
 		ICoursePersistence courseDB = new CourseDBMock();
 		Course course = new Course();

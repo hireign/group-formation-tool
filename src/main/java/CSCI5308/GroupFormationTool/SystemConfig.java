@@ -1,28 +1,29 @@
 package CSCI5308.GroupFormationTool;
 
-import CSCI5308.GroupFormationTool.Security.*;
-import CSCI5308.GroupFormationTool.AccessControl.*;
-import CSCI5308.GroupFormationTool.Database.*;
-import CSCI5308.GroupFormationTool.QuestionManager.IQuestionPersistence;
-import CSCI5308.GroupFormationTool.QuestionManager.QuestionDB;
+import CSCI5308.GroupFormationTool.AccessControl.IUserPersistence;
+import CSCI5308.GroupFormationTool.AccessControl.UserDB;
+import CSCI5308.GroupFormationTool.Courses.CourseDB;
+import CSCI5308.GroupFormationTool.Courses.CourseUserRelationshipDB;
+import CSCI5308.GroupFormationTool.Courses.ICoursePersistence;
+import CSCI5308.GroupFormationTool.Courses.ICourseUserRelationshipPersistence;
+import CSCI5308.GroupFormationTool.Database.DefaultDatabaseConfiguration;
+import CSCI5308.GroupFormationTool.Database.IDatabaseConfiguration;
 import CSCI5308.GroupFormationTool.PasswordValidation.IPasswordValidatorEnumerator;
 import CSCI5308.GroupFormationTool.PasswordValidation.IPasswordValidatorPersistence;
 import CSCI5308.GroupFormationTool.PasswordValidation.PasswordValidatorDB;
-import CSCI5308.GroupFormationTool.Courses.*;
+import CSCI5308.GroupFormationTool.QuestionManager.IQuestionPersistence;
+import CSCI5308.GroupFormationTool.QuestionManager.QuestionDB;
+import CSCI5308.GroupFormationTool.Security.BCryptPasswordEncryption;
+import CSCI5308.GroupFormationTool.Security.IPasswordEncryption;
+import CSCI5308.GroupFormationTool.SurveyManager.ISurveyPersistence;
+import CSCI5308.GroupFormationTool.SurveyManager.SurveyDB;
 
-/*
- * This is a singleton, we will learn about these when we learn design patterns.
- * 
- * The single responsibility of this singleton is to store concrete classes
- * selected by the system for use in the rest of the system. This will allow
- * a form of dependency injection in places where we cannot use normal
- * dependency injection (for example classes that override or extend existing
- * library classes in the framework).
- */
+
 public class SystemConfig
 {
 	private static SystemConfig uniqueInstance = null;
 	
+	private LoggerUtil logger;
 	private IPasswordEncryption passwordEncryption;
 	private IUserPersistence userDB;
 	private IDatabaseConfiguration databaseConfiguration;
@@ -31,28 +32,26 @@ public class SystemConfig
 	private IQuestionPersistence questionDB;
 	private IPasswordValidatorPersistence validatorDB;
 	private IPasswordValidatorEnumerator passwordValidatorEnumerator;
-	
-	// This private constructor ensures that no class other than System can allocate
-	// the System object. The compiler would prevent it.
+	private ISurveyPersistence surveyDB;
 	private SystemConfig()
 	{
-		// The default instantiations are the choices that would be used in the
-		// production application. These choices can all be overridden by test
-		// setup logic when necessary.
 		passwordEncryption = new BCryptPasswordEncryption();
 		userDB = new UserDB();
 		databaseConfiguration = new DefaultDatabaseConfiguration();
 		courseDB = new CourseDB();
 		courseUserRelationshipDB = new CourseUserRelationshipDB();
 		questionDB = new QuestionDB();
+
 		validatorDB = new PasswordValidatorDB();
+		logger = new LoggerUtil();
+
+
+
+		surveyDB = new SurveyDB();
 	}
 	
-	// This is the way the rest of the application gets access to the System object.
 	public static SystemConfig instance()
 	{
-		// Using lazy initialization, this is the one and only place that the System
-		// object will be instantiated.
 		if (null == uniqueInstance)
 		{
 			uniqueInstance = new SystemConfig();
@@ -139,4 +138,28 @@ public class SystemConfig
 		return passwordValidatorEnumerator;
 	}
 	
+	public LoggerUtil getLogger() {
+		return logger;
+	}
+
+
+
+	
+	public void setLogger(LoggerUtil logger) {
+		this.logger = logger;
+	}
+
+
+
+	
+	public ISurveyPersistence getSurveyDB()
+	{
+		return surveyDB;
+	}
+
+	
+	public void setSurveyDB(ISurveyPersistence surveyDB)
+	{
+		this.surveyDB = surveyDB;
+	}
 }

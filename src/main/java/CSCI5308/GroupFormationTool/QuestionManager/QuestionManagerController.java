@@ -23,16 +23,30 @@ public class QuestionManagerController
 	@RequestMapping("/question/questionmanager/title")
 	public String questionsByTitle(Model model, @RequestParam(name = BannerID) String bannerID) 
 	{
-		List<Question> questionList = questionDB.loadQuestionsSortedByTitle(bannerID);
-		model.addAttribute("questionList", questionList);
+	
+		List<Question> questionList;
+		try {
+			questionList = questionDB.loadQuestionsSortedByTitle(bannerID);
+			model.addAttribute("questionList", questionList);
+		} catch (Exception e) {
+			model.addAttribute("errorMessage","Unable to fetch questions, please try again later");
+		}
+		if(model.containsAttribute("errorMessage"));
+		model.addAttribute("errorMessage",model.getAttribute("errorMessage"));
 		return "question/questions";
 	}
 	
 	@RequestMapping("/question/questionmanager/date")
 	public String questionsByDate(Model model, @RequestParam(name = BannerID) String bannerID) 
 	{
-		List<Question> questionList = questionDB.loadSortedQuestionsSortedByDate(bannerID);
-		model.addAttribute("questionList", questionList);
+		List<Question> questionList;
+		try {
+			questionList = questionDB.loadSortedQuestionsSortedByDate(bannerID);
+			model.addAttribute("questionList", questionList);
+		} catch (Exception e) {
+			model.addAttribute("errorMessage","Unable to fetch questions, please try again later");
+		}
+		
 		return "question/questions";
 	}
 	

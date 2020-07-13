@@ -12,6 +12,7 @@ import CSCI5308.GroupFormationTool.AccessControl.IUserPersistence;
 import CSCI5308.GroupFormationTool.AccessControl.User;
 import CSCI5308.GroupFormationTool.AccessControlTest.UserDBMock;
 import CSCI5308.GroupFormationTool.Courses.Course;
+import CSCI5308.GroupFormationTool.Courses.ICourseUserRelationshipPersistence;
 import CSCI5308.GroupFormationTool.Courses.Role;
 import CSCI5308.GroupFormationTool.Security.IPasswordEncryption;
 import CSCI5308.GroupFormationTool.SecurityTest.PasswordEncryptionMock;
@@ -20,16 +21,25 @@ import CSCI5308.GroupFormationTool.SecurityTest.PasswordEncryptionMock;
 @SuppressWarnings("deprecation")
 class StudentCSVImportTest 
 {
+	
+	private ICourseUserRelationshipPersistence courseUserRelationshipDB;
+
+	public StudentCSVImportTest() 
+	{
+		courseUserRelationshipDB = new CourseUserRelationshipDBMock();
+	}
 
 	@Test
-	public void enrollStudentFromRecord() 
+	public void enrollStudentFromRecord() throws Exception 
 	{
 		User user = new User();
 		Course course = new Course();
 		IUserPersistence userDB = new UserDBMock();
 		IPasswordEncryption passwordEncryption = new PasswordEncryptionMock();
-		Assert.isTrue(user.createUser(userDB, passwordEncryption, null));
-		Assert.isTrue(course.enrollUserInCourse(Role.STUDENT, user) == false);
+		user.createUser(userDB, passwordEncryption, null);
+		assertThat(user.getBannerID().equalsIgnoreCase("B00000000"));
+		courseUserRelationshipDB.enrollUser(course, user, Role.STUDENT);
+		assertThat(course.getTitle().equalsIgnoreCase("Software Engineering"));
 	}
 
 	@Test

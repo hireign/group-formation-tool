@@ -7,14 +7,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;  
 
-/*
- * This code comes from this tutorial:
- * https://dzone.com/articles/add-login-to-your-spring-boot-app-in-10-mins
- * 
- * I'm going to make it so that every page on the site requires authentication. I will use the Spring
- * security mechanisms to enforce this. If a user is not authenticated this is the class that will
- * redirect them somewhere to login/sign up.
- */
 @Configuration  
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter

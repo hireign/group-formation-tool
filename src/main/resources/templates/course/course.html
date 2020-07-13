@@ -15,7 +15,12 @@
 	           <input type="submit" value="Sign Out"/>
 	       </form>
 		</div>
+			<div class="mainGridCentreInfoBox" th:if="${errorMessage}">
+					<h3 class="errorInfo" th:text="${errorMessage}"></h3>
+		</div>
+		<div th:if="${course}">
 		<h1 th:text="'Course: ' + ${course.title}">Course: Title Not Found</h1>
+		<a th:href="@{/survey(courseID=${course.id})}">Give Survey</a>
 		<div th:if="${instructor} or ${ta}">
 			<br/>
 			<a th:href="@{/course/instructoradmin(id=${course.id})}">Course Administration</a>
@@ -23,6 +28,7 @@
 		<div th:if="${instructor}">
 			<br/>
 			<a th:href="@{/question/questionmanager/title(bannerID=${#httpServletRequest.remoteUser})}">Question Manager</a>
+		</div>
 		</div>
 	</body>
 </html>

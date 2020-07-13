@@ -26,13 +26,13 @@ public class User
 		setDefaults();
 	}
 	
-	public User(long id, IUserPersistence persistence)
+	public User(long id, IUserPersistence persistence) throws Exception
 	{
 		setDefaults();
 		persistence.loadUserByID(id, this);
 	}
 	
-	public User(String bannerID, IUserPersistence persistence)
+	public User(String bannerID, IUserPersistence persistence) throws Exception
 	{
 		setDefaults();
 		persistence.loadUserByBannerID(bannerID, this);
@@ -58,7 +58,6 @@ public class User
 		return id;
 	}
 	
-	// These are here for the Thymeleaf / Spring binding nonsense.
 	public void setId(long id)
 	{
 		this.id = id;
@@ -88,7 +87,7 @@ public class User
 	{
 		return bannerID;
 	}
-	// Also here for Thymeleaf nonsense.
+
 	public String getBanner()
 	{
 		return bannerID;
@@ -129,13 +128,13 @@ public class User
 		return id == -1; 
 	}
 	
-	public boolean createUser(
+	public void createUser(
 			IUserPersistence userDB,
 			IPasswordValidatorEnumerator passwordEnumerator,
 			IPasswordEncryption passwordEncryption,
 			IUserNotifications notification,
 			List<String> errorMessages
-			)
+			) throws Exception
 	{
 			String rawPassword = password;
 			boolean success = true;
@@ -153,30 +152,23 @@ public class User
 			}
 			if (success)
 			{
-				success = this.createUser(userDB, passwordEncryption, notification);
+				this.createUser(userDB, passwordEncryption, notification);
 			}
-			return success;
 	}
 	
-	public boolean createUser(
+	public void createUser(
 		IUserPersistence userDB,
 		IPasswordEncryption passwordEncryption,
 		IUserNotifications notification
-		)
+		) throws Exception
 	{
 		String rawPassword = password;
 		this.password = passwordEncryption.encryptPassword(this.password);
-		boolean success = userDB.createUser(this);
-		if (success && (null != notification))
+		userDB.createUser(this);
+		if (null != notification)
 		{
 			notification.sendUserLoginCredentials(this, rawPassword);
 		}
-		return success;
-	}
-	
-	public boolean updateUser(IUserPersistence userDB)
-	{
-		return userDB.updateUser(this);
 	}
 	
 	private static boolean isStringNullOrEmpty(String s)

@@ -25,7 +25,12 @@ public class CourseAdminController
 	public String course(Model model)
 	{
 		ICoursePersistence courseDB = SystemConfig.instance().getCourseDB();
-		List<Course> allCourses = courseDB.loadAllCourses();
+		List<Course> allCourses = null;
+		try {
+			allCourses = courseDB.loadAllCourses();
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", "Unable to get courses at this moment");
+		}
 		model.addAttribute("courses", allCourses);
 		return "admin/course";
 	}
@@ -35,10 +40,22 @@ public class CourseAdminController
 	{
 		ICoursePersistence courseDB = SystemConfig.instance().getCourseDB();
 		Course c = new Course();
-		courseDB.loadCourseByID(courseID, c);
-		model.addAttribute("course", c);
+		try {
+			courseDB.loadCourseByID(courseID, c);
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", "Unable to assign instructor at this moment");
+			return "admin/assigninstructor";
+		}
+		
 		ICourseUserRelationshipPersistence courseUserRelationshipDB = SystemConfig.instance().getCourseUserRelationshipDB();
-		List<User> allUsersNotCurrentlyInstructors = courseUserRelationshipDB.findAllUsersWithoutCourseRole(Role.INSTRUCTOR, courseID);
+		List<User> allUsersNotCurrentlyInstructors;
+		try {
+			allUsersNotCurrentlyInstructors = courseUserRelationshipDB.findAllUsersWithoutCourseRole(Role.INSTRUCTOR, courseID);
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", "Unable to assign instructor at this moment");
+			return "admin/assigninstructor";
+		}
+		model.addAttribute("course", c);
 		model.addAttribute("users", allUsersNotCurrentlyInstructors);
 		return "admin/assigninstructor";
 	}
@@ -49,7 +66,13 @@ public class CourseAdminController
 		ICoursePersistence courseDB = SystemConfig.instance().getCourseDB();
 		Course c = new Course();
 		c.setId(courseID);
-		c.delete(courseDB);
+		try {
+			c.delete(courseDB);
+		} catch (Exception e) {
+			ModelAndView mav = new ModelAndView("/admin/course");
+			mav.addObject("errorMessage", "Unable to delete course at this moment");
+			return mav;
+		}
 		ModelAndView mav = new ModelAndView("redirect:/admin/course");
 		return mav;
 	}
@@ -60,7 +83,13 @@ public class CourseAdminController
 		ICoursePersistence courseDB = SystemConfig.instance().getCourseDB();
 		Course c = new Course();
 		c.setTitle(title);
-		c.createCourse(courseDB);
+		try {
+			c.createCourse(courseDB);
+		} catch (Exception e) {
+			ModelAndView mav = new ModelAndView("/admin/course");
+			mav.addObject("errorMessage", "Unable to create course at this moment");
+			return mav;
+		}
 		ModelAndView mav = new ModelAndView("redirect:/admin/course");
 		return mav;
 	}
@@ -77,7 +106,13 @@ public class CourseAdminController
 		{
 			User u = new User();
 			u.setId(iter.next().longValue());
-			courseUserRelationshipDB.enrollUser(c, u, Role.INSTRUCTOR);
+			try {
+				courseUserRelationshipDB.enrollUser(c, u, Role.INSTRUCTOR);
+			} catch (Exception e) {
+				ModelAndView mav = new ModelAndView("admin/course");
+				mav.addObject("errorMessage", "Unable to assign instructor to the course at this moment");
+				return mav;
+			}
 		}
 		ModelAndView mav = new ModelAndView("redirect:/admin/course");
 		return mav;

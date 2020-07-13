@@ -14,6 +14,10 @@
 				<input type="submit" value="Sign Out"/>
 			</form>
 		</div>
+		<div class="mainGridCentreInfoBox" th:if="${errorMessage}">
+			<h3 class="errorInfo" th:text="${errorMessage}"></h3>
+		</div>
+		<div th:if="${questionList}">
 		<p>
 		<a th:href="@{/question/add}">Add Question</a> 
 		</p>
@@ -52,5 +56,6 @@
 					</td>
 				<tr>
 		</table>
+		</div>
 </body>
 </html>

@@ -16,7 +16,7 @@ public class Course
 		setDefaults();
 	}
 	
-	public Course(long id, ICoursePersistence courseDB)
+	public Course(long id, ICoursePersistence courseDB) throws Exception
 	{
 		setDefaults();
 		courseDB.loadCourseByID(id, this);
@@ -29,15 +29,11 @@ public class Course
 		userRoleDecider = new CourseUserRelationship();
 	}
 	
-	// I don't want to name this method this way, but unfortunately Spring and Thymeleaf are
-	// full of magical underneath the hood connection mechanisms that force me to name it this way.
 	public void setId(long id)
 	{
 		this.id = id;
 	}
 	
-	// I don't want to name this method this way, but unfortunately Spring and Thymeleaf are
-	// full of magical underneath the hood connection mechanisms that force me to name it this way.
 	public long getId()
 	{
 		return id;
@@ -53,33 +49,33 @@ public class Course
 		return title;
 	}
 	
-	public boolean delete(ICoursePersistence courseDB)
+	public boolean delete(ICoursePersistence courseDB) throws Exception
 	{
 		return courseDB.deleteCourse(id);
 	}
 	
-	public boolean createCourse(ICoursePersistence courseDB)
+	public void createCourse(ICoursePersistence courseDB) throws Exception
 	{
-		return courseDB.createCourse(this);
+		courseDB.createCourse(this);
 	}
 	
-	public boolean enrollUserInCourse(Role role, User user)
+	public void enrollUserInCourse(Role role, User user) throws Exception
 	{
-		return userRoleDecider.enrollUserInCourse(user, this, role);
+		userRoleDecider.enrollUserInCourse(user, this, role);
 	}
 	
-	public boolean isCurrentUserEnrolledAsRoleInCourse(Role role)
+	public boolean isCurrentUserEnrolledAsRoleInCourse(Role role) throws Exception
 	{
 		return userRoleDecider.userHasRoleInCourse(CurrentUser.instance().getCurrentAuthenticatedUser(), role, this);
 	}
 
-	public boolean isCurrentUserEnrolledAsRoleInCourse(String role)
+	public boolean isCurrentUserEnrolledAsRoleInCourse(String role) throws Exception
 	{
 		Role r = Role.valueOf(role.toUpperCase());
 		return isCurrentUserEnrolledAsRoleInCourse(r);
 	}
 	
-	public List<Role> getAllRolesForCurrentUserInCourse()
+	public List<Role> getAllRolesForCurrentUserInCourse() throws Exception
 	{
 		return userRoleDecider.loadAllRoluesForUserInCourse(CurrentUser.instance().getCurrentAuthenticatedUser(), this);
 	}

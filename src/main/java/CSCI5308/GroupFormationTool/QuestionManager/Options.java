@@ -33,7 +33,7 @@ public class Options
 		optionList.add(new OptionValue(index, index));
 	}
 	
-	public void saveOptions(IQuestionPersistence questionDB, long questionID) 
+	public void saveOptions(IQuestionPersistence questionDB, long questionID) throws Exception 
 	{
 		int order=1;
 		if(questionID!=-1) {

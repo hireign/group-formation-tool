@@ -3,6 +3,7 @@ package CSCI5308.GroupFormationTool.Courses;
 import java.util.ArrayList;
 import java.util.List;
 
+import CSCI5308.GroupFormationTool.LoggerUtil;
 import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.AccessControl.*;
 import CSCI5308.GroupFormationTool.Security.IPasswordEncryption;
@@ -15,6 +16,7 @@ public class StudentCSVImport
 	private IUserPersistence userDB;
 	private IPasswordEncryption passwordEncryption;
 	private IStudentCSVParser parser;
+	private LoggerUtil logger = SystemConfig.instance().getLogger();
 	
 	public StudentCSVImport(IStudentCSVParser parser, Course course)
 	{
@@ -39,7 +41,13 @@ public class StudentCSVImport
 			String userDetails = bannerID + " " + firstName + " " + lastName +" " + email;
 			
 			User user = new User();
-			userDB.loadUserByBannerID(bannerID, user);
+			try {
+				userDB.loadUserByBannerID(bannerID, user);
+			} catch (Exception e1) {
+				logger.warn(StudentCSVImport.class.toString(), String.format("action=uploadCSV status=failure bannerID=%s", u.getBannerID()));
+				failureResults.add("Unable to save this user to DB: " + userDetails);
+				return;
+			}
 			
 			if (user.isInvalidUser())
 			{
@@ -47,24 +55,26 @@ public class StudentCSVImport
 				user.setFirstName(firstName);
 				user.setLastName(lastName);
 				user.setEmail(email);
-				if (user.createUser(userDB, passwordEncryption, null))
-				{
+				try { 
+					user.createUser(userDB, passwordEncryption, null);
+				
+				
 					successResults.add("Created: " + userDetails);
 					userDB.loadUserByBannerID(bannerID, user);
 				}
-				else
-				{
+				catch(Exception e){
+					logger.warn(StudentCSVImport.class.toString(), String.format("action=uploadCSV status=failure bannerID=%s", bannerID));
 					failureResults.add("Unable to save this user to DB: " + userDetails);
 					return;
 				}
 			}
-			if (course.enrollUserInCourse(Role.STUDENT, user))
-			{
+			try {
+				course.enrollUserInCourse(Role.STUDENT, user);
 				successResults.add("User enrolled in course: " + userDetails);
-			}else 
-			{
+			} catch (Exception e) {
 				failureResults.add("Unable to enroll user in course: " + userDetails);
 			}
+
 		}
 	}
 	
