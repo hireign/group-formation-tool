@@ -1,15 +1,23 @@
 package CSCI5308.GroupFormationTool;
 
-import CSCI5308.GroupFormationTool.Security.*;
-
-import CSCI5308.GroupFormationTool.AccessControl.*;
-import CSCI5308.GroupFormationTool.Database.*;
-import CSCI5308.GroupFormationTool.QuestionManager.IQuestionPersistence;
-import CSCI5308.GroupFormationTool.QuestionManager.QuestionDB;
+import CSCI5308.GroupFormationTool.AccessControl.IUserPersistence;
+import CSCI5308.GroupFormationTool.AccessControl.UserDB;
+import CSCI5308.GroupFormationTool.Courses.CourseDB;
+import CSCI5308.GroupFormationTool.Courses.CourseUserRelationshipDB;
+import CSCI5308.GroupFormationTool.Courses.ICoursePersistence;
+import CSCI5308.GroupFormationTool.Courses.ICourseUserRelationshipPersistence;
+import CSCI5308.GroupFormationTool.Database.DefaultDatabaseConfiguration;
+import CSCI5308.GroupFormationTool.Database.IDatabaseConfiguration;
 import CSCI5308.GroupFormationTool.PasswordValidation.IPasswordValidatorEnumerator;
 import CSCI5308.GroupFormationTool.PasswordValidation.IPasswordValidatorPersistence;
 import CSCI5308.GroupFormationTool.PasswordValidation.PasswordValidatorDB;
-import CSCI5308.GroupFormationTool.Courses.*;
+import CSCI5308.GroupFormationTool.QuestionManager.IQuestionPersistence;
+import CSCI5308.GroupFormationTool.QuestionManager.QuestionDB;
+import CSCI5308.GroupFormationTool.Security.BCryptPasswordEncryption;
+import CSCI5308.GroupFormationTool.Security.IPasswordEncryption;
+import CSCI5308.GroupFormationTool.SurveyManager.ISurveyPersistence;
+import CSCI5308.GroupFormationTool.SurveyManager.SurveyDB;
+
 
 public class SystemConfig
 {
@@ -24,7 +32,7 @@ public class SystemConfig
 	private IQuestionPersistence questionDB;
 	private IPasswordValidatorPersistence validatorDB;
 	private IPasswordValidatorEnumerator passwordValidatorEnumerator;
-	
+	private ISurveyPersistence surveyDB;
 	private SystemConfig()
 	{
 		passwordEncryption = new BCryptPasswordEncryption();
@@ -33,13 +41,17 @@ public class SystemConfig
 		courseDB = new CourseDB();
 		courseUserRelationshipDB = new CourseUserRelationshipDB();
 		questionDB = new QuestionDB();
+
 		validatorDB = new PasswordValidatorDB();
 		logger = new LoggerUtil();
+
+
+
+		surveyDB = new SurveyDB();
 	}
 	
 	public static SystemConfig instance()
 	{
-
 		if (null == uniqueInstance)
 		{
 			uniqueInstance = new SystemConfig();
@@ -134,6 +146,14 @@ public class SystemConfig
 		this.logger = logger;
 	}
 	
+	public ISurveyPersistence getSurveyDB()
+	{
+		return surveyDB;
+	}
+
 	
-	
+	public void setSurveyDB(ISurveyPersistence surveyDB)
+	{
+		this.surveyDB = surveyDB;
+	}
 }

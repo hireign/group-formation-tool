@@ -20,6 +20,7 @@
 		</div>
 		<div th:if="${course}">
 		<h1 th:text="'Course: ' + ${course.title}">Course: Title Not Found</h1>
+		<a th:href="@{/survey(courseID=${course.id})}">Give Survey</a>
 		<div th:if="${instructor} or ${ta}">
 			<br/>
 			<a th:href="@{/course/instructoradmin(id=${course.id})}">Course Administration</a>

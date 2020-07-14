@@ -9,7 +9,8 @@ public class Question
 	private String text;
 	private QuestionType type;
 	private Timestamp timestamp;
-	
+	private Options options;
+
 	public Question() 
 	{
 		setDefaults();
@@ -82,6 +83,16 @@ public class Question
 	public long createQuestion(IQuestionPersistence questionDB, String bannerID) throws Exception 
 	{
 		return questionDB.createQuestion(this, bannerID);
+	}
+
+	public Options getOptions()
+	{
+		return options;
+	}
+
+	public void setOptions(Options options)
+	{
+		this.options = options;
 	}
 	
 }
