@@ -3,16 +3,16 @@ package CSCI5308.GroupFormationTool.AccessControl;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import CSCI5308.GroupFormationTool.LoggerUtil;
+import CSCI5308.GroupFormationTool.LoggerInterface;
 import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.Database.CallStoredProcedure;
 
 public class UserDB implements IUserPersistence
 {	
 	
-	private static LoggerUtil logger = SystemConfig.instance().getLogger();
+	private static LoggerInterface logger = SystemConfig.instance().getLogger();
 	
-	public void loadUserByID(long id, User user) throws SQLException
+	public void loadUserByID(long id, IUser user) throws SQLException
 	{
 		CallStoredProcedure proc = null;
 		try
@@ -54,7 +54,7 @@ public class UserDB implements IUserPersistence
 		}
 	}
 
-	public void loadUserByBannerID(String bannerID, User user) throws SQLException
+	public void loadUserByBannerID(String bannerID, IUser user) throws SQLException
 	{
 		CallStoredProcedure proc = null;
 		long userID = -1;
@@ -90,7 +90,7 @@ public class UserDB implements IUserPersistence
 		}
 	}
 	
-	public void createUser(User user) throws SQLException
+	public void createUser(IUser user) throws SQLException
 	{
 		CallStoredProcedure proc = null;
 		try

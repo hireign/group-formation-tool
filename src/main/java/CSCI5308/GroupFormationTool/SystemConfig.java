@@ -5,9 +5,11 @@ import CSCI5308.GroupFormationTool.Security.*;
 import CSCI5308.GroupFormationTool.AccessControl.*;
 import CSCI5308.GroupFormationTool.Database.*;
 import CSCI5308.GroupFormationTool.QuestionManager.IQuestionPersistence;
+import CSCI5308.GroupFormationTool.QuestionManager.QuestionAbstractFactory;
 import CSCI5308.GroupFormationTool.QuestionManager.QuestionDB;
 import CSCI5308.GroupFormationTool.PasswordValidation.IPasswordValidatorEnumerator;
 import CSCI5308.GroupFormationTool.PasswordValidation.IPasswordValidatorPersistence;
+import CSCI5308.GroupFormationTool.PasswordValidation.PasswordAbstractFactory;
 import CSCI5308.GroupFormationTool.PasswordValidation.PasswordValidatorDB;
 import CSCI5308.GroupFormationTool.Courses.*;
 
@@ -15,7 +17,7 @@ public class SystemConfig
 {
 	private static SystemConfig uniqueInstance = null;
 	
-	private LoggerUtil logger;
+	private LoggerInterface logger;
 	private IPasswordEncryption passwordEncryption;
 	private IUserPersistence userDB;
 	private IDatabaseConfiguration databaseConfiguration;
@@ -24,17 +26,18 @@ public class SystemConfig
 	private IQuestionPersistence questionDB;
 	private IPasswordValidatorPersistence validatorDB;
 	private IPasswordValidatorEnumerator passwordValidatorEnumerator;
+	private CourseAbstractFactory courseFactory = CourseAbstractFactory.getFactory();
 	
 	private SystemConfig()
 	{
-		passwordEncryption = new BCryptPasswordEncryption();
-		userDB = new UserDB();
-		databaseConfiguration = new DefaultDatabaseConfiguration();
-		courseDB = new CourseDB();
-		courseUserRelationshipDB = new CourseUserRelationshipDB();
-		questionDB = new QuestionDB();
-		validatorDB = new PasswordValidatorDB();
-		logger = new LoggerUtil();
+		passwordEncryption = EncryptionAbstractFactory.getFactory().createEncrypter();
+		userDB = UserAbstractFactory.getFactory().createUserDB();
+		databaseConfiguration = DefaultDatabaseConfigurationFactory.getFactory().createDBConfig();
+		courseDB = courseFactory.createCourseDB();
+		courseUserRelationshipDB = courseFactory.createCourseUserPersistenceDB();
+		questionDB = QuestionAbstractFactory.getFactory().createQuestionDB();
+		validatorDB = PasswordAbstractFactory.getFactory().createPwdDB();
+		logger = LoggerAbstractFactory.getFactory().createLoggerInstance();
 	}
 	
 	public static SystemConfig instance()
@@ -126,11 +129,11 @@ public class SystemConfig
 		return passwordValidatorEnumerator;
 	}
 
-	public LoggerUtil getLogger() {
+	public LoggerInterface getLogger() {
 		return logger;
 	}
 
-	public void setLogger(LoggerUtil logger) {
+	public void setLogger(LoggerInterface logger) {
 		this.logger = logger;
 	}
 	

@@ -24,7 +24,7 @@ public class QuestionManagerController
 	public String questionsByTitle(Model model, @RequestParam(name = BannerID) String bannerID) 
 	{
 	
-		List<Question> questionList;
+		List<IQuestion> questionList;
 		try {
 			questionList = questionDB.loadQuestionsSortedByTitle(bannerID);
 			model.addAttribute("questionList", questionList);
@@ -39,7 +39,7 @@ public class QuestionManagerController
 	@RequestMapping("/question/questionmanager/date")
 	public String questionsByDate(Model model, @RequestParam(name = BannerID) String bannerID) 
 	{
-		List<Question> questionList;
+		List<IQuestion> questionList;
 		try {
 			questionList = questionDB.loadSortedQuestionsSortedByDate(bannerID);
 			model.addAttribute("questionList", questionList);

@@ -23,14 +23,14 @@ public class CurrentUser
 		return uniqueInstance;
 	}
 	
-	public User getCurrentAuthenticatedUser() throws Exception
+	public IUser getCurrentAuthenticatedUser() throws Exception
 	{
 		IUserPersistence userDB = SystemConfig.instance().getUserDB();
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication.isAuthenticated())
 		{
 			String bannerID = authentication.getPrincipal().toString();
-			User currentUser = new User();
+			IUser currentUser = UserAbstractFactory.getFactory().createUser();
 			userDB.loadUserByBannerID(bannerID, currentUser);
 			if (currentUser.isInvalidUser())
 			{

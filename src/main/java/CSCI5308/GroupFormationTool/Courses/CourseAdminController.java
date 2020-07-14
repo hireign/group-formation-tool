@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import CSCI5308.GroupFormationTool.SystemConfig;
+import CSCI5308.GroupFormationTool.AccessControl.IUser;
 import CSCI5308.GroupFormationTool.AccessControl.User;
+import CSCI5308.GroupFormationTool.AccessControl.UserAbstractFactory;
 
 @Controller
 public class CourseAdminController
@@ -25,7 +27,7 @@ public class CourseAdminController
 	public String course(Model model)
 	{
 		ICoursePersistence courseDB = SystemConfig.instance().getCourseDB();
-		List<Course> allCourses = null;
+		List<ICourse> allCourses = null;
 		try {
 			allCourses = courseDB.loadAllCourses();
 		} catch (Exception e) {
@@ -39,7 +41,7 @@ public class CourseAdminController
 	public String assignInstructor(Model model, @RequestParam(name = ID) long courseID)
 	{
 		ICoursePersistence courseDB = SystemConfig.instance().getCourseDB();
-		Course c = new Course();
+		ICourse c = CourseAbstractFactory.getFactory().createCourse();
 		try {
 			courseDB.loadCourseByID(courseID, c);
 		} catch (Exception e) {
@@ -48,7 +50,7 @@ public class CourseAdminController
 		}
 		
 		ICourseUserRelationshipPersistence courseUserRelationshipDB = SystemConfig.instance().getCourseUserRelationshipDB();
-		List<User> allUsersNotCurrentlyInstructors;
+		List<IUser> allUsersNotCurrentlyInstructors;
 		try {
 			allUsersNotCurrentlyInstructors = courseUserRelationshipDB.findAllUsersWithoutCourseRole(Role.INSTRUCTOR, courseID);
 		} catch (Exception e) {
@@ -64,7 +66,7 @@ public class CourseAdminController
 	public ModelAndView deleteCourse(@RequestParam(name = ID) long courseID)
 	{
 		ICoursePersistence courseDB = SystemConfig.instance().getCourseDB();
-		Course c = new Course();
+		ICourse c = CourseAbstractFactory.getFactory().createCourse();
 		c.setId(courseID);
 		try {
 			c.delete(courseDB);
@@ -81,7 +83,7 @@ public class CourseAdminController
 	public ModelAndView createCourse(@RequestParam(name = TITLE) String title)
 	{
 		ICoursePersistence courseDB = SystemConfig.instance().getCourseDB();
-		Course c = new Course();
+		ICourse c = CourseAbstractFactory.getFactory().createCourse();
 		c.setTitle(title);
 		try {
 			c.createCourse(courseDB);
@@ -98,13 +100,13 @@ public class CourseAdminController
 	public ModelAndView assignInstructorToCourse(@RequestParam(name = INSTRUCTOR) List<Integer> instructor,
 		   @RequestParam(name = ID) long courseID)
 	{
-		Course c = new Course();
+		ICourse c = CourseAbstractFactory.getFactory().createCourse();
 		c.setId(courseID);
 		Iterator<Integer> iter = instructor.iterator();
 		ICourseUserRelationshipPersistence courseUserRelationshipDB = SystemConfig.instance().getCourseUserRelationshipDB();
 		while (iter.hasNext())
 		{
-			User u = new User();
+			IUser u = UserAbstractFactory.getFactory().createUser();
 			u.setId(iter.next().longValue());
 			try {
 				courseUserRelationshipDB.enrollUser(c, u, Role.INSTRUCTOR);

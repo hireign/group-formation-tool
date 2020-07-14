@@ -20,7 +20,7 @@ public class IndexController
 		if (authentication.isAuthenticated())
 		{
 			ICoursePersistence courseDB = SystemConfig.instance().getCourseDB();
-			List<Course> allCourses = null;
+			List<ICourse> allCourses = null;
 			try {
 				allCourses = courseDB.loadAllCourses();
 			} catch (Exception e) {

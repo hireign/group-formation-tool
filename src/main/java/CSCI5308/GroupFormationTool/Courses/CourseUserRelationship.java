@@ -7,7 +7,7 @@ import CSCI5308.GroupFormationTool.SystemConfig;
 
 public class CourseUserRelationship implements ICourseUserRelationship
 {
-	public boolean userHasRoleInCourse(User user, Role role, Course course) throws Exception
+	public boolean userHasRoleInCourse(IUser user, Role role, ICourse course) throws Exception
 	{
 		if (null == user || user.isInvalidUser())
 		{
@@ -30,14 +30,14 @@ public class CourseUserRelationship implements ICourseUserRelationship
 		return false;
 	}
 
-	public List<Role> loadAllRoluesForUserInCourse(User user, Course course) throws Exception
+	public List<Role> loadAllRoluesForUserInCourse(IUser user, ICourse course) throws Exception
 	{
 		ICourseUserRelationshipPersistence userCourseRelationshipDB = SystemConfig.instance().getCourseUserRelationshipDB();
 		List<Role> roles = userCourseRelationshipDB.loadUserRolesForCourse(course, user);
 		return roles;
 	}
 
-	public void enrollUserInCourse(User user, Course course, Role role) throws Exception
+	public void enrollUserInCourse(IUser user, ICourse course, Role role) throws Exception
 	{
 		ICourseUserRelationshipPersistence userCourseRelationshipDB = SystemConfig.instance().getCourseUserRelationshipDB();
 		userCourseRelationshipDB.enrollUser(course, user, role);

@@ -11,7 +11,7 @@ public class QuestionTest
 	@Test
 	public void ConstructorTests()
 	{
-		Question q = new Question();
+		IQuestion q = new Question();
 		Assert.isTrue(q.getTitle().isEmpty());
 		Assert.isTrue(q.getText().isEmpty());
 		Assert.isNull(q.getType());
@@ -21,7 +21,7 @@ public class QuestionTest
 	@Test
 	public void getTimestamp() 
 	{
-		Question q = new Question();
+		IQuestion q = new Question();
 		Timestamp time = Timestamp.valueOf("2020-06-16 00:00:00");
 		q.setTimestamp(time);
 		Assert.isTrue(time == q.getTimestamp());
@@ -30,7 +30,7 @@ public class QuestionTest
 	@Test
 	public void setTimestamp() 
 	{
-		Question q = new Question();
+		IQuestion q = new Question();
 		Timestamp time = Timestamp.valueOf("2020-06-16 00:00:00");
 		q.setTimestamp(time);
 		Assert.isTrue(time == q.getTimestamp());
@@ -39,7 +39,7 @@ public class QuestionTest
 	@Test
 	public void getId() 
 	{
-		Question q = new Question();
+		IQuestion q = new Question();
 		q.setId(7);
 		Assert.isTrue(q.getId() == 7);
 	}
@@ -47,7 +47,7 @@ public class QuestionTest
 	@Test
 	public void setId() 
 	{
-		Question q = new Question();
+		IQuestion q = new Question();
 		q.setId(7);
 		Assert.isTrue(q.getId() == 7);
 	}
@@ -55,7 +55,7 @@ public class QuestionTest
 	@Test
 	public void getTitle() 
 	{
-		Question q = new Question();
+		IQuestion q = new Question();
 		q.setTitle("Test title");
 		Assert.isTrue(q.getTitle().equals("Test title"));
 	}
@@ -63,7 +63,7 @@ public class QuestionTest
 	@Test
 	public void setTitle() 
 	{
-		Question q = new Question();
+		IQuestion q = new Question();
 		q.setTitle("Test title");
 		Assert.isTrue(q.getTitle().equals("Test title"));
 	}
@@ -71,7 +71,7 @@ public class QuestionTest
 	@Test
 	public void getText() 
 	{
-		Question q = new Question();
+		IQuestion q = new Question();
 		q.setText("Test text");
 		Assert.isTrue(q.getText().equals("Test text"));
 	}
@@ -79,7 +79,7 @@ public class QuestionTest
 	@Test
 	public void setText() 
 	{
-		Question q = new Question();
+		IQuestion q = new Question();
 		q.setText("Test text");
 		Assert.isTrue(q.getText().equals("Test text"));
 	}
@@ -87,7 +87,7 @@ public class QuestionTest
 	@Test
 	public void getType() 
 	{
-		Question q = new Question();
+		IQuestion q = new Question();
 		q.setType(QuestionType.TEXT);
 		Assert.isTrue(q.getType() == QuestionType.TEXT);
 	}
@@ -95,7 +95,7 @@ public class QuestionTest
 	@Test
 	public void setType() 
 	{
-		Question q = new Question();
+		IQuestion q = new Question();
 		q.setType(QuestionType.TEXT);
 		Assert.isTrue(q.getType() == QuestionType.TEXT);
 	}
@@ -103,7 +103,7 @@ public class QuestionTest
 	@Test
 	public void deleteQuestion() throws Exception 
 	{
-		Question q = new Question();
+		IQuestion q = new Question();
 		IQuestionPersistence questionDB = new QuestionDBMock();
 		q.setDefaults();
 		boolean status = questionDB.deleteQuestionByQuestionId(q.getId());

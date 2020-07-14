@@ -6,26 +6,26 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import CSCI5308.GroupFormationTool.LoggerUtil;
+import CSCI5308.GroupFormationTool.LoggerInterface;
 import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.Database.CallStoredProcedure;
 
 public class QuestionDB implements IQuestionPersistence 
 {
 	
-	private static LoggerUtil logger = SystemConfig.instance().getLogger();
+	private static LoggerInterface logger = SystemConfig.instance().getLogger();
 	
 	@Override
-	public List<Question> loadQuestionsSortedByTitle(String bannerID) throws SQLException 
+	public List<IQuestion> loadQuestionsSortedByTitle(String bannerID) throws SQLException 
 	{
-		List<Question> questionList = new ArrayList<Question>();
+		List<IQuestion> questionList = new ArrayList<IQuestion>();
 		CallStoredProcedure proc = null;
 		try
 		{
 			proc = new CallStoredProcedure("spFindSortedQuestionsByTitle(?)");
 			proc.setParameter(1, bannerID);
 			ResultSet results = proc.executeWithResults();
-			Question question;
+			IQuestion question;
 			
 			if (null != results)
 			{
@@ -37,7 +37,7 @@ public class QuestionDB implements IQuestionPersistence
 					QuestionType type = QuestionType.valueOf(results.getString(4).toUpperCase());
 					Timestamp timestamp = results.getTimestamp(5);
 					
-					question = new Question();
+					question = QuestionAbstractFactory.getFactory().createQuestion();
 					question.setId(id);
 					question.setTitle(title);
 					question.setText(text);
@@ -66,16 +66,16 @@ public class QuestionDB implements IQuestionPersistence
 	}
 	
 	@Override
-	public List<Question> loadSortedQuestionsSortedByDate(String bannerID) throws SQLException 
+	public List<IQuestion> loadSortedQuestionsSortedByDate(String bannerID) throws SQLException 
 	{
-		List<Question> questionList = new ArrayList<Question>();
+		List<IQuestion> questionList = new ArrayList<IQuestion>();
 		CallStoredProcedure proc = null;
 		try
 		{
 			proc = new CallStoredProcedure("spFindSortedQuestionsByDate(?)");
 			proc.setParameter(1, bannerID);
 			ResultSet results = proc.executeWithResults();
-			Question question;
+			IQuestion question;
 			
 			if (null != results)
 			{
@@ -143,7 +143,7 @@ public class QuestionDB implements IQuestionPersistence
 	}
 	
 	@Override
-	public long createQuestion(Question question, String bannerID) throws SQLException 
+	public long createQuestion(IQuestion question, String bannerID) throws SQLException 
 	{
 		long id=-1;
 		CallStoredProcedure proc = null;
@@ -183,7 +183,7 @@ public class QuestionDB implements IQuestionPersistence
 	}
 	
 	@Override
-	public boolean createQuestionOption(OptionValue option, int order, long questionID) throws SQLException 
+	public boolean createQuestionOption(IOptionValue option, int order, long questionID) throws SQLException 
 	{
 		CallStoredProcedure proc = null;
 		try

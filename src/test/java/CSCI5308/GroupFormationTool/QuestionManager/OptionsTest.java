@@ -12,15 +12,15 @@ class OptionsTest
 	@Test
 	public void ConstructorTests() 
 	{
-		Options options = new Options();
+		IOptions options = new Options();
 		Assert.isTrue(options.getOptionList().size() == 0);
 	}
 	
 	@Test
 	public void getOptionList() 
 	{
-		Options options = new Options();
-		List<OptionValue> list = new ArrayList<OptionValue>();
+		IOptions options = new Options();
+		List<IOptionValue> list = new ArrayList<IOptionValue>();
 		list.add(new OptionValue("test","test"));
 		options.setOptionList(list);
 		Assert.isTrue(options.getOptionList() == list);
@@ -30,8 +30,8 @@ class OptionsTest
 	@Test
 	public void setOptionList() 
 	{
-		Options options = new Options();
-		List<OptionValue> list = new ArrayList<OptionValue>();
+		IOptions options = new Options();
+		List<IOptionValue> list = new ArrayList<IOptionValue>();
 		list.add(new OptionValue("test","test"));
 		options.setOptionList(list);
 		Assert.isTrue(options.getOptionList() == list);
@@ -40,7 +40,7 @@ class OptionsTest
 	@Test
 	public void addOption() 
 	{
-		Options options = new Options();
+		IOptions options = new Options();
 		options.addOption();
 		Assert.isTrue(options.getOptionList().size()>0);
 	}
@@ -48,7 +48,7 @@ class OptionsTest
 	@Test
 	public void saveOptions() throws Exception 
 	{
-		OptionValue option = new OptionValue("Test Text", "1");
+		IOptionValue option = new OptionValue("Test Text", "1");
 		IQuestionPersistence questionDB = new QuestionDBMock();
 		boolean status = questionDB.createQuestionOption(option, 1, 1);
 		Assert.isTrue(status == true);
