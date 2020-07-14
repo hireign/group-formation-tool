@@ -2,7 +2,7 @@ package CSCI5308.GroupFormationTool.QuestionManager;
 
 import java.util.ArrayList;
 import java.util.List;
-//wrapper class to pass lists from thymeleaf to controllers
+
 public class Options implements IOptions 
 {
 	public List<IOptionValue> optionList;

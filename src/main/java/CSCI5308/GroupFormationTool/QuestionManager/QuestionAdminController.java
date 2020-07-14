@@ -55,7 +55,7 @@ public class QuestionAdminController
 	public ModelAndView addOptions(Model model,@RequestParam(name = BannerID) String bannerId, 
 											@ModelAttribute Question question) 
 	{	
-		IOptions options = QuestionAbstractFactory.getFactory().createOption();
+		IOptions options = QuestionAbstractFactory.getFactory().createOptions();
 		options.addOption();
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("question", question);

@@ -7,17 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import CSCI5308.GroupFormationTool.Database.CallStoredProcedure;
-import CSCI5308.GroupFormationTool.QuestionManager.OptionValue;
-import CSCI5308.GroupFormationTool.QuestionManager.Options;
+import CSCI5308.GroupFormationTool.QuestionManager.IOptionValue;
+import CSCI5308.GroupFormationTool.QuestionManager.IOptions;
 import CSCI5308.GroupFormationTool.QuestionManager.Question;
+import CSCI5308.GroupFormationTool.QuestionManager.QuestionAbstractFactory;
 import CSCI5308.GroupFormationTool.QuestionManager.QuestionType;
 
 public class SurveyDB implements ISurveyPersistence
 {
 
-	public Survey loadSurveyByCourseID(long courseID)
+	public ISurvey loadSurveyByCourseID(long courseID)
 	{
-		Survey survey = null;
+		ISurvey survey = null;
 		CallStoredProcedure proc = null;
 		try
 		{
@@ -54,7 +55,7 @@ public class SurveyDB implements ISurveyPersistence
 				}
 				
 				if(!results.next()) {
-					survey = new Survey();
+					survey = SurveyAbstractFactory.getFactory().createSurvey();
 					survey.setId(surveyID);
 					survey.setActive(active);
 					survey.setCreatedAt(createdAt);
@@ -76,17 +77,17 @@ public class SurveyDB implements ISurveyPersistence
 		return survey;
 	}
 	
-	public Options loadOptionsByQuestionID(long questionID)
+	public IOptions loadOptionsByQuestionID(long questionID)
 	{
-		List<OptionValue> optionList = new ArrayList<OptionValue>();
-		Options options = new Options();
+		List<IOptionValue> optionList = new ArrayList<IOptionValue>();
+		IOptions options = QuestionAbstractFactory.getFactory().createOptions();
 		CallStoredProcedure proc = null;
 		try
 		{
 			proc = new CallStoredProcedure("spFindOptionsByQuestionID(?)");
 			proc.setParameter(1, questionID);
 			ResultSet results = proc.executeWithResults();
-			OptionValue optionValue;
+			IOptionValue optionValue;
 			
 			if (null != results)
 			{
@@ -95,7 +96,7 @@ public class SurveyDB implements ISurveyPersistence
 					String displayText = results.getString(1);
 					String storedAs = results.getString(2);
 					
-					optionValue = new OptionValue();
+					optionValue = QuestionAbstractFactory.getFactory().createOptionvalue();
 					optionValue.setText(displayText);
 					optionValue.setStoredAs(storedAs);
 					optionList.add(optionValue);
@@ -119,7 +120,7 @@ public class SurveyDB implements ISurveyPersistence
 	}
 
 	@Override
-	public boolean saveSurveyResponse(Response surveyResponse) {
+	public boolean saveSurveyResponse(IResponse surveyResponse) {
 		CallStoredProcedure proc = null;
 		try
 		{

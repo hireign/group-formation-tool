@@ -14,11 +14,8 @@ import CSCI5308.GroupFormationTool.Courses.ICoursePersistence;
 import CSCI5308.GroupFormationTool.Courses.ICourseUserRelationshipPersistence;
 import CSCI5308.GroupFormationTool.Database.DefaultDatabaseConfigurationFactory;
 import CSCI5308.GroupFormationTool.Database.IDatabaseConfiguration;
-import CSCI5308.GroupFormationTool.PasswordValidation.PasswordValidatorDB;
-import CSCI5308.GroupFormationTool.QuestionManager.QuestionDB;
-import CSCI5308.GroupFormationTool.Security.BCryptPasswordEncryption;
 import CSCI5308.GroupFormationTool.SurveyManager.ISurveyPersistence;
-import CSCI5308.GroupFormationTool.SurveyManager.SurveyDB;
+import CSCI5308.GroupFormationTool.SurveyManager.SurveyAbstractFactory;
 
 
 public class SystemConfig
@@ -46,7 +43,7 @@ public class SystemConfig
 		questionDB = QuestionAbstractFactory.getFactory().createQuestionDB();
 		validatorDB = PasswordAbstractFactory.getFactory().createPwdDB();
 		logger = LoggerAbstractFactory.getFactory().createLoggerInstance();
-		surveyDB = new SurveyDB();
+		surveyDB = SurveyAbstractFactory.getFactory().createSurveyDB();
 	}
 	
 	public static SystemConfig instance()

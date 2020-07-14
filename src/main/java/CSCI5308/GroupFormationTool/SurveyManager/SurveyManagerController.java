@@ -16,11 +16,11 @@ public class SurveyManagerController {
 	private static final String CourseID = "courseID";
 	private static final String QuestionID = "questionID";
 	private ISurveyPersistence surveyDB;
-	private Survey currentSurvey = null;
+	private ISurvey currentSurvey = null;
 
 	public SurveyManagerController() {
 		surveyDB = SystemConfig.instance().getSurveyDB();
-		currentSurvey = new Survey();
+		currentSurvey = SurveyAbstractFactory.getFactory().createSurvey();
 	}
 
 	@RequestMapping("/survey")
@@ -36,7 +36,6 @@ public class SurveyManagerController {
 
 	@GetMapping(value = "/survey/submit")
 	public String displayQuestion(Model model) {
-		Question currentQuestion = null;
 		int remainingQuestions = currentSurvey.getQuestionSize() - currentSurvey.getIndex();
 
 		if (remainingQuestions < 1) {
@@ -47,7 +46,7 @@ public class SurveyManagerController {
 			model.addAttribute("lastquestion", false);
 		}
 
-		model.addAttribute("response", new Response());
+		model.addAttribute("response", SurveyAbstractFactory.getFactory().createResponse());
 		model.addAttribute("question", currentSurvey.getNextQuestion());
 
 		return "survey/displayquestion";

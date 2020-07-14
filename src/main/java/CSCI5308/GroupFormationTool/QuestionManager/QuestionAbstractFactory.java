@@ -10,7 +10,9 @@ public abstract class QuestionAbstractFactory {
 	
 	public abstract IOptionValue createOptionValue(String text,String storedAs);
 	
-	public abstract IOptions createOption();
+	public abstract IOptionValue createOptionvalue();
+	
+	public abstract IOptions createOptions();
 	
 	public static QuestionFactory getFactory() {
 		return QuestionDBFactoryObj;

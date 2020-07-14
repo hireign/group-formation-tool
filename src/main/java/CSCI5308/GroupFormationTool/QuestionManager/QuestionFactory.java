@@ -18,8 +18,13 @@ public class QuestionFactory extends QuestionAbstractFactory{
 	}
 
 	@Override
-	public IOptions createOption() {
+	public IOptions createOptions() {
 		return new Options();
+	}
+
+	@Override
+	public IOptionValue createOptionvalue() {
+		return new OptionValue();
 	}
 
 }
