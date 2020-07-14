@@ -91,4 +91,20 @@ public class SurveyTest {
 		survey.setQuestions(questions);
 		Assert.isTrue(1 == survey.getQuestions().get(0).getId());
 	}
+	
+	@Test
+	public void getAllQuestions() {
+		List<Question> questions = new ArrayList<Question>();
+		Question question = new Question();
+		question.setId(1);
+		questions.add(question);
+		Assert.isTrue(1 == questions.get(0).getId());
+	}
+	
+	@Test
+	public void getNextQuestion() {
+		Question question = new Question();
+		question.setId(1);
+		Assert.isTrue(1 == question.getId());
+	}
 }

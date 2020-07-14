@@ -10,7 +10,7 @@ import CSCI5308.GroupFormationTool.SurveyManager.Response;
 import CSCI5308.GroupFormationTool.SurveyManager.Survey;
 
 public class SurveyDBMock implements ISurveyPersistence {
-	public Survey loadSurveyByCourseID(String courseID) {
+	public Survey loadSurveyByCourseID(long courseID) {
 		Survey survey = new Survey();
 		List<Question> questions = new ArrayList<Question>();
 		Question question = new Question();

@@ -11,6 +11,7 @@ public class Survey {
 	private int active;
 	private Timestamp createdAt;
 	private List<Question> questions;
+	private int index = 0;
 
 	public long getId() {
 		return id;
@@ -52,5 +53,35 @@ public class Survey {
 	public void setQuestions(List<Question> questions)
 	{
 		this.questions = questions;
+	}
+	
+	public int getIndex() {
+		return index;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
+	}
+
+	public void load(ISurveyPersistence surveyDB, long courseID) {
+		Survey survey = surveyDB.loadSurveyByCourseID(courseID);
+		
+		if(survey.active == 1) {
+			id = survey.id;
+			userID = survey.userID;
+			active = survey.active;
+			questions = survey.questions;
+			createdAt = survey.createdAt;
+		}
+	}
+
+	public Question getNextQuestion() {
+		Question question = null;
+		
+		if (index > -1 && index < questions.size()) {
+			question = questions.get(index++);
+		}
+		
+		return question;
 	}
 }

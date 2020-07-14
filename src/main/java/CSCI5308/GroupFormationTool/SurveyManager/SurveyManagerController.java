@@ -16,31 +16,34 @@ public class SurveyManagerController {
 	private static final String CourseID = "courseID";
 	private static final String QuestionID = "questionID";
 	private ISurveyPersistence surveyDB;
-	private CurrentSurvey currentSurvey = null;
+	private Survey currentSurvey = null;
 
 	public SurveyManagerController() {
 		surveyDB = SystemConfig.instance().getSurveyDB();
+		currentSurvey = new Survey();
 	}
 
 	@RequestMapping("/survey")
 	public String questionsByDate(Model model, @RequestParam(name = CourseID) String courseID) {
-		if (currentSurvey == null) {
-			currentSurvey = CurrentSurvey.instance();
-			currentSurvey.setCourseID(courseID);
-			currentSurvey.setSurvey();
+		currentSurvey.load(surveyDB, Long.valueOf(courseID));
+		if(currentSurvey.getActive() == 0) {
+			model.addAttribute("errorMessage", "Survey is not active or unavailable");
+			return "course/course";
 		}
-
 		return "redirect:/survey/submit";
 	}
 
 	@GetMapping(value = "/survey/submit")
 	public String displayQuestion(Model model) {
-		Question currentQuestion = currentSurvey.getNextQuestion();
-		Response response = new Response();
-
-		model.addAttribute("response", response);
-		model.addAttribute("question", currentQuestion);
-		model.addAttribute("lastquestion", false);
+		model.addAttribute("response", new Response());
+		model.addAttribute("question", currentSurvey.getNextQuestion());
+		
+		if (currentSurvey.getIndex() > currentSurvey.getQuestions().size()-1) {
+			model.addAttribute("lastquestion", true);
+		} else {
+			model.addAttribute("lastquestion", false);
+		}
+		
 		return "survey/displayquestion";
 	}
 
@@ -50,19 +53,19 @@ public class SurveyManagerController {
 		Question currentQuestion = null;
 		try {
 			response.setQuestionID(Long.valueOf(questionID));
-			response.setSurveyID(currentSurvey.getSurvey().getId());
+			response.setSurveyID(currentSurvey.getId());
 			response.setUserID(CurrentUser.instance().getCurrentAuthenticatedUser().getId());
 			response.save(surveyDB);
-			currentQuestion = currentSurvey.getNextQuestion();
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", "Unable to fetch questions, please try again later");
 		}
-		if (currentSurvey.getIndex() == currentSurvey.getSurvey().getQuestions().size()) {
+		if (currentSurvey.getIndex() > currentSurvey.getQuestions().size()-1) {
 			model.addAttribute("lastquestion", true);
 		} else {
 			model.addAttribute("lastquestion", false);
 		}
 
+		currentQuestion = currentSurvey.getNextQuestion();
 		model.addAttribute("response", response);
 		model.addAttribute("question", currentQuestion);
 
@@ -74,7 +77,7 @@ public class SurveyManagerController {
 			@ModelAttribute Response response) {
 		try {
 			response.setQuestionID(Long.valueOf(questionID));
-			response.setSurveyID(currentSurvey.getSurvey().getId());
+			response.setSurveyID(currentSurvey.getId());
 			response.setUserID(CurrentUser.instance().getCurrentAuthenticatedUser().getId());
 			response.save(surveyDB);
 		} catch (Exception e) {

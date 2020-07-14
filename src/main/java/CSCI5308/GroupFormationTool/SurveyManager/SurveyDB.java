@@ -15,7 +15,7 @@ import CSCI5308.GroupFormationTool.QuestionManager.QuestionType;
 public class SurveyDB implements ISurveyPersistence
 {
 
-	public Survey loadSurveyByCourseID(String courseID)
+	public Survey loadSurveyByCourseID(long courseID)
 	{
 		Survey survey = null;
 		CallStoredProcedure proc = null;
