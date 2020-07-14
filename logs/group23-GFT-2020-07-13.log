@@ -1,0 +1,96 @@
+[INFO ] 13-07 21:59:18.028 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on Josh with PID 18960 (C:\Zoshyn\Project\designchanges\bin\main started by joshin in C:\Zoshyn\Project\designchanges)
+[DEBUG] 13-07 21:59:18.033 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 13-07 21:59:18.034 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 13-07 21:59:20.163 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 2.356 seconds (JVM running for 3.662)
+[INFO ] 13-07 22:00:10.269 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on Josh with PID 19584 (C:\Zoshyn\Project\designchanges\bin\main started by joshin in C:\Zoshyn\Project\designchanges)
+[DEBUG] 13-07 22:00:10.277 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 13-07 22:00:10.277 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 13-07 22:01:10.582 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 60.586 seconds (JVM running for 62.276)
+[INFO ] 13-07 22:03:46.869 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on Josh with PID 18188 (C:\Zoshyn\Project\designchanges\bin\main started by joshin in C:\Zoshyn\Project\designchanges)
+[DEBUG] 13-07 22:03:46.898 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 13-07 22:03:46.898 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 13-07 22:04:48.627 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 62.105 seconds (JVM running for 63.871)
+[INFO ] 13-07 22:11:43.484 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on Josh with PID 16896 (C:\Zoshyn\Project\designchanges\bin\main started by joshin in C:\Zoshyn\Project\designchanges)
+[DEBUG] 13-07 22:11:43.492 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 13-07 22:11:43.492 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 13-07 22:12:44.339 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 61.155 seconds (JVM running for 62.905)
+[INFO ] 13-07 22:18:13.658 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on Josh with PID 17756 (C:\Zoshyn\Project\designchanges\bin\main started by joshin in C:\Zoshyn\Project\designchanges)
+[DEBUG] 13-07 22:18:13.663 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 13-07 22:18:13.664 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 13-07 22:18:15.824 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 2.409 seconds (JVM running for 3.854)
+[INFO ] 13-07 22:19:22.098 [main] StudentCSVImportTest - Starting StudentCSVImportTest on Josh with PID 19768 (started by joshin in C:\Zoshyn\Project\designchanges)
+[DEBUG] 13-07 22:19:22.108 [main] StudentCSVImportTest - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 13-07 22:19:22.109 [main] StudentCSVImportTest - No active profile set, falling back to default profiles: default
+[INFO ] 13-07 22:19:25.521 [main] StudentCSVImportTest - Started StudentCSVImportTest in 3.76 seconds (JVM running for 6.567)
+[INFO ] 13-07 22:19:38.821 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on Josh with PID 10076 (C:\Zoshyn\Project\designchanges\bin\main started by joshin in C:\Zoshyn\Project\designchanges)
+[DEBUG] 13-07 22:19:38.830 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 13-07 22:19:38.831 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 13-07 22:19:41.288 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 2.76 seconds (JVM running for 4.529)
+[INFO ] 13-07 22:23:34.585 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on Josh with PID 23792 (C:\Zoshyn\Project\designchanges\bin\main started by joshin in C:\Zoshyn\Project\designchanges)
+[DEBUG] 13-07 22:23:34.591 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 13-07 22:23:34.591 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 13-07 22:23:36.816 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 2.465 seconds (JVM running for 3.976)
+[INFO ] 13-07 22:24:50.287 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on Josh with PID 17808 (C:\Zoshyn\Project\designchanges\bin\main started by joshin in C:\Zoshyn\Project\designchanges)
+[DEBUG] 13-07 22:24:50.293 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 13-07 22:24:50.294 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 13-07 22:24:52.316 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 2.25 seconds (JVM running for 3.588)
+[INFO ] 13-07 22:25:53.442 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on Josh with PID 23376 (C:\Zoshyn\Project\designchanges\bin\main started by joshin in C:\Zoshyn\Project\designchanges)
+[DEBUG] 13-07 22:25:53.447 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 13-07 22:25:53.448 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 13-07 22:25:55.422 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 2.194 seconds (JVM running for 3.426)
+[INFO ] 13-07 22:28:11.154 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on Josh with PID 23096 (C:\Zoshyn\Project\designchanges\bin\main started by joshin in C:\Zoshyn\Project\designchanges)
+[DEBUG] 13-07 22:28:11.159 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 13-07 22:28:11.159 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 13-07 22:28:13.150 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 2.215 seconds (JVM running for 3.484)
+[INFO ] 13-07 22:28:22.195 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on Josh with PID 3104 (C:\Zoshyn\Project\designchanges\bin\main started by joshin in C:\Zoshyn\Project\designchanges)
+[DEBUG] 13-07 22:28:22.204 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 13-07 22:28:22.204 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 13-07 22:29:38.562 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 76.574 seconds (JVM running for 78.22)
+[INFO ] 13-07 22:34:41.761 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on Josh with PID 20844 (C:\Zoshyn\Project\designchanges\bin\main started by joshin in C:\Zoshyn\Project\designchanges)
+[DEBUG] 13-07 22:34:41.768 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 13-07 22:34:41.769 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 13-07 22:34:44.510 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 3.093 seconds (JVM running for 5.061)
+[INFO ] 13-07 22:37:58.650 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on Josh with PID 15112 (C:\Zoshyn\Project\designchanges\bin\main started by joshin in C:\Zoshyn\Project\designchanges)
+[DEBUG] 13-07 22:37:58.659 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 13-07 22:37:58.660 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 13-07 22:39:34.584 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 96.345 seconds (JVM running for 98.869)
+[INFO ] 13-07 23:11:32.670 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on Josh with PID 15112 (C:\Zoshyn\Project\designchanges\bin\main started by joshin in C:\Zoshyn\Project\designchanges)
+[DEBUG] 13-07 23:11:32.699 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 13-07 23:11:32.741 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 13-07 23:13:24.878 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 121.556 seconds (JVM running for 2129.161)
+[INFO ] 13-07 23:25:29.509 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on Josh with PID 15112 (C:\Zoshyn\Project\designchanges\bin\main started by joshin in C:\Zoshyn\Project\designchanges)
+[DEBUG] 13-07 23:25:29.510 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 13-07 23:25:29.510 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 13-07 23:25:30.518 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 1.121 seconds (JVM running for 2854.803)
+[INFO ] 13-07 23:25:40.045 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on Josh with PID 15112 (C:\Zoshyn\Project\designchanges\bin\main started by joshin in C:\Zoshyn\Project\designchanges)
+[DEBUG] 13-07 23:25:40.046 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 13-07 23:25:40.046 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 13-07 23:25:40.926 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 0.973 seconds (JVM running for 2865.21)
+[INFO ] 13-07 23:29:31.203 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on Josh with PID 15112 (C:\Zoshyn\Project\designchanges\bin\main started by joshin in C:\Zoshyn\Project\designchanges)
+[DEBUG] 13-07 23:29:31.203 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 13-07 23:29:31.203 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 13-07 23:29:32.276 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 1.182 seconds (JVM running for 3096.56)
+[INFO ] 13-07 23:31:24.050 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on Josh with PID 15112 (C:\Zoshyn\Project\designchanges\bin\main started by joshin in C:\Zoshyn\Project\designchanges)
+[DEBUG] 13-07 23:31:24.052 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 13-07 23:31:24.052 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 13-07 23:31:24.927 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 0.969 seconds (JVM running for 3209.212)
+[INFO ] 13-07 23:31:50.151 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on Josh with PID 15112 (C:\Zoshyn\Project\designchanges\bin\main started by joshin in C:\Zoshyn\Project\designchanges)
+[DEBUG] 13-07 23:31:50.152 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 13-07 23:31:50.152 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 13-07 23:31:51.167 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 1.105 seconds (JVM running for 3235.452)
+[INFO ] 13-07 23:33:56.359 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on Josh with PID 13988 (C:\Zoshyn\Project\designchanges\bin\main started by joshin in C:\Zoshyn\Project\designchanges)
+[DEBUG] 13-07 23:33:56.371 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 13-07 23:33:56.372 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 13-07 23:34:00.011 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 4.128 seconds (JVM running for 6.55)
+[INFO ] 13-07 23:37:48.909 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on Josh with PID 13988 (C:\Zoshyn\Project\designchanges\bin\main started by joshin in C:\Zoshyn\Project\designchanges)
+[DEBUG] 13-07 23:37:48.910 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 13-07 23:37:48.911 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 13-07 23:37:49.954 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 1.159 seconds (JVM running for 236.494)
+[INFO ] 13-07 23:44:31.840 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on Josh with PID 7836 (C:\Zoshyn\Project\designchanges\bin\main started by joshin in C:\Zoshyn\Project\designchanges)
+[DEBUG] 13-07 23:44:31.849 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 13-07 23:44:31.850 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 13-07 23:44:34.683 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 3.184 seconds (JVM running for 5.099)
+[INFO ] 13-07 23:45:35.770 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on Josh with PID 7836 (C:\Zoshyn\Project\designchanges\bin\main started by joshin in C:\Zoshyn\Project\designchanges)
+[DEBUG] 13-07 23:45:35.770 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 13-07 23:45:35.771 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 13-07 23:45:36.781 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 1.092 seconds (JVM running for 67.196)

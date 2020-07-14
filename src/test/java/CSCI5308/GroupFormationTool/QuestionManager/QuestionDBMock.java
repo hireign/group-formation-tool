@@ -53,7 +53,6 @@ public class QuestionDBMock implements IQuestionPersistence
 		return questions;
 	}
 
-	@Override
 	public boolean deleteQuestionByQuestionId(long questionId) 
 	{
 		IQuestion q = new Question();
