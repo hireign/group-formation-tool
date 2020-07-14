@@ -62,6 +62,10 @@ public class Survey {
 	public void setIndex(int index) {
 		this.index = index;
 	}
+	
+	public int getQuestionSize() {
+		return questions.size();
+	}
 
 	public void load(ISurveyPersistence surveyDB, long courseID) {
 		Survey survey = surveyDB.loadSurveyByCourseID(courseID);

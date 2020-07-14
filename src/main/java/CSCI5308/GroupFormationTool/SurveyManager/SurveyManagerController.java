@@ -26,7 +26,8 @@ public class SurveyManagerController {
 	@RequestMapping("/survey")
 	public String questionsByDate(Model model, @RequestParam(name = CourseID) String courseID) {
 		currentSurvey.load(surveyDB, Long.valueOf(courseID));
-		if(currentSurvey.getActive() == 0) {
+
+		if (currentSurvey.getActive() == 0) {
 			model.addAttribute("errorMessage", "Survey is not active or unavailable");
 			return "course/course";
 		}
@@ -35,15 +36,20 @@ public class SurveyManagerController {
 
 	@GetMapping(value = "/survey/submit")
 	public String displayQuestion(Model model) {
-		model.addAttribute("response", new Response());
-		model.addAttribute("question", currentSurvey.getNextQuestion());
-		
-		if (currentSurvey.getIndex() > currentSurvey.getQuestions().size()-1) {
+		Question currentQuestion = null;
+		int remainingQuestions = currentSurvey.getQuestionSize() - currentSurvey.getIndex();
+
+		if (remainingQuestions < 1) {
+			currentSurvey.setIndex(0);
+		} else if (remainingQuestions == 1) {
 			model.addAttribute("lastquestion", true);
 		} else {
 			model.addAttribute("lastquestion", false);
 		}
-		
+
+		model.addAttribute("response", new Response());
+		model.addAttribute("question", currentSurvey.getNextQuestion());
+
 		return "survey/displayquestion";
 	}
 
@@ -59,7 +65,10 @@ public class SurveyManagerController {
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", "Unable to fetch questions, please try again later");
 		}
-		if (currentSurvey.getIndex() > currentSurvey.getQuestions().size()-1) {
+		
+		int remainingQuestions = currentSurvey.getQuestionSize() - currentSurvey.getIndex();
+		
+		if (remainingQuestions == 1) {
 			model.addAttribute("lastquestion", true);
 		} else {
 			model.addAttribute("lastquestion", false);
