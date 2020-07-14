@@ -18,7 +18,7 @@ public class CourseController
 	public String course(Model model, @RequestParam(name = ID) long courseID)
 	{
 		ICoursePersistence courseDB = SystemConfig.instance().getCourseDB();
-		Course course = new Course();
+		ICourse course = CourseAbstractFactory.getFactory().createCourse();
 		try {
 			courseDB.loadCourseByID(courseID, course);
 		} catch (Exception e) {

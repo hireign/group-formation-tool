@@ -9,7 +9,7 @@ class OptionValueTest
 	@Test
 	public void ConstructorTests() 
 	{
-		OptionValue value = new OptionValue();
+		IOptionValue value = new OptionValue();
 		Assert.isTrue(isStringEmpty(value.getText()));
 		Assert.isTrue(isStringEmpty(value.getStoredAs()));
 	}
@@ -17,7 +17,7 @@ class OptionValueTest
 	@Test
 	public void getText() 
 	{
-		OptionValue value = new OptionValue();
+		IOptionValue value = new OptionValue();
 		value.setText("Test Text");
 		Assert.isTrue(value.getText().equals("Test Text"));
 	}
@@ -25,7 +25,7 @@ class OptionValueTest
 	@Test
 	public void setText() 
 	{
-		OptionValue value = new OptionValue();
+		IOptionValue value = new OptionValue();
 		value.setText("Test Text");
 		Assert.isTrue(value.getText().equals("Test Text"));
 	}
@@ -33,7 +33,7 @@ class OptionValueTest
 	@Test
 	public void getStoredAs() 
 	{
-		OptionValue value = new OptionValue();
+		IOptionValue value = new OptionValue();
 		value.setStoredAs("Test");
 		Assert.isTrue(value.getStoredAs().equals("Test"));
 	}
@@ -41,7 +41,7 @@ class OptionValueTest
 	@Test
 	public void setStoredAs() 
 	{
-		OptionValue value = new OptionValue();
+		IOptionValue value = new OptionValue();
 		value.setStoredAs("Test");
 		Assert.isTrue(value.getStoredAs().equals("Test"));
 	}
@@ -49,7 +49,7 @@ class OptionValueTest
 	@Test
 	public void createOption() 
 	{
-		OptionValue value = new OptionValue("Test Text", "1");
+		IOptionValue value = new OptionValue("Test Text", "1");
 		Assert.isTrue(value.getText().equals("Test Text"));
 		Assert.isTrue(value.getStoredAs().equals("1"));
 	}

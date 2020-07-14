@@ -5,11 +5,12 @@ import java.util.List;
 
 public class QuestionDBMock implements IQuestionPersistence 
 {
-	List<Question> questions;
+	List<IQuestion> questions;
 	
-	public List<Question> loadQuestionsSortedByTitle(String bannerId) 
+	@Override
+	public List<IQuestion> loadQuestionsSortedByTitle(String bannerId) 
 	{
-		questions = new ArrayList<Question>();
+		questions = new ArrayList<IQuestion>();
 		if(bannerId.equals("B-000000")) 
 		{
 			Question q = new Question();
@@ -29,9 +30,10 @@ public class QuestionDBMock implements IQuestionPersistence
 		return questions;
 	}
 
-	public List<Question> loadSortedQuestionsSortedByDate(String bannerId) 
+	@Override
+	public List<IQuestion> loadSortedQuestionsSortedByDate(String bannerId) 
 	{
-		questions = new ArrayList<Question>();
+		questions = new ArrayList<IQuestion>();
 		if(bannerId.equals("B-000000")) 
 		{
 			Question q = new Question();
@@ -53,7 +55,7 @@ public class QuestionDBMock implements IQuestionPersistence
 
 	public boolean deleteQuestionByQuestionId(long questionId) 
 	{
-		Question q = new Question();
+		IQuestion q = new Question();
 		q.setId(1);
 		q.setTitle("Test Title");
 		q.setText("Test Question");
@@ -68,7 +70,7 @@ public class QuestionDBMock implements IQuestionPersistence
 	}
 
 	@Override
-	public long createQuestion(Question question, String bannerID) 
+	public long createQuestion(IQuestion question, String bannerID) 
 	{
 		if(question.getId()>-1) 
 		{
@@ -78,7 +80,7 @@ public class QuestionDBMock implements IQuestionPersistence
 	}
 
 	@Override
-	public boolean createQuestionOption(OptionValue option, int order, long questionID) 
+	public boolean createQuestionOption(IOptionValue option, int order, long questionID) 
 	{
 		if(questionID == -1 || isStringEmpty(option.getText()) || isStringEmpty(option.getStoredAs())) 
 		{

@@ -3,7 +3,7 @@ package CSCI5308.GroupFormationTool.Courses;
 import java.util.ArrayList;
 import java.util.List;
 
-import CSCI5308.GroupFormationTool.LoggerUtil;
+import CSCI5308.GroupFormationTool.LoggerInterface;
 import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.AccessControl.*;
 import CSCI5308.GroupFormationTool.Security.IPasswordEncryption;
@@ -12,13 +12,13 @@ public class StudentCSVImport
 {
 	private List<String> successResults;
 	private List<String> failureResults;
-	private Course course;
+	private ICourse course;
 	private IUserPersistence userDB;
 	private IPasswordEncryption passwordEncryption;
 	private IStudentCSVParser parser;
-	private LoggerUtil logger = SystemConfig.instance().getLogger();
+	private LoggerInterface logger = SystemConfig.instance().getLogger();
 	
-	public StudentCSVImport(IStudentCSVParser parser, Course course)
+	public StudentCSVImport(IStudentCSVParser parser, ICourse course)
 	{
 		this.course = course;
 		successResults = new ArrayList<String>();
@@ -31,8 +31,8 @@ public class StudentCSVImport
 	
 	private void enrollStudentFromRecord()
 	{
-		List<User> studentList = parser.parseCSVFile(failureResults);
-		for(User u : studentList)
+		List<IUser> studentList = parser.parseCSVFile(failureResults);
+		for(IUser u : studentList)
 		{	
 			String bannerID = u.getBanner();
 			String firstName = u.getFirstName();
@@ -40,7 +40,7 @@ public class StudentCSVImport
 			String email = u.getEmail();
 			String userDetails = bannerID + " " + firstName + " " + lastName +" " + email;
 			
-			User user = new User();
+			IUser user = UserAbstractFactory.getFactory().createUser();
 			try {
 				userDB.loadUserByBannerID(bannerID, user);
 			} catch (Exception e1) {

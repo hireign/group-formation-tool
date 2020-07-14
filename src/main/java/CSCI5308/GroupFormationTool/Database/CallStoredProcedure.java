@@ -2,7 +2,7 @@ package CSCI5308.GroupFormationTool.Database;
 
 import java.sql.*;
 
-import CSCI5308.GroupFormationTool.LoggerUtil;
+import CSCI5308.GroupFormationTool.LoggerInterface;
 import CSCI5308.GroupFormationTool.SystemConfig;
 
 public class CallStoredProcedure
@@ -10,7 +10,7 @@ public class CallStoredProcedure
 	private String storedProcedureName;
 	private Connection connection;
 	private CallableStatement statement;
-	private LoggerUtil logger = SystemConfig.instance().getLogger();
+	private LoggerInterface logger = SystemConfig.instance().getLogger();
 	
 	public CallStoredProcedure(String storedProcedureName) throws SQLException
 	{

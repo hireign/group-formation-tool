@@ -2,11 +2,11 @@ package CSCI5308.GroupFormationTool.Courses;
 
 import java.util.List;
 
-import CSCI5308.GroupFormationTool.AccessControl.User;
+import CSCI5308.GroupFormationTool.AccessControl.IUser;
 
 public interface IStudentCSVParser 
 {
 
-	public List<User> parseCSVFile(List<String> failureResults);
+	public List<IUser> parseCSVFile(List<String> failureResults);
 	
 }
