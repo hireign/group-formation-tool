@@ -6,6 +6,7 @@ import java.util.List;
 public class QuestionDBMock implements IQuestionPersistence 
 {
 	List<IQuestion> questions;
+	private QuestionAbstractFactory questionFactory = QuestionAbstractFactory.getFactory();
 	
 	@Override
 	public List<IQuestion> loadQuestionsSortedByTitle(String bannerId) 
@@ -13,14 +14,14 @@ public class QuestionDBMock implements IQuestionPersistence
 		questions = new ArrayList<IQuestion>();
 		if(bannerId.equals("B-000000")) 
 		{
-			Question q = new Question();
+			IQuestion q = questionFactory.createQuestion();
 			q.setId(1);
 			q.setTitle("Test Title");
 			q.setText("Test Question");
 			q.setType(QuestionType.TEXT);
 			questions.add(q);
 			
-			q = new Question();
+			q = questionFactory.createQuestion();
 			q.setId(1);
 			q.setTitle("Test Title 2");
 			q.setText("Test Question");
@@ -36,14 +37,14 @@ public class QuestionDBMock implements IQuestionPersistence
 		questions = new ArrayList<IQuestion>();
 		if(bannerId.equals("B-000000")) 
 		{
-			Question q = new Question();
+			IQuestion q = questionFactory.createQuestion();
 			q.setId(1);
 			q.setTitle("Test Title 2");
 			q.setText("Test Question");
 			q.setType(QuestionType.TEXT);
 			questions.add(q);
 			
-			q = new Question();
+			q = questionFactory.createQuestion();
 			q.setId(1);
 			q.setTitle("Test Title");
 			q.setText("Test Question");
@@ -55,7 +56,7 @@ public class QuestionDBMock implements IQuestionPersistence
 
 	public boolean deleteQuestionByQuestionId(long questionId) 
 	{
-		IQuestion q = new Question();
+		IQuestion q = questionFactory.createQuestion();
 		q.setId(1);
 		q.setTitle("Test Title");
 		q.setText("Test Question");

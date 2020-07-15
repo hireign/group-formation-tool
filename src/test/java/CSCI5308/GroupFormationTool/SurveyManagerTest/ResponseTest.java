@@ -12,7 +12,7 @@ import CSCI5308.GroupFormationTool.SurveyManager.Response;
 
 @SuppressWarnings("deprecation")
 public class ResponseTest {
-
+	
 	@Test
 	public void getId() {
 		IResponse response = new Response();

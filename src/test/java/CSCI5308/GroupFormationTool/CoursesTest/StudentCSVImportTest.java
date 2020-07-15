@@ -9,36 +9,36 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
 
+import CSCI5308.GroupFormationTool.TestSystemConfig;
 import CSCI5308.GroupFormationTool.AccessControl.IUser;
 import CSCI5308.GroupFormationTool.AccessControl.IUserPersistence;
-import CSCI5308.GroupFormationTool.AccessControl.User;
-import CSCI5308.GroupFormationTool.AccessControlTest.UserDBMock;
-import CSCI5308.GroupFormationTool.Courses.Course;
+import CSCI5308.GroupFormationTool.AccessControl.UserAbstractFactory;
+import CSCI5308.GroupFormationTool.Courses.CourseAbstractFactory;
 import CSCI5308.GroupFormationTool.Courses.ICourse;
 import CSCI5308.GroupFormationTool.Courses.ICourseUserRelationshipPersistence;
 import CSCI5308.GroupFormationTool.Courses.Role;
 import CSCI5308.GroupFormationTool.Security.IPasswordEncryption;
-import CSCI5308.GroupFormationTool.SecurityTest.PasswordEncryptionMock;
 
 @SpringBootTest
 @SuppressWarnings("deprecation")
 class StudentCSVImportTest 
 {
-	
+	private UserAbstractFactory userFactory = UserAbstractFactory.getFactory();
+	private CourseAbstractFactory courseFactory = CourseAbstractFactory.getFactory();
 	private ICourseUserRelationshipPersistence courseUserRelationshipDB;
 
 	public StudentCSVImportTest() 
 	{
-		courseUserRelationshipDB = new CourseUserRelationshipDBMock();
+		courseUserRelationshipDB = TestSystemConfig.instance().getCourseUserRelationshipDB();
 	}
 
 	@Test
 	public void enrollStudentFromRecord() throws Exception 
 	{
-		IUser user = new User();
-		ICourse course = new Course();
-		IUserPersistence userDB = new UserDBMock();
-		IPasswordEncryption passwordEncryption = new PasswordEncryptionMock();
+		IUser user = userFactory.createUser();
+		ICourse course = courseFactory.createCourse();
+		IUserPersistence userDB = TestSystemConfig.instance().getUserDB();
+		IPasswordEncryption passwordEncryption = TestSystemConfig.instance().getPasswordEncryption();
 		user.createUser(userDB, passwordEncryption, null);
 		assertThat(user.getBannerID().equalsIgnoreCase("B00000000"));
 		courseUserRelationshipDB.enrollUser(course, user, Role.STUDENT);

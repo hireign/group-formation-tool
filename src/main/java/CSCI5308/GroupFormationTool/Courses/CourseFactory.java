@@ -18,4 +18,9 @@ public class CourseFactory extends CourseAbstractFactory {
 		return new Course();
 	}
 
+	@Override
+	public ICourse createCourse(long id, ICoursePersistence courseDB) throws Exception {
+		return new Course(id, courseDB);
+	}
+
 }

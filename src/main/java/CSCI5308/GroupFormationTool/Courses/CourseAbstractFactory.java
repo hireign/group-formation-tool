@@ -8,6 +8,7 @@ public abstract class CourseAbstractFactory {
 	public abstract ICourseUserRelationship createCourseUserDB();
 	public abstract ICourseUserRelationshipPersistence createCourseUserPersistenceDB();
 	public abstract ICourse createCourse();
+	public abstract ICourse createCourse(long id, ICoursePersistence courseDB) throws Exception;
 	
 	public static CourseAbstractFactory getFactory() {
 		return courseFactory;

@@ -1,5 +1,6 @@
 package CSCI5308.GroupFormationTool.AccessControlTest;
 
+import CSCI5308.GroupFormationTool.TestSystemConfig;
 import CSCI5308.GroupFormationTool.AccessControl.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,27 +13,29 @@ import org.springframework.util.Assert;
 @SuppressWarnings("deprecation")
 public class UserTest
 {
+	private UserAbstractFactory userFactory = UserAbstractFactory.getFactory();
+	
 	@Test
 	public void ConstructorTests() throws Exception
 	{
-		IUser u = new User();
+		IUser u = userFactory.createUser();
 		Assert.isTrue(u.getBannerID().isEmpty());
 		Assert.isTrue(u.getFirstName().isEmpty());
 		Assert.isTrue(u.getLastName().isEmpty());
 		Assert.isTrue(u.getEmail().isEmpty());
 		
-		IUserPersistence userDBMock = new UserDBMock();
-		u = new User(1, userDBMock);
+		IUserPersistence userDBMock = TestSystemConfig.instance().getUserDB();
+		u = userFactory.createUser((long)1, userDBMock);
 		Assert.isTrue(u.getBannerID().equals("B00000000"));
 		
-		u = new User("B00000000", userDBMock);
+		u = userFactory.createUser("B00000000", userDBMock);
 		Assert.isTrue(u.getBannerID().equals("B00000000"));
 	}
 	
 	@Test
 	public void setIDTest()
 	{
-		IUser u = new User();
+		IUser u = userFactory.createUser();
 		u.setID(10);
 		Assert.isTrue(10 == u.getID());
 	}
@@ -40,7 +43,7 @@ public class UserTest
 	@Test
 	public void getIDTest()
 	{
-		IUser u = new User();
+		IUser u = userFactory.createUser();
 		u.setID(10);
 		Assert.isTrue(10 == u.getID());
 	}
@@ -48,7 +51,7 @@ public class UserTest
 	@Test
 	public void setBannerIDTest()
 	{
-		IUser u = new User();
+		IUser u = userFactory.createUser();
 		u.setBannerID("B00000000");
 		Assert.isTrue(u.getBannerID().equals("B00000000"));
 	}
@@ -56,7 +59,7 @@ public class UserTest
 	@Test
 	public void getBannerIDTest()
 	{
-		IUser u = new User();
+		IUser u = userFactory.createUser();
 		u.setBannerID("B00000000");
 		Assert.isTrue(u.getBannerID().equals("B00000000"));
 	}
@@ -64,7 +67,7 @@ public class UserTest
 	@Test
 	public void setFirstNameTest()
 	{
-		IUser u = new User();
+		IUser u = userFactory.createUser();
 		u.setFirstName("Rob");
 		Assert.isTrue(u.getFirstName().equals("Rob"));
 	}
@@ -72,7 +75,7 @@ public class UserTest
 	@Test
 	public void getFirstNameTest()
 	{
-		IUser u = new User();
+		IUser u = userFactory.createUser();
 		u.setFirstName("Rob");
 		Assert.isTrue(u.getFirstName().equals("Rob"));
 	}
@@ -80,7 +83,7 @@ public class UserTest
 	@Test
 	public void setLastNameTest()
 	{
-		IUser u = new User();
+		IUser u = userFactory.createUser();
 		u.setLastName("Hawkey");
 		Assert.isTrue(u.getLastName().equals("Hawkey"));
 	}
@@ -88,7 +91,7 @@ public class UserTest
 	@Test
 	public void getLastNameTest()
 	{
-		IUser u = new User();
+		IUser u = userFactory.createUser();
 		u.setLastName("Hawkey");
 		Assert.isTrue(u.getLastName().equals("Hawkey"));
 	}
@@ -96,7 +99,7 @@ public class UserTest
 	@Test
 	public void setEmailTest()
 	{
-		IUser u = new User();
+		IUser u = userFactory.createUser();
 		u.setEmail("rhawkey@dal.ca");
 		Assert.isTrue(u.getEmail().equals("rhawkey@dal.ca"));
 	}
@@ -104,7 +107,7 @@ public class UserTest
 	@Test
 	public void getEmailTest()
 	{
-		IUser u = new User();
+		IUser u = userFactory.createUser();
 		u.setEmail("rhawkey@dal.ca");
 		Assert.isTrue(u.getEmail().equals("rhawkey@dal.ca"));
 	}
@@ -112,8 +115,8 @@ public class UserTest
 	@Test
 	public void createUser() throws Exception
 	{		
-		IUserPersistence userDB = new UserDBMock();
-		IUser user = new User();
+		IUserPersistence userDB = TestSystemConfig.instance().getUserDB();
+		IUser user = userFactory.createUser();
 		userDB.createUser(user);
 		Assert.isTrue(user.getId() == 0);
 		Assert.isTrue(user.getBannerID().equals("B00000000"));
