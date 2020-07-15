@@ -6,22 +6,26 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.Assert;
 
+import CSCI5308.GroupFormationTool.TestSystemConfig;
+
 @SuppressWarnings("deprecation")
 class OptionsTest 
 {	
+	private QuestionAbstractFactory questionFactory = QuestionAbstractFactory.getFactory();
+	
 	@Test
 	public void ConstructorTests() 
 	{
-		IOptions options = new Options();
+		IOptions options = questionFactory.createOptions();
 		Assert.isTrue(options.getOptionList().size() == 0);
 	}
 	
 	@Test
 	public void getOptionList() 
 	{
-		IOptions options = new Options();
+		IOptions options = questionFactory.createOptions();
 		List<IOptionValue> list = new ArrayList<IOptionValue>();
-		list.add(new OptionValue("test","test"));
+		list.add(questionFactory.createOptionValue("test","test"));
 		options.setOptionList(list);
 		Assert.isTrue(options.getOptionList() == list);
 		
@@ -30,9 +34,9 @@ class OptionsTest
 	@Test
 	public void setOptionList() 
 	{
-		IOptions options = new Options();
+		IOptions options = questionFactory.createOptions();
 		List<IOptionValue> list = new ArrayList<IOptionValue>();
-		list.add(new OptionValue("test","test"));
+		list.add(questionFactory.createOptionValue("test","test"));
 		options.setOptionList(list);
 		Assert.isTrue(options.getOptionList() == list);
 	}
@@ -40,7 +44,7 @@ class OptionsTest
 	@Test
 	public void addOption() 
 	{
-		IOptions options = new Options();
+		IOptions options = questionFactory.createOptions();
 		options.addOption();
 		Assert.isTrue(options.getOptionList().size()>0);
 	}
@@ -49,7 +53,7 @@ class OptionsTest
 	public void saveOptions() throws Exception 
 	{
 		IOptionValue option = new OptionValue("Test Text", "1");
-		IQuestionPersistence questionDB = new QuestionDBMock();
+		IQuestionPersistence questionDB = TestSystemConfig.instance().getQuestionDB();
 		boolean status = questionDB.createQuestionOption(option, 1, 1);
 		Assert.isTrue(status == true);
 		status = questionDB.createQuestionOption(option, 1, -1);

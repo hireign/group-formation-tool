@@ -4,7 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
 
+import CSCI5308.GroupFormationTool.TestSystemConfig;
 import CSCI5308.GroupFormationTool.Courses.Course;
+import CSCI5308.GroupFormationTool.Courses.CourseAbstractFactory;
 import CSCI5308.GroupFormationTool.Courses.ICourse;
 import CSCI5308.GroupFormationTool.Courses.ICoursePersistence;
 
@@ -12,15 +14,17 @@ import CSCI5308.GroupFormationTool.Courses.ICoursePersistence;
 @SuppressWarnings("deprecation")
 class CourseTest 
 {
+	private CourseAbstractFactory courseFactory = CourseAbstractFactory.getFactory();
+	
 	@Test
 	public void ConstructorTests() throws Exception 
 	{
-		ICourse course = new Course();
+		ICourse course = courseFactory.createCourse();
 		Assert.isTrue(course.getId() == -1);
 		Assert.isTrue(course.getTitle().isEmpty());
 
-		ICoursePersistence courseDB = new CourseDBMock();
-		course = new Course(0, courseDB);
+		ICoursePersistence courseDB = TestSystemConfig.instance().getCourseDB();
+		course = courseFactory.createCourse(0, courseDB);
 		Assert.isTrue(course.getId() == 0);
 		Assert.isTrue(course.getTitle().equals("Software Engineering"));
 	}
@@ -28,7 +32,7 @@ class CourseTest
 	@Test
 	public void setIdTest() 
 	{
-		ICourse course = new Course();
+		ICourse course = courseFactory.createCourse();
 		course.setId(7);
 		Assert.isTrue(course.getId() == 7);
 	}
@@ -36,7 +40,7 @@ class CourseTest
 	@Test
 	public void getIdTest() 
 	{
-		ICourse course = new Course();
+		ICourse course = courseFactory.createCourse();
 		course.setId(7);
 		Assert.isTrue(course.getId() == 7);
 	}
@@ -44,7 +48,7 @@ class CourseTest
 	@Test
 	public void setTitleTest() 
 	{
-		ICourse course = new Course();
+		ICourse course = courseFactory.createCourse();
 		course.setTitle("Advanced Topics in Software Development");
 		Assert.isTrue(course.getTitle().equals("Advanced Topics in Software Development"));
 	}
@@ -52,7 +56,7 @@ class CourseTest
 	@Test
 	public void getTitleTest() 
 	{
-		ICourse course = new Course();
+		ICourse course = courseFactory.createCourse();
 		course.setTitle("Advanced Topics in Software Development");
 		Assert.isTrue(course.getTitle().equals("Advanced Topics in Software Development"));
 	}
@@ -60,7 +64,7 @@ class CourseTest
 	@Test
 	public void deleteCourseTest() throws Exception 
 	{
-		ICoursePersistence courseDB = new CourseDBMock();
+		ICoursePersistence courseDB = TestSystemConfig.instance().getCourseDB();
 		boolean status = courseDB.deleteCourse(0);
 		Assert.isTrue(status);
 	}
@@ -68,8 +72,8 @@ class CourseTest
 	@Test
 	public void createCourseTest() throws Exception 
 	{
-		ICoursePersistence courseDB = new CourseDBMock();
-		ICourse course = new Course();
+		ICoursePersistence courseDB =TestSystemConfig.instance().getCourseDB();
+		ICourse course = courseFactory.createCourse();
 		course.setId(0);
 		course.setTitle("Software Engineering");
 		courseDB.createCourse(course);

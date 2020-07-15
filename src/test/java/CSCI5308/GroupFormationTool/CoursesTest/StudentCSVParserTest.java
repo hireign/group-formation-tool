@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
 
+import CSCI5308.GroupFormationTool.TestSystemConfig;
+
 @SpringBootTest
 @SuppressWarnings("deprecation")
 class StudentCSVParserTest 
@@ -17,7 +19,7 @@ class StudentCSVParserTest
 	public void parseCSVFile() 
 	{
 		Reader reader = null;
-		CSVReaderMock csvReader = new CSVReaderMock();
+		CSVReaderMock csvReader = TestSystemConfig.instance().getCsvReader();
 		List<String[]> records = csvReader.readAll(reader);
 		assertThat(records).isNotNull();
 		assertThat(records).isNotEmpty();

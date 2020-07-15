@@ -12,6 +12,11 @@ public class UserFactory extends UserAbstractFactory {
 	}
 
 	@Override
+	public IUser createUser(Long bannerID, IUserPersistence userDB) throws Exception {
+		return new User(bannerID, userDB);
+	}
+
+	@Override
 	public IUser createUser(String bannerID, IUserPersistence userDB) throws Exception {
 		return new User(bannerID, userDB);
 	}

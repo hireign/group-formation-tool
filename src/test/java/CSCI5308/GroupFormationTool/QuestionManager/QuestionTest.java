@@ -5,13 +5,17 @@ import java.sql.Timestamp;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.Assert;
 
+import CSCI5308.GroupFormationTool.TestSystemConfig;
+
 @SuppressWarnings("deprecation")
 public class QuestionTest
 {
+	private QuestionAbstractFactory questionFactory = QuestionAbstractFactory.getFactory();
+	
 	@Test
 	public void ConstructorTests()
 	{
-		IQuestion q = new Question();
+		IQuestion q = questionFactory.createQuestion();
 		Assert.isTrue(q.getTitle().isEmpty());
 		Assert.isTrue(q.getText().isEmpty());
 		Assert.isNull(q.getType());
@@ -21,7 +25,7 @@ public class QuestionTest
 	@Test
 	public void getTimestamp() 
 	{
-		IQuestion q = new Question();
+		IQuestion q = questionFactory.createQuestion();
 		Timestamp time = Timestamp.valueOf("2020-06-16 00:00:00");
 		q.setTimestamp(time);
 		Assert.isTrue(time == q.getTimestamp());
@@ -30,7 +34,7 @@ public class QuestionTest
 	@Test
 	public void setTimestamp() 
 	{
-		IQuestion q = new Question();
+		IQuestion q = questionFactory.createQuestion();
 		Timestamp time = Timestamp.valueOf("2020-06-16 00:00:00");
 		q.setTimestamp(time);
 		Assert.isTrue(time == q.getTimestamp());
@@ -39,7 +43,7 @@ public class QuestionTest
 	@Test
 	public void getId() 
 	{
-		IQuestion q = new Question();
+		IQuestion q = questionFactory.createQuestion();
 		q.setId(7);
 		Assert.isTrue(q.getId() == 7);
 	}
@@ -47,7 +51,7 @@ public class QuestionTest
 	@Test
 	public void setId() 
 	{
-		IQuestion q = new Question();
+		IQuestion q = questionFactory.createQuestion();
 		q.setId(7);
 		Assert.isTrue(q.getId() == 7);
 	}
@@ -55,7 +59,7 @@ public class QuestionTest
 	@Test
 	public void getTitle() 
 	{
-		IQuestion q = new Question();
+		IQuestion q = questionFactory.createQuestion();
 		q.setTitle("Test title");
 		Assert.isTrue(q.getTitle().equals("Test title"));
 	}
@@ -63,7 +67,7 @@ public class QuestionTest
 	@Test
 	public void setTitle() 
 	{
-		IQuestion q = new Question();
+		IQuestion q = questionFactory.createQuestion();
 		q.setTitle("Test title");
 		Assert.isTrue(q.getTitle().equals("Test title"));
 	}
@@ -71,7 +75,7 @@ public class QuestionTest
 	@Test
 	public void getText() 
 	{
-		IQuestion q = new Question();
+		IQuestion q = questionFactory.createQuestion();
 		q.setText("Test text");
 		Assert.isTrue(q.getText().equals("Test text"));
 	}
@@ -79,7 +83,7 @@ public class QuestionTest
 	@Test
 	public void setText() 
 	{
-		IQuestion q = new Question();
+		IQuestion q = questionFactory.createQuestion();
 		q.setText("Test text");
 		Assert.isTrue(q.getText().equals("Test text"));
 	}
@@ -87,7 +91,7 @@ public class QuestionTest
 	@Test
 	public void getType() 
 	{
-		IQuestion q = new Question();
+		IQuestion q = questionFactory.createQuestion();
 		q.setType(QuestionType.TEXT);
 		Assert.isTrue(q.getType() == QuestionType.TEXT);
 	}
@@ -95,7 +99,7 @@ public class QuestionTest
 	@Test
 	public void setType() 
 	{
-		IQuestion q = new Question();
+		IQuestion q = questionFactory.createQuestion();
 		q.setType(QuestionType.TEXT);
 		Assert.isTrue(q.getType() == QuestionType.TEXT);
 	}
@@ -103,8 +107,8 @@ public class QuestionTest
 	@Test
 	public void deleteQuestion() throws Exception 
 	{
-		IQuestion q = new Question();
-		IQuestionPersistence questionDB = new QuestionDBMock();
+		IQuestion q = questionFactory.createQuestion();
+		IQuestionPersistence questionDB = TestSystemConfig.instance().getQuestionDB();
 		q.setDefaults();
 		boolean status = questionDB.deleteQuestionByQuestionId(q.getId());
 		Assert.isTrue(status == false);

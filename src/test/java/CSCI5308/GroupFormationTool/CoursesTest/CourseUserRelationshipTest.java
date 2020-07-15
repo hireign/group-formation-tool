@@ -8,9 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
 
+import CSCI5308.GroupFormationTool.TestSystemConfig;
 import CSCI5308.GroupFormationTool.AccessControl.IUser;
 import CSCI5308.GroupFormationTool.AccessControlTest.CurrentUserMock;
-import CSCI5308.GroupFormationTool.Courses.Course;
+import CSCI5308.GroupFormationTool.Courses.CourseAbstractFactory;
 import CSCI5308.GroupFormationTool.Courses.ICourse;
 import CSCI5308.GroupFormationTool.Courses.ICourseUserRelationshipPersistence;
 import CSCI5308.GroupFormationTool.Courses.Role;
@@ -20,18 +21,19 @@ import CSCI5308.GroupFormationTool.Courses.Role;
 class CourseUserRelationshipTest 
 {
 	private ICourseUserRelationshipPersistence courseUserRelationshipDB;
+	private CourseAbstractFactory courseFactory = CourseAbstractFactory.getFactory();
 
 	public CourseUserRelationshipTest() 
 	{
-		courseUserRelationshipDB = new CourseUserRelationshipDBMock();
+		courseUserRelationshipDB = TestSystemConfig.instance().getCourseUserRelationshipDB();
 	}
 
 	@Test
 	public void userHasRoleInCourse() throws Exception 
 	{
-		ICourse course = new Course();
+		ICourse course = courseFactory.createCourse();
 		course.setId(0);
-		CurrentUserMock currentUser = new CurrentUserMock();
+		CurrentUserMock currentUser = TestSystemConfig.instance().getCurrentUser();
 		IUser user = currentUser.getCurrentAuthenticatedUser();
 		List<Role> roles = courseUserRelationshipDB.loadUserRolesForCourse(course, user);
 		assertThat(roles).isNotNull();
@@ -42,9 +44,9 @@ class CourseUserRelationshipTest
 	@Test
 	public void loadAllRoluesForUserInCourse() throws Exception 
 	{
-		ICourse course = new Course();
+		ICourse course = courseFactory.createCourse();
 		course.setId(0);
-		CurrentUserMock currentUser = new CurrentUserMock();
+		CurrentUserMock currentUser = TestSystemConfig.instance().getCurrentUser();
 		IUser user = currentUser.getCurrentAuthenticatedUser();
 		List<Role> roles = courseUserRelationshipDB.loadUserRolesForCourse(course, user);
 		Assert.isTrue(roles.size() > 0);
@@ -53,8 +55,8 @@ class CourseUserRelationshipTest
 	@Test
 	public void enrollUserInCourse() throws Exception 
 	{
-		ICourse course = new Course();
-		CurrentUserMock currentUser = new CurrentUserMock();
+		ICourse course = courseFactory.createCourse();
+		CurrentUserMock currentUser = TestSystemConfig.instance().getCurrentUser();
 		IUser user = currentUser.getCurrentAuthenticatedUser();
 		courseUserRelationshipDB.enrollUser(course, user, Role.STUDENT);
 		assertThat(course.getTitle().equalsIgnoreCase("Software Engineering"));
