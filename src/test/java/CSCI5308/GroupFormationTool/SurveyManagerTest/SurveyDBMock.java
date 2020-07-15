@@ -7,6 +7,7 @@ import CSCI5308.GroupFormationTool.QuestionManager.Options;
 import CSCI5308.GroupFormationTool.QuestionManager.Question;
 import CSCI5308.GroupFormationTool.SurveyManager.IResponse;
 import CSCI5308.GroupFormationTool.SurveyManager.ISurveyPersistence;
+import CSCI5308.GroupFormationTool.SurveyManager.Response;
 import CSCI5308.GroupFormationTool.SurveyManager.Survey;
 
 public class SurveyDBMock implements ISurveyPersistence {
@@ -34,9 +35,36 @@ public class SurveyDBMock implements ISurveyPersistence {
 		return options;
 	}
 
-	public boolean saveSurveyResponse(IResponse response) {
+	public void saveSurveyResponse(IResponse response) {
 		if (response.getId() > -1 && response.getQuestionID() > -1
 				&& response.getResponse() != "" && response.getUserID() > -1) {
+			IResponse responseTest = new Response();
+			responseTest.setId(response.getId());
+		}
+	}
+
+	public boolean deleteSurveyQuestion(long questionID, long courseID) {
+		Question question = new Question();
+		question.setId(questionID);
+		Survey survey = new Survey();
+		survey.setId(courseID);
+		if (question.getId() > -1 && survey.getId() > -1) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean addSurveyQuestion(long questionID, long courseID, long instructorID){
+		Survey survey = new Survey();
+		survey.setId(courseID);
+		survey.setUserID(instructorID);
+		List<Question> questionList = new ArrayList<Question>();
+		Question question = new Question();
+		question.setId(questionID);
+		questionList.add(question);
+		survey.setQuestions(questionList);
+		if(survey.getId() > -1 && survey.getUserID() > -1 && survey.getQuestions() != null){
 			return true;
 		}
 		return false;

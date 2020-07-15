@@ -6,6 +6,9 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import CSCI5308.GroupFormationTool.LoggerInterface;
+import CSCI5308.GroupFormationTool.SystemConfig;
+import CSCI5308.GroupFormationTool.AccessControl.UserDB;
 import CSCI5308.GroupFormationTool.Database.CallStoredProcedure;
 import CSCI5308.GroupFormationTool.QuestionManager.IOptionValue;
 import CSCI5308.GroupFormationTool.QuestionManager.IOptions;
@@ -15,14 +18,15 @@ import CSCI5308.GroupFormationTool.QuestionManager.QuestionType;
 
 public class SurveyDB implements ISurveyPersistence
 {
+	private static LoggerInterface logger = SystemConfig.instance().getLogger();
 
-	public ISurvey loadSurveyByCourseID(long courseID)
+	public ISurvey loadSurveyByCourseID(long courseID) throws Exception
 	{
 		ISurvey survey = null;
 		CallStoredProcedure proc = null;
 		try
 		{
-			proc = new CallStoredProcedure("spFindQuestionsByCourseID(?)");
+			proc = new CallStoredProcedure("spLoadSurveyQuestions(?)");
 			proc.setParameter(1, courseID);
 			ResultSet results = proc.executeWithResults();
 			Question question;
@@ -65,7 +69,8 @@ public class SurveyDB implements ISurveyPersistence
 		}
 		catch (SQLException e)
 		{
-			System.out.println(e);
+			logger.error(SurveyDB.class.toString(),String.format("courseID=%d action=loadSurveyByCourseID status=failure exception e=%s", courseID,e.getMessage()));
+			throw e;
 		}
 		finally
 		{
@@ -77,7 +82,7 @@ public class SurveyDB implements ISurveyPersistence
 		return survey;
 	}
 	
-	public IOptions loadOptionsByQuestionID(long questionID)
+	public IOptions loadOptionsByQuestionID(long questionID) throws Exception
 	{
 		List<IOptionValue> optionList = new ArrayList<IOptionValue>();
 		IOptions options = QuestionAbstractFactory.getFactory().createOptions();
@@ -107,7 +112,8 @@ public class SurveyDB implements ISurveyPersistence
 		}
 		catch (SQLException e)
 		{
-			System.out.println(e);
+			logger.error(SurveyDB.class.toString(),String.format("questionID=%d action=loadOptionsByQuestionID status=failure exception e=%s", questionID,e.getMessage()));
+			throw e;
 		}
 		finally
 		{
@@ -120,7 +126,7 @@ public class SurveyDB implements ISurveyPersistence
 	}
 
 	@Override
-	public boolean saveSurveyResponse(IResponse surveyResponse) {
+	public void saveSurveyResponse(IResponse surveyResponse) throws SQLException {
 		CallStoredProcedure proc = null;
 		try
 		{
@@ -134,8 +140,31 @@ public class SurveyDB implements ISurveyPersistence
 		}
 		catch (SQLException e)
 		{
-			System.out.println(e);
-			return false;
+			logger.error(SurveyDB.class.toString(),String.format("surveyResponseID=%d action=saveSurveyResponse status=failure exception e=%s", surveyResponse.getId(),e.getMessage()));
+			throw e;
+		}
+		finally
+		{
+			if (null != proc)
+			{
+				proc.cleanup();
+			}
+		}
+	}
+
+	@Override
+	public boolean deleteSurveyQuestion(long questionID, long courseID) throws SQLException {
+		CallStoredProcedure proc = null;
+		try {
+			proc = new CallStoredProcedure("spDeleteQuestionFromSurvey(?,?)");
+			proc.setParameter(1, questionID);
+			proc.setParameter(2, courseID);
+			proc.execute();
+		}
+		catch (SQLException e)
+		{
+			logger.error(SurveyDB.class.toString(),String.format("questionID=%d action=deleteQuestion status=failure to delete question e=%s", questionID, e.getMessage()));
+			throw e;
 		}
 		finally
 		{
@@ -147,4 +176,27 @@ public class SurveyDB implements ISurveyPersistence
 		return true;
 	}
 
+	public boolean addSurveyQuestion(long questionID, long courseID, long instructorID) throws Exception{
+		CallStoredProcedure proc = null;
+		try {
+			proc = new CallStoredProcedure("spAddQuestionToSurvey(?,?,?)");
+			proc.setParameter(1, questionID);
+			proc.setParameter(2, courseID);
+			proc.setParameter(3, instructorID);
+			proc.execute();
+		}
+		catch (SQLException e)
+		{
+			logger.error(SurveyDB.class.toString(),String.format("questionID=%d action=addQuestion status=failure to add question e=%s", questionID, e.getMessage()));
+			throw e;
+		}
+		finally
+		{
+			if (null != proc)
+			{
+				proc.cleanup();
+			}
+		}
+		return true;
+	}
 }

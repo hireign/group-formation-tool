@@ -1,5 +1,7 @@
 package CSCI5308.GroupFormationTool.QuestionManager;
 
+import CSCI5308.GroupFormationTool.SurveyManager.Survey;
+
 import java.util.ArrayList;
 import java.util.List;
 

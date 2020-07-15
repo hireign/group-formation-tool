@@ -2,6 +2,7 @@ package CSCI5308.GroupFormationTool.QuestionManager;
 
 import java.util.List;
 
+import CSCI5308.GroupFormationTool.AccessControl.CurrentUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,12 +22,12 @@ public class QuestionManagerController
 	}
 
 	@RequestMapping("/question/questionmanager/title")
-	public String questionsByTitle(Model model, @RequestParam(name = BannerID) String bannerID) 
+	public String questionsByTitle(Model model)
 	{
 	
 		List<IQuestion> questionList;
 		try {
-			questionList = questionDB.loadQuestionsSortedByTitle(bannerID);
+			questionList = questionDB.loadQuestionsSortedByTitle(CurrentUser.instance().getCurrentAuthenticatedUser().getBannerID());
 			model.addAttribute("questionList", questionList);
 		} catch (Exception e) {
 			model.addAttribute("errorMessage","Unable to fetch questions, please try again later");

@@ -1,0 +1,186 @@
+[INFO ] 15-07 01:43:35.684 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on LAPTOP-K3AH8TRJ with PID 17764 (started by hiren in C:\Users\hiren\git\M3\Newww Pull\group23)
+[DEBUG] 15-07 01:43:35.703 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 15-07 01:43:35.704 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 15-07 01:43:43.056 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 8.188 seconds (JVM running for 10.499)
+[INFO ] 15-07 01:46:46.830 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on LAPTOP-K3AH8TRJ with PID 17764 (started by hiren in C:\Users\hiren\git\M3\Newww Pull\group23)
+[DEBUG] 15-07 01:46:46.832 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 15-07 01:46:46.832 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 15-07 01:46:49.823 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 3.276 seconds (JVM running for 197.288)
+[INFO ] 15-07 01:46:52.342 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on LAPTOP-K3AH8TRJ with PID 3000 (started by hiren in C:\Users\hiren\git\M3\Newww Pull\group23)
+[DEBUG] 15-07 01:46:52.356 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 15-07 01:46:52.357 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[ERROR] 15-07 01:46:59.490 [restartedMain] LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+[INFO ] 15-07 01:50:51.304 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on LAPTOP-K3AH8TRJ with PID 17764 (started by hiren in C:\Users\hiren\git\M3\Newww Pull\group23)
+[DEBUG] 15-07 01:50:51.305 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 15-07 01:50:51.306 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 15-07 01:50:54.014 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on LAPTOP-K3AH8TRJ with PID 11924 (started by hiren in C:\Users\hiren\git\M3\Newww Pull\group23)
+[DEBUG] 15-07 01:50:54.036 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 15-07 01:50:54.038 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 15-07 01:50:54.970 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 3.898 seconds (JVM running for 442.436)
+[ERROR] 15-07 01:50:59.604 [restartedMain] LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+[INFO ] 15-07 02:17:17.949 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on LAPTOP-K3AH8TRJ with PID 17764 (started by hiren in C:\Users\hiren\git\M3\Newww Pull\group23)
+[DEBUG] 15-07 02:17:17.950 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 15-07 02:17:17.950 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 15-07 02:17:20.919 [restartedMain] ContextLoader - Root WebApplicationContext: initialization completed in 2962 ms
+[INFO ] 15-07 02:17:21.173 [restartedMain] DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/resources/**'], []
+[INFO ] 15-07 02:17:21.178 [restartedMain] DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@17ad4a44, org.springframework.security.web.context.SecurityContextPersistenceFilter@711edbf6, org.springframework.security.web.header.HeaderWriterFilter@629ac747, org.springframework.security.web.csrf.CsrfFilter@71d6a5fb, org.springframework.security.web.authentication.logout.LogoutFilter@26d8f629, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@7940c37, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3ac89510, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@e5ccdf1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@45fe0b9d, org.springframework.security.web.session.SessionManagementFilter@35a349c4, org.springframework.security.web.access.ExceptionTranslationFilter@43710d88, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@107afdf2]
+[INFO ] 15-07 02:17:21.243 [restartedMain] ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+[INFO ] 15-07 02:17:21.378 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 4.006 seconds (JVM running for 2028.843)
+[INFO ] 15-07 02:19:38.472 [Thread-19] ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+[INFO ] 15-07 02:19:39.861 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on LAPTOP-K3AH8TRJ with PID 17764 (started by hiren in C:\Users\hiren\git\M3\Newww Pull\group23)
+[DEBUG] 15-07 02:19:39.862 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 15-07 02:19:39.863 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 15-07 02:19:40.877 [restartedMain] ContextLoader - Root WebApplicationContext: initialization completed in 1008 ms
+[INFO ] 15-07 02:19:41.117 [restartedMain] DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/resources/**'], []
+[INFO ] 15-07 02:19:41.122 [restartedMain] DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6c10effe, org.springframework.security.web.context.SecurityContextPersistenceFilter@1755f64e, org.springframework.security.web.header.HeaderWriterFilter@16f0d114, org.springframework.security.web.csrf.CsrfFilter@6d2e0af0, org.springframework.security.web.authentication.logout.LogoutFilter@6e176ef9, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@6e3b9958, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@44309866, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@54d89985, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@22a4b7ac, org.springframework.security.web.session.SessionManagementFilter@a310472, org.springframework.security.web.access.ExceptionTranslationFilter@47e29a98, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6a5abf63]
+[INFO ] 15-07 02:19:41.232 [restartedMain] ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+[INFO ] 15-07 02:19:41.409 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 1.702 seconds (JVM running for 2168.874)
+[INFO ] 15-07 02:20:06.138 [Thread-24] ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+[INFO ] 15-07 02:20:07.608 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on LAPTOP-K3AH8TRJ with PID 17764 (started by hiren in C:\Users\hiren\git\M3\Newww Pull\group23)
+[DEBUG] 15-07 02:20:07.610 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 15-07 02:20:07.610 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 15-07 02:20:08.524 [restartedMain] ContextLoader - Root WebApplicationContext: initialization completed in 907 ms
+[INFO ] 15-07 02:20:08.749 [restartedMain] DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/resources/**'], []
+[INFO ] 15-07 02:20:08.751 [restartedMain] DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2f3932ca, org.springframework.security.web.context.SecurityContextPersistenceFilter@4a0ad5e2, org.springframework.security.web.header.HeaderWriterFilter@6f970f40, org.springframework.security.web.csrf.CsrfFilter@23ea358d, org.springframework.security.web.authentication.logout.LogoutFilter@b2a8bee, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3b68f714, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@e901757, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@592ae4ca, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@f43d917, org.springframework.security.web.session.SessionManagementFilter@38bec925, org.springframework.security.web.access.ExceptionTranslationFilter@48b18df1, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@9a58d11]
+[INFO ] 15-07 02:20:08.803 [restartedMain] ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+[INFO ] 15-07 02:20:08.935 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 1.505 seconds (JVM running for 2196.4)
+[INFO ] 15-07 02:26:57.500 [Thread-29] ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+[INFO ] 15-07 02:26:58.915 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on LAPTOP-K3AH8TRJ with PID 17764 (started by hiren in C:\Users\hiren\git\M3\Newww Pull\group23)
+[DEBUG] 15-07 02:26:58.916 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 15-07 02:26:58.917 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 15-07 02:26:59.767 [restartedMain] ContextLoader - Root WebApplicationContext: initialization completed in 845 ms
+[INFO ] 15-07 02:26:59.969 [restartedMain] DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/resources/**'], []
+[INFO ] 15-07 02:26:59.975 [restartedMain] DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6e0a23dd, org.springframework.security.web.context.SecurityContextPersistenceFilter@eba394e, org.springframework.security.web.header.HeaderWriterFilter@26f36297, org.springframework.security.web.csrf.CsrfFilter@c062418, org.springframework.security.web.authentication.logout.LogoutFilter@324e7fae, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3760f12f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6c48f3e8, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5192c32c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5157cea3, org.springframework.security.web.session.SessionManagementFilter@33a1fdc6, org.springframework.security.web.access.ExceptionTranslationFilter@2ac90b2a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@61d84cc4]
+[INFO ] 15-07 02:27:00.072 [restartedMain] ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+[INFO ] 15-07 02:27:00.307 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 1.577 seconds (JVM running for 2607.773)
+[INFO ] 15-07 02:27:17.479 [Thread-34] ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+[INFO ] 15-07 02:27:19.068 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on LAPTOP-K3AH8TRJ with PID 17764 (started by hiren in C:\Users\hiren\git\M3\Newww Pull\group23)
+[DEBUG] 15-07 02:27:19.069 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 15-07 02:27:19.070 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 15-07 02:27:19.770 [restartedMain] ContextLoader - Root WebApplicationContext: initialization completed in 696 ms
+[INFO ] 15-07 02:27:19.973 [restartedMain] DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/resources/**'], []
+[INFO ] 15-07 02:27:19.976 [restartedMain] DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4c1124fb, org.springframework.security.web.context.SecurityContextPersistenceFilter@1a7acf5e, org.springframework.security.web.header.HeaderWriterFilter@335adc9e, org.springframework.security.web.csrf.CsrfFilter@6fe55bf0, org.springframework.security.web.authentication.logout.LogoutFilter@27b26b5a, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@2f001a5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@787a7355, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1d21fee8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@41e770b7, org.springframework.security.web.session.SessionManagementFilter@5f052595, org.springframework.security.web.access.ExceptionTranslationFilter@364a9519, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1c898bca]
+[INFO ] 15-07 02:27:20.035 [restartedMain] ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+[INFO ] 15-07 02:27:20.170 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 1.266 seconds (JVM running for 2627.635)
+[INFO ] 15-07 02:27:39.062 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on LAPTOP-K3AH8TRJ with PID 1712 (started by hiren in C:\Users\hiren\git\M3\Newww Pull\group23)
+[DEBUG] 15-07 02:27:39.077 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 15-07 02:27:39.078 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 15-07 02:27:43.042 [restartedMain] ContextLoader - Root WebApplicationContext: initialization completed in 3851 ms
+[INFO ] 15-07 02:27:44.511 [restartedMain] DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/resources/**'], []
+[INFO ] 15-07 02:27:44.608 [restartedMain] DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4799c9dc, org.springframework.security.web.context.SecurityContextPersistenceFilter@1139bba9, org.springframework.security.web.header.HeaderWriterFilter@3c555d8b, org.springframework.security.web.csrf.CsrfFilter@2cdd74, org.springframework.security.web.authentication.logout.LogoutFilter@31d165b6, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@7778a5e5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@eff2019, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4d7fcd8d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@15587c42, org.springframework.security.web.session.SessionManagementFilter@3d2bd787, org.springframework.security.web.access.ExceptionTranslationFilter@522b2a5a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7bdcbce]
+[INFO ] 15-07 02:27:44.910 [restartedMain] ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+[INFO ] 15-07 02:27:45.379 [http-nio-8080-exec-10] DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+[INFO ] 15-07 02:27:45.386 [http-nio-8080-exec-10] DispatcherServlet - Completed initialization in 6 ms
+[ERROR] 15-07 02:27:45.986 [restartedMain] LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+[INFO ] 15-07 02:27:46.022 [restartedMain] ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+[INFO ] 15-07 02:27:49.372 [http-nio-8080-exec-4] UserDB - userID=3 action=getUserByID status=success
+[INFO ] 15-07 02:27:49.486 [http-nio-8080-exec-4] CustomAuthenticationManager - user=B00841427 action=login status=success
+[INFO ] 15-07 02:27:54.704 [http-nio-8080-exec-10] CourseDB - courseID=2 action=getCourseByID status=success
+[INFO ] 15-07 02:27:54.848 [http-nio-8080-exec-10] UserDB - userID=3 action=getUserByID status=success
+[INFO ] 15-07 02:27:54.919 [http-nio-8080-exec-10] CourseUserRelationshipDB - user=B00841427 course=2 action=loadUserRolesForCourse status=success
+[INFO ] 15-07 02:28:03.359 [http-nio-8080-exec-3] UserDB - userID=3 action=getUserByID status=success
+[INFO ] 15-07 02:28:03.428 [http-nio-8080-exec-3] QuestionDB - action=loadQuestionsSortedByTitle status=success
+[INFO ] 15-07 02:28:07.466 [http-nio-8080-exec-2] UserDB - userID=3 action=getUserByID status=success
+[INFO ] 15-07 02:28:07.600 [http-nio-8080-exec-2] UserDB - userID=3 action=getUserByID status=success
+[INFO ] 15-07 02:28:21.812 [http-nio-8080-exec-2] CourseDB - courseID=1 action=getCourseByID status=success
+[INFO ] 15-07 02:28:21.951 [http-nio-8080-exec-2] UserDB - userID=3 action=getUserByID status=success
+[INFO ] 15-07 02:28:22.021 [http-nio-8080-exec-2] CourseUserRelationshipDB - user=B00841427 course=1 action=loadUserRolesForCourse status=success
+[INFO ] 15-07 02:28:26.406 [http-nio-8080-exec-9] UserDB - userID=3 action=getUserByID status=success
+[INFO ] 15-07 02:28:29.139 [http-nio-8080-exec-8] UserDB - userID=3 action=getUserByID status=success
+[INFO ] 15-07 02:28:34.703 [http-nio-8080-exec-5] UserDB - userID=3 action=getUserByID status=success
+[INFO ] 15-07 02:28:53.447 [http-nio-8080-exec-3] CourseDB - courseID=1 action=getCourseByID status=success
+[INFO ] 15-07 02:28:53.573 [http-nio-8080-exec-3] UserDB - userID=3 action=getUserByID status=success
+[INFO ] 15-07 02:28:53.643 [http-nio-8080-exec-3] CourseUserRelationshipDB - user=B00841427 course=1 action=loadUserRolesForCourse status=success
+[INFO ] 15-07 02:29:01.125 [http-nio-8080-exec-10] UserDB - userID=3 action=getUserByID status=success
+[INFO ] 15-07 02:29:04.380 [http-nio-8080-exec-6] CourseDB - courseID=1 action=getCourseByID status=success
+[INFO ] 15-07 02:29:04.520 [http-nio-8080-exec-6] UserDB - userID=3 action=getUserByID status=success
+[INFO ] 15-07 02:29:04.584 [http-nio-8080-exec-6] CourseUserRelationshipDB - user=B00841427 course=1 action=loadUserRolesForCourse status=success
+[INFO ] 15-07 02:29:11.362 [http-nio-8080-exec-3] UserDB - userID=3 action=getUserByID status=success
+[INFO ] 15-07 02:29:17.282 [http-nio-8080-exec-2] UserDB - userID=3 action=getUserByID status=success
+[INFO ] 15-07 02:29:20.205 [http-nio-8080-exec-5] CourseDB - courseID=1 action=getCourseByID status=success
+[INFO ] 15-07 02:29:20.341 [http-nio-8080-exec-5] UserDB - userID=3 action=getUserByID status=success
+[INFO ] 15-07 02:29:20.407 [http-nio-8080-exec-5] CourseUserRelationshipDB - user=B00841427 course=1 action=loadUserRolesForCourse status=success
+[INFO ] 15-07 02:44:26.987 [http-nio-8080-exec-5] CourseDB - courseID=2 action=getCourseByID status=success
+[INFO ] 15-07 02:44:27.441 [http-nio-8080-exec-5] UserDB - userID=3 action=getUserByID status=success
+[INFO ] 15-07 02:44:27.503 [http-nio-8080-exec-5] CourseUserRelationshipDB - user=B00841427 course=2 action=loadUserRolesForCourse status=success
+[INFO ] 15-07 02:44:29.311 [http-nio-8080-exec-6] UserDB - userID=3 action=getUserByID status=success
+[INFO ] 15-07 02:44:29.390 [http-nio-8080-exec-6] QuestionDB - action=loadQuestionsSortedByTitle status=success
+[INFO ] 15-07 02:58:37.889 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on LAPTOP-K3AH8TRJ with PID 11924 (started by hiren in C:\Users\hiren\git\M3\Newww Pull\group23)
+[DEBUG] 15-07 02:58:37.916 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 15-07 02:58:37.917 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 15-07 02:58:41.687 [restartedMain] ContextLoader - Root WebApplicationContext: initialization completed in 3659 ms
+[INFO ] 15-07 02:58:42.725 [restartedMain] DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/resources/**'], []
+[INFO ] 15-07 02:58:42.771 [restartedMain] DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1800d6aa, org.springframework.security.web.context.SecurityContextPersistenceFilter@241358d0, org.springframework.security.web.header.HeaderWriterFilter@7efcdfe2, org.springframework.security.web.csrf.CsrfFilter@6714dffe, org.springframework.security.web.authentication.logout.LogoutFilter@22a353a9, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@42ef2759, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@78104c41, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1b3858ce, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1e83a805, org.springframework.security.web.session.SessionManagementFilter@2f9bc579, org.springframework.security.web.access.ExceptionTranslationFilter@5c4867ee, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@20d52ab5]
+[INFO ] 15-07 02:58:42.921 [restartedMain] ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+[INFO ] 15-07 02:58:43.495 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 6.44 seconds (JVM running for 8.947)
+[INFO ] 15-07 02:58:43.783 [http-nio-8080-exec-10] DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+[INFO ] 15-07 02:58:43.791 [http-nio-8080-exec-10] DispatcherServlet - Completed initialization in 7 ms
+[INFO ] 15-07 02:58:56.924 [http-nio-8080-exec-7] UserDB - userID=1 action=getUserByID status=success
+[INFO ] 15-07 02:58:56.926 [http-nio-8080-exec-7] CustomAuthenticationManager - user=B-000000 action=login status=success
+[INFO ] 15-07 02:58:58.542 [http-nio-8080-exec-2] CourseDB - courseID=1 action=getCourseByID status=success
+[INFO ] 15-07 02:58:58.684 [http-nio-8080-exec-2] UserDB - userID=1 action=getUserByID status=success
+[INFO ] 15-07 02:58:58.767 [http-nio-8080-exec-2] CourseUserRelationshipDB - user=B-000000 course=1 action=loadUserRolesForCourse status=success
+[INFO ] 15-07 02:59:03.345 [http-nio-8080-exec-1] UserDB - userID=1 action=getUserByID status=success
+[INFO ] 15-07 02:59:03.425 [http-nio-8080-exec-1] QuestionDB - action=loadQuestionsSortedByTitle status=success
+[INFO ] 15-07 02:59:08.687 [http-nio-8080-exec-10] UserDB - userID=1 action=getUserByID status=success
+[INFO ] 15-07 02:59:47.812 [http-nio-8080-exec-10] UserDB - userID=1 action=getUserByID status=success
+[INFO ] 15-07 02:59:48.036 [http-nio-8080-exec-10] QuestionDB - action=loadQuestionsSortedByTitle status=success
+[INFO ] 15-07 02:59:59.601 [http-nio-8080-exec-1] CourseDB - courseID=3 action=getCourseByID status=success
+[INFO ] 15-07 02:59:59.762 [http-nio-8080-exec-1] UserDB - userID=1 action=getUserByID status=success
+[INFO ] 15-07 02:59:59.832 [http-nio-8080-exec-1] CourseUserRelationshipDB - user=B-000000 course=3 action=loadUserRolesForCourse status=success
+[INFO ] 15-07 03:00:03.796 [http-nio-8080-exec-10] CourseDB - courseID=3 action=getCourseByID status=success
+[INFO ] 15-07 03:00:03.948 [http-nio-8080-exec-10] UserDB - userID=1 action=getUserByID status=success
+[INFO ] 15-07 03:00:04.030 [http-nio-8080-exec-10] CourseUserRelationshipDB - user=B-000000 course=3 action=loadUserRolesForCourse status=success
+[INFO ] 15-07 03:00:07.217 [http-nio-8080-exec-8] CourseDB - courseID=2 action=getCourseByID status=success
+[INFO ] 15-07 03:00:07.362 [http-nio-8080-exec-8] UserDB - userID=1 action=getUserByID status=success
+[INFO ] 15-07 03:00:07.433 [http-nio-8080-exec-8] CourseUserRelationshipDB - user=B-000000 course=2 action=loadUserRolesForCourse status=success
+[INFO ] 15-07 03:00:10.666 [http-nio-8080-exec-1] CourseDB - courseID=1 action=getCourseByID status=success
+[INFO ] 15-07 03:00:10.808 [http-nio-8080-exec-1] UserDB - userID=1 action=getUserByID status=success
+[INFO ] 15-07 03:00:10.887 [http-nio-8080-exec-1] CourseUserRelationshipDB - user=B-000000 course=1 action=loadUserRolesForCourse status=success
+[INFO ] 15-07 03:00:17.960 [http-nio-8080-exec-7] UserDB - userID=3 action=getUserByID status=success
+[INFO ] 15-07 03:00:18.076 [http-nio-8080-exec-7] CustomAuthenticationManager - user=B00841427 action=login status=success
+[INFO ] 15-07 03:00:20.128 [http-nio-8080-exec-3] CourseDB - courseID=1 action=getCourseByID status=success
+[INFO ] 15-07 03:00:20.280 [http-nio-8080-exec-3] UserDB - userID=3 action=getUserByID status=success
+[INFO ] 15-07 03:00:20.359 [http-nio-8080-exec-3] CourseUserRelationshipDB - user=B00841427 course=1 action=loadUserRolesForCourse status=success
+[INFO ] 15-07 03:00:35.862 [http-nio-8080-exec-10] UserDB - userID=3 action=getUserByID status=success
+[INFO ] 15-07 03:00:37.704 [http-nio-8080-exec-9] UserDB - userID=3 action=getUserByID status=success
+[INFO ] 15-07 03:00:43.484 [http-nio-8080-exec-6] UserDB - userID=3 action=getUserByID status=success

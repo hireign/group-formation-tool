@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import CSCI5308.GroupFormationTool.AccessControl.CurrentUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +20,8 @@ public class QuestionAdminController
 {
 	private static final String ID = "id";
 	private static final String BannerID = "bannerID";
+	private static final String CourseID = "courseID";
+	private static final String QuestionID = "questionID";
 	private IQuestionPersistence questionDB;
 	
 	public QuestionAdminController() 
@@ -91,5 +94,5 @@ public class QuestionAdminController
 		mav.setViewName("/question/reviewquestion");
 		return mav;
     }
-	
+
 }

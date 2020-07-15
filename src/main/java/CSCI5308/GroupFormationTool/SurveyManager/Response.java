@@ -89,9 +89,9 @@ public class Response implements IResponse {
 	}
 	
 	@Override
-	public boolean save(ISurveyPersistence surveyDB) {
+	public void save(ISurveyPersistence surveyDB) throws Exception {
 		convertOptionListToResponseString();
-		return surveyDB.saveSurveyResponse(this);
+		surveyDB.saveSurveyResponse(this);
 	}
 
 }

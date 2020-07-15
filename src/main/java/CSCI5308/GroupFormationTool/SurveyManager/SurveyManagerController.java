@@ -25,7 +25,11 @@ public class SurveyManagerController {
 
 	@RequestMapping("/survey")
 	public String questionsByDate(Model model, @RequestParam(name = CourseID) String courseID) {
-		currentSurvey.load(surveyDB, Long.valueOf(courseID));
+		try {
+			currentSurvey.load(surveyDB, Long.valueOf(courseID));
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", "Unable to load survey at this moment. Please try again later.");
+		}
 
 		if (currentSurvey.getActive() == 0) {
 			model.addAttribute("errorMessage", "Survey is not active or unavailable");
@@ -62,7 +66,7 @@ public class SurveyManagerController {
 			response.setUserID(CurrentUser.instance().getCurrentAuthenticatedUser().getId());
 			response.save(surveyDB);
 		} catch (Exception e) {
-			model.addAttribute("errorMessage", "Unable to fetch questions, please try again later");
+			model.addAttribute("errorMessage", "Unable to save last question, please retry");
 		}
 		
 		int remainingQuestions = currentSurvey.getQuestionSize() - currentSurvey.getIndex();
@@ -89,9 +93,9 @@ public class SurveyManagerController {
 			response.setUserID(CurrentUser.instance().getCurrentAuthenticatedUser().getId());
 			response.save(surveyDB);
 		} catch (Exception e) {
-			model.addAttribute("errorMessage", "Unable to submit survey, please try again later");
+			model.addAttribute("errorMessage", "Unable to submit survey, please retry");
 		}
-
-		return "index";
+		return "redirect:/";
 	}
+
 }
