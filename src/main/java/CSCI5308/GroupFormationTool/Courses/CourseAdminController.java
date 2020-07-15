@@ -82,5 +82,4 @@ public class CourseAdminController
 		ModelAndView mav = new ModelAndView("redirect:/admin/course");
 		return mav;
    }
-	
 }

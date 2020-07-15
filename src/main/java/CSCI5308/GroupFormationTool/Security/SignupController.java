@@ -39,7 +39,7 @@ public class SignupController
 	}
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.POST) 
-   public ModelAndView processSignup(
+   	public ModelAndView processSignup(
    	@RequestParam(name = USERNAME) String bannerID,
    	@RequestParam(name = PASSWORD) String password,
    	@RequestParam(name = PASSWORD_CONFIRMATION) String passwordConfirm,
