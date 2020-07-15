@@ -9,7 +9,7 @@ import CSCI5308.GroupFormationTool.Courses.ICourse;
 import CSCI5308.GroupFormationTool.Courses.ICourseUserRelationshipPersistence;
 import CSCI5308.GroupFormationTool.Courses.Role;
 
-class CourseUserRelationshipDBMock implements ICourseUserRelationshipPersistence 
+public class CourseUserRelationshipDBMock implements ICourseUserRelationshipPersistence
 {
 	public List<IUser> findAllUsersWithoutCourseRole(Role role, long courseID) 
 	{

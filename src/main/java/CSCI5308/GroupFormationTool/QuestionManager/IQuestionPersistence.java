@@ -13,5 +13,4 @@ public interface IQuestionPersistence
 	public long createQuestion(IQuestion question, String bannerID) throws Exception;
 	
 	public boolean createQuestionOption(IOptionValue option, int order, long questionID) throws Exception;
-	public boolean addSurveyQuestion(long questionID, long courseID, long instructorID) throws Exception;	
 }

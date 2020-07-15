@@ -118,11 +118,4 @@ public class QuestionTest
 		Assert.isTrue(status == true);
 	}
 
-	@Test
-	public void addSurveyQuestion() throws Exception
-	{
-		IQuestionPersistence questionDB = new QuestionDBMock();
-		boolean status = questionDB.addSurveyQuestion(1,1,1);
-		Assert.isTrue(status == true);
-	}
 }

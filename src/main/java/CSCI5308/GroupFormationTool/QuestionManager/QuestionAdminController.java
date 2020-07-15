@@ -95,23 +95,4 @@ public class QuestionAdminController
 		return mav;
     }
 
-	@RequestMapping("/question/addtosurvey")
-	public String addSurveyQuestion(Model model,
-									@RequestParam(name = CourseID) String courseId,
-									@RequestParam(name = QuestionID) String questionId)
-	{
-		try {
-			System.out.println("printing = "+Long.valueOf(questionId));
-			System.out.println("printing = "+Long.valueOf(courseId));
-			System.out.println("printing = "+CurrentUser.instance().getCurrentAuthenticatedUser().getID());
-			questionDB.addSurveyQuestion(Long.valueOf(questionId),Long.valueOf(courseId),CurrentUser.instance().getCurrentAuthenticatedUser().getID());
-		}
-		catch (Exception e) {
-			model.addAttribute("errorMessage","Unable to add question to survey, please try later");
-		}
-		return "redirect:/surveymanager?courseID="+courseId+"";
-	}
-
-
-
 }

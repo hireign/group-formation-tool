@@ -69,7 +69,7 @@ public class SurveyDB implements ISurveyPersistence
 		}
 		catch (SQLException e)
 		{
-			logger.error(UserDB.class.toString(),String.format("userID=%d action=loadSurveyByCourseID status=failure exception e=%s", courseID,e.getMessage()));
+			logger.error(SurveyDB.class.toString(),String.format("courseID=%d action=loadSurveyByCourseID status=failure exception e=%s", courseID,e.getMessage()));
 			throw e;
 		}
 		finally
@@ -112,7 +112,7 @@ public class SurveyDB implements ISurveyPersistence
 		}
 		catch (SQLException e)
 		{
-			logger.error(UserDB.class.toString(),String.format("userID=%d action=loadOptionsByQuestionID status=failure exception e=%s", questionID,e.getMessage()));
+			logger.error(SurveyDB.class.toString(),String.format("questionID=%d action=loadOptionsByQuestionID status=failure exception e=%s", questionID,e.getMessage()));
 			throw e;
 		}
 		finally
@@ -140,7 +140,7 @@ public class SurveyDB implements ISurveyPersistence
 		}
 		catch (SQLException e)
 		{
-			logger.error(UserDB.class.toString(),String.format("userID=%d action=saveSurveyResponse status=failure exception e=%s", surveyResponse.getId(),e.getMessage()));
+			logger.error(SurveyDB.class.toString(),String.format("surveyResponseID=%d action=saveSurveyResponse status=failure exception e=%s", surveyResponse.getId(),e.getMessage()));
 			throw e;
 		}
 		finally
@@ -163,8 +163,8 @@ public class SurveyDB implements ISurveyPersistence
 		}
 		catch (SQLException e)
 		{
-			System.out.println(e);
-			return false;
+			logger.error(SurveyDB.class.toString(),String.format("questionID=%d action=deleteQuestion status=failure to delete question e=%s", questionID, e.getMessage()));
+			throw e;
 		}
 		finally
 		{
@@ -176,4 +176,27 @@ public class SurveyDB implements ISurveyPersistence
 		return true;
 	}
 
+	public boolean addSurveyQuestion(long questionID, long courseID, long instructorID) throws Exception{
+		CallStoredProcedure proc = null;
+		try {
+			proc = new CallStoredProcedure("spAddQuestionToSurvey(?,?,?)");
+			proc.setParameter(1, questionID);
+			proc.setParameter(2, courseID);
+			proc.setParameter(3, instructorID);
+			proc.execute();
+		}
+		catch (SQLException e)
+		{
+			logger.error(SurveyDB.class.toString(),String.format("questionID=%d action=addQuestion status=failure to add question e=%s", questionID, e.getMessage()));
+			throw e;
+		}
+		finally
+		{
+			if (null != proc)
+			{
+				proc.cleanup();
+			}
+		}
+		return true;
+	}
 }

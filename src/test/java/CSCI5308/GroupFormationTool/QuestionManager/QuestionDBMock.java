@@ -96,20 +96,4 @@ public class QuestionDBMock implements IQuestionPersistence
 		return s.replaceAll(" ","").length() == 0;
 	}
 
-	@Override
-	public boolean addSurveyQuestion(long questionID, long courseID, long instructorID){
-		Survey survey = new Survey();
-		survey.setId(courseID);
-		survey.setUserID(instructorID);
-		List<Question> questionList = new ArrayList<Question>();
-		Question question = new Question();
-		question.setId(questionID);
-		questionList.add(question);
-		survey.setQuestions(questionList);
-		if(survey.getId() > -1 && survey.getUserID() > -1 && survey.getQuestions() != null){
-			return true;
-		}
-		return false;
-	}
-
 }

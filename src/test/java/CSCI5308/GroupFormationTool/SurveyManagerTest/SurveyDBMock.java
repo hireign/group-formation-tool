@@ -43,13 +43,28 @@ public class SurveyDBMock implements ISurveyPersistence {
 		}
 	}
 
-
 	public boolean deleteSurveyQuestion(long questionID, long courseID) {
 		Question question = new Question();
 		question.setId(questionID);
 		Survey survey = new Survey();
 		survey.setId(courseID);
 		if (question.getId() > -1 && survey.getId() > -1) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean addSurveyQuestion(long questionID, long courseID, long instructorID){
+		Survey survey = new Survey();
+		survey.setId(courseID);
+		survey.setUserID(instructorID);
+		List<Question> questionList = new ArrayList<Question>();
+		Question question = new Question();
+		question.setId(questionID);
+		questionList.add(question);
+		survey.setQuestions(questionList);
+		if(survey.getId() > -1 && survey.getUserID() > -1 && survey.getQuestions() != null){
 			return true;
 		}
 		return false;
