@@ -3,7 +3,7 @@ package CSCI5308.GroupFormationTool.SurveyManager;
 import java.sql.Timestamp;
 import java.util.List;
 
-import CSCI5308.GroupFormationTool.QuestionManager.Question;
+import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
 
 public interface ISurvey {
 
@@ -23,9 +23,9 @@ public interface ISurvey {
 
 	void setCreatedAt(Timestamp createdAt);
 
-	List<Question> getQuestions();
+	List<IQuestion> getQuestions();
 
-	void setQuestions(List<Question> questions);
+	void setQuestions(List<IQuestion> questions);
 
 	int getIndex();
 
@@ -35,6 +35,6 @@ public interface ISurvey {
 
 	void load(ISurveyPersistence surveyDB, long courseID) throws Exception;
 
-	Question getNextQuestion();
+	IQuestion getNextQuestion();
 
 }

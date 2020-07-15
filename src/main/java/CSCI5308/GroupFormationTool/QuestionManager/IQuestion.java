@@ -30,4 +30,6 @@ public interface IQuestion {
 
 	long createQuestion(IQuestionPersistence questionDB, String bannerID) throws Exception;
 
+	void setOptions(IOptions loadOptionsByQuestionID);
+
 }

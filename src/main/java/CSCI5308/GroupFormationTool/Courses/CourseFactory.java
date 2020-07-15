@@ -1,5 +1,7 @@
 package CSCI5308.GroupFormationTool.Courses;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class CourseFactory extends CourseAbstractFactory {
 
 	public ICoursePersistence createCourseDB() {
@@ -18,9 +20,18 @@ public class CourseFactory extends CourseAbstractFactory {
 		return new Course();
 	}
 
-	@Override
 	public ICourse createCourse(long id, ICoursePersistence courseDB) throws Exception {
 		return new Course(id, courseDB);
+	}
+
+	@Override
+	public IStudentCSVParser createCSVParser(MultipartFile file) {
+		return new StudentCSVParser(file);
+	}
+
+	@Override
+	public IStudentCSVImport createCSVImporter(IStudentCSVParser parser, ICourse course) {
+		return new StudentCSVImport(parser, course);
 	}
 
 }
