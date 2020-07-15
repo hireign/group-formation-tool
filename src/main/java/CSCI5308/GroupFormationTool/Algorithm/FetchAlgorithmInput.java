@@ -74,13 +74,13 @@ public class FetchAlgorithmInput implements IAlgorithmPersistence{
         return surveyID;
 
     }
-    public ArrayList <Response> findResponseListWithSurveyID (String surveyId){
+    public ArrayList <Response> GetResponseByCourseID (String courseID){
         ArrayList <Response> responses = new ArrayList<Response>();
         CallStoredProcedure proc = null;
         try
         {
-            proc = new CallStoredProcedure("spfindResponseListWithSurveyID(?)");
-            proc.setParameter(4, surveyId);
+            proc = new CallStoredProcedure("spGetResponseByCourseID(?)");
+            proc.setParameter(0, courseID);
             ResultSet results = proc.executeWithResults();
             if (null != results)
             {

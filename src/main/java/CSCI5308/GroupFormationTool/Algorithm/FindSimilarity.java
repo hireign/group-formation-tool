@@ -99,4 +99,11 @@ public class FindSimilarity {
         }
         return uniqueUserList;
     }
+
+    public static HashMap<String,HashMap<String,String>> getUserResponseByQuestion (ArrayList<String> userlist,
+                                         ArrayList<Response> responses) {
+        HashMap<String, HashMap<String, String>> outerMap = new HashMap<String, HashMap<String, String>>();
+        HashMap<String, String> innerMap = new HashMap<String, String>();
+        return outerMap;
+    }
 }
