@@ -3,9 +3,12 @@ package CSCI5308.GroupFormationTool.Algorithm;
 public class Response {
     private long id;
     private String questionID;
+
     private String userID;
     private String response;
     private String surveyID;
+    private String similarity;
+    private String studentnumber;
 
     public long getId() {
         return id;
@@ -45,5 +48,22 @@ public class Response {
 
     public void setSurveyID(String surveyID) {
         this.surveyID = surveyID;
+    }
+
+
+    public void setSimilarity(String similarity) {
+        this.similarity = similarity;
+    }
+
+    public void setStudentnumber(String studentnumber) {
+        this.studentnumber = studentnumber;
+    }
+
+    public String getSimilarity() {
+        return similarity;
+    }
+
+    public String getStudentnumber() {
+        return studentnumber;
     }
 }

@@ -3,5 +3,5 @@ package CSCI5308.GroupFormationTool.Algorithm;
 import java.util.ArrayList;
 
 public interface IAlgorithmPersistence {
-    public ArrayList<Response> findResponseWithSelectedQuestion(String questionID);
+    public ArrayList<Response> findResponseWithSelectedQuestion(String questionID,String surveyID);
 }

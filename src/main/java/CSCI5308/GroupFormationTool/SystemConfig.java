@@ -1,5 +1,6 @@
 package CSCI5308.GroupFormationTool;
 
+import CSCI5308.GroupFormationTool.Algorithm.IAlgorithmPersistence;
 import CSCI5308.GroupFormationTool.Security.*;
 import CSCI5308.GroupFormationTool.AccessControl.*;
 import CSCI5308.GroupFormationTool.Database.*;
@@ -31,6 +32,7 @@ public class SystemConfig
 	private IQuestionPersistence questionDB;
 	private IPasswordValidatorPersistence validatorDB;
 	private IPasswordValidatorEnumerator passwordValidatorEnumerator;
+	private IAlgorithmPersistence algorithmDB;
 	
 	// This private constructor ensures that no class other than System can allocate
 	// the System object. The compiler would prevent it.
@@ -138,5 +140,6 @@ public class SystemConfig
 	{
 		return passwordValidatorEnumerator;
 	}
-	
+
+	public IAlgorithmPersistence getAlgorithmDB(){return algorithmDB;}
 }

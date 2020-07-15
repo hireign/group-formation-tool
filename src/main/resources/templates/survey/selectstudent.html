@@ -19,18 +19,22 @@
     <label>Select Survey Questions</label>
 </p>
 <div>
-    <form th:action="@{/}" th:object="${question}" method="POST">
+    <form th:action="@{/selectstudent}" th:object="${response}" method="POST">
         <div>
-            <label> QuestionID: </label>
-            <input type="text" th:field="${question.id}"/>
+            <label> Survey ID: </label>
+            <input type="text" th:field="${response.surveyID}"/>
+        </div><br>
+        <div>
+            <label> Question ID: </label>
+            <input type="text" th:field="${response.questionID}"/>
         </div><br>
         <div>
             <label> Similarity: </label>
-            <input type="text" th:field="${similarity.text}"/>
+            <input type="text" th:field="${response.similarity}"/>
         </div><br>
         <div>
             <label> Number of Student: </label>
-            <input type="text" th:field="${studentnumber.text}"/>
+            <input type="text" th:field="${response.studentnumber}"/>
         </div><br>
         <input type="hidden" name="bannerID" id="bannerID" th:value="${#httpServletRequest.remoteUser}" />
         <button type="submit">Submit</button>

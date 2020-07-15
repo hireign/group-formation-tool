@@ -20,7 +20,13 @@ public class User
 	private String firstName;
 	private String lastName;
 	private String email;
-	
+	private boolean hasgroup;
+
+
+	public boolean hasGroup() {
+		return hasgroup=false;
+	}
+
 	public User()
 	{
 		setDefaults();

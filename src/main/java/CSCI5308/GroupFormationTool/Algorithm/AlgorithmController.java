@@ -10,10 +10,7 @@ import CSCI5308.GroupFormationTool.QuestionManager.QuestionType;
 import CSCI5308.GroupFormationTool.SystemConfig;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import CSCI5308.GroupFormationTool.SystemConfig;
 
 import java.util.ArrayList;
@@ -24,24 +21,33 @@ import java.util.List;
 @Controller
 public class AlgorithmController {
 
-    private final String SIMILARITY = "similar";
-    private final String STUDENTNUMBER = "4";
-    private final String QUESTIONID = "1";
-    private final String GROUPSIZE = "3";
-    private ArrayList<Response> responses = new ArrayList<Response>();
+    private final String SIMILARITY = "";
+    private final String STUDENTNUMBER = "";
+    private final String QUESTIONID = "";
+    private final String GROUPSIZE = "";
+//    private ArrayList<Response> responses = new ArrayList<Response>();
+    IAlgorithmPersistence iAlgorithmPersistence = SystemConfig.instance().getAlgorithmDB();
 
     @RequestMapping(value = "/selectstudent", method = RequestMethod.POST)
-    public String findGroupSimarity(
-            @RequestParam(name = SIMILARITY) String similarity,
-            @RequestParam(name = STUDENTNUMBER) String studentnumber,
-            @RequestParam(name = QUESTIONID) String questionid,
-            @RequestParam(name = GROUPSIZE) String groupsize)
+    public String findGroupSimarity(Model model,
+//            @RequestParam(name = SIMILARITY) String similarity,
+//            @RequestParam(name = STUDENTNUMBER) String studentnumber,
+//            @RequestParam(name = QUESTIONID) String questionid,
+//            @RequestParam(name = GROUPSIZE) String groupsize)
+            @ModelAttribute Response response)
     {
-//        IAlgorithmPersistence algorithmPersistence = SystemConfig.instance()
+        ArrayList<Response> responses = iAlgorithmPersistence.findResponseWithSelectedQuestion(response.getSurveyID(),response.getQuestionID());
+        System.out.println(responses);
+        return "index";
 
-        return similarity;
     }
 
+    @GetMapping("/selectstudent")
+    public String findGroupSimarity(Model model)
+    {
+        model.addAttribute("response", new Response());
+        return "survey/selectstudent";
+    }
 
 //    public HashMap <> findSimilarityScore() {
 //
