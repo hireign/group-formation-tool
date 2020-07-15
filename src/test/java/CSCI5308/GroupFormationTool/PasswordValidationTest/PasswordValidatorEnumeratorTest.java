@@ -8,6 +8,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import CSCI5308.GroupFormationTool.TestSystemConfig;
 import CSCI5308.GroupFormationTool.PasswordValidation.IPasswordValidatorPersistence;
 
 @SpringBootTest
@@ -16,7 +17,7 @@ class PasswordValidatorEnumeratorTest
 	@Test
 	public void getActiveValidators() throws Exception 
 	{
-		IPasswordValidatorPersistence validatorDB = new PasswordValidatorDBMock();
+		IPasswordValidatorPersistence validatorDB = TestSystemConfig.instance().getValidatorDB();
 		HashMap<Long, String> activeValidators = validatorDB.loadActivePasswordValidators();
 		assertThat(activeValidators.size()>0).isTrue();
 		assertThat(activeValidators.size()==2).isTrue();

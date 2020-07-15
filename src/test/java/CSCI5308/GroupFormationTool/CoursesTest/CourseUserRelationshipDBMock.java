@@ -4,20 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import CSCI5308.GroupFormationTool.AccessControl.IUser;
-import CSCI5308.GroupFormationTool.AccessControl.User;
+import CSCI5308.GroupFormationTool.AccessControl.UserAbstractFactory;
 import CSCI5308.GroupFormationTool.Courses.ICourse;
 import CSCI5308.GroupFormationTool.Courses.ICourseUserRelationshipPersistence;
 import CSCI5308.GroupFormationTool.Courses.Role;
 
-class CourseUserRelationshipDBMock implements ICourseUserRelationshipPersistence 
+public class CourseUserRelationshipDBMock implements ICourseUserRelationshipPersistence 
 {
+	private UserAbstractFactory userFactory = UserAbstractFactory.getFactory();
+	
 	public List<IUser> findAllUsersWithoutCourseRole(Role role, long courseID) 
 	{
 		List<IUser> userList = new ArrayList<>();
-		User u = new User();
+		IUser u = userFactory.createUser();
 		u.setId(0);
 		userList.add(u);
-		u = new User();
+		u = userFactory.createUser();
 		u.setId(1);
 		userList.add(u);
 		return userList;
@@ -26,10 +28,10 @@ class CourseUserRelationshipDBMock implements ICourseUserRelationshipPersistence
 	public List<IUser> findAllUsersWithCourseRole(Role role, long courseID) 
 	{
 		List<IUser> userList = new ArrayList<>();
-		User u = new User();
+		IUser u = userFactory.createUser();
 		u.setId(0);
 		userList.add(u);
-		u = new User();
+		u = userFactory.createUser();
 		u.setId(1);
 		userList.add(u);
 		return userList;

@@ -10,6 +10,8 @@ public abstract class UserAbstractFactory {
 	
 	public abstract IUser createUser(String bannerID, IUserPersistence userDB ) throws Exception;
 	
+	public abstract IUser createUser(Long bannerID, IUserPersistence userDB ) throws Exception;
+	
 	public static UserAbstractFactory getFactory() {
 		return uFactory;
 	}
