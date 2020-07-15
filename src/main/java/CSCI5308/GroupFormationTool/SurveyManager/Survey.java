@@ -11,7 +11,6 @@ public class Survey implements ISurvey {
 	private int active;
 	private Timestamp createdAt;
 	private List<IQuestion> questions;
-	private int index = 0;
 
 	@Override
 	public long getId() {
@@ -63,42 +62,4 @@ public class Survey implements ISurvey {
 		this.questions = questions;
 	}
 
-	@Override
-	public int getIndex() {
-		return index;
-	}
-
-	@Override
-	public void setIndex(int index) {
-		this.index = index;
-	}
-
-	@Override
-	public int getQuestionSize() {
-		return questions.size();
-	}
-
-	@Override
-	public void load(ISurveyPersistence surveyDB, long courseID) throws Exception {
-		ISurvey survey = surveyDB.loadSurveyByCourseID(courseID);
-
-		if (survey != null && survey.getActive() == 1) {
-			id = survey.getId();
-			userID = survey.getUserID();
-			active = survey.getActive();
-			questions = survey.getQuestions();
-			createdAt = survey.getCreatedAt();
-		}
-	}
-
-	@Override
-	public IQuestion getNextQuestion() {
-		IQuestion question = null;
-
-		if (index > -1 && index < questions.size()) {
-			question = questions.get(index++);
-		}
-
-		return question;
-	}
 }
