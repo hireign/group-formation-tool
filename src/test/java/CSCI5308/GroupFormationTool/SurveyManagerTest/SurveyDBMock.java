@@ -19,7 +19,7 @@ public class SurveyDBMock implements ISurveyPersistence {
 
 	public ISurvey loadSurveyByCourseID(long courseID) {
 		ISurvey survey = surveyFactory.createSurvey();
-		List<Question> questions = new ArrayList<Question>();
+		List<IQuestion> questions = new ArrayList<IQuestion>();
 		IQuestion question = questionFactory.createQuestion();
 
 		question.setId(1);
@@ -65,7 +65,7 @@ public class SurveyDBMock implements ISurveyPersistence {
 		ISurvey survey = surveyFactory.createSurvey();
 		survey.setId(courseID);
 		survey.setUserID(instructorID);
-		List<Question> questionList = new ArrayList<Question>();
+		List<IQuestion> questionList = new ArrayList<IQuestion>();
 		IQuestion question = questionFactory.createQuestion();
 		question.setId(questionID);
 		questionList.add((Question) question);

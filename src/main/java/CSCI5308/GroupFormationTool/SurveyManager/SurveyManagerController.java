@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.AccessControl.CurrentUser;
-import CSCI5308.GroupFormationTool.QuestionManager.Question;
+import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
 
 @Controller
 public class SurveyManagerController {
@@ -29,6 +29,7 @@ public class SurveyManagerController {
 			currentSurvey.load(surveyDB, Long.valueOf(courseID));
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", "Unable to load survey at this moment. Please try again later.");
+			return "course/course";
 		}
 
 		if (currentSurvey.getActive() == 0) {
@@ -59,7 +60,7 @@ public class SurveyManagerController {
 	@RequestMapping(value = "/survey/submit", params = { "nextQuestion" })
 	public String displayNextQuestion(Model model, @RequestParam(name = QuestionID) String questionID,
 			@ModelAttribute Response response) {
-		Question currentQuestion = null;
+		IQuestion currentQuestion = null;
 		try {
 			response.setQuestionID(Long.valueOf(questionID));
 			response.setSurveyID(currentSurvey.getId());
@@ -68,9 +69,9 @@ public class SurveyManagerController {
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", "Unable to save last question, please retry");
 		}
-		
+
 		int remainingQuestions = currentSurvey.getQuestionSize() - currentSurvey.getIndex();
-		
+
 		if (remainingQuestions == 1) {
 			model.addAttribute("lastquestion", true);
 		} else {

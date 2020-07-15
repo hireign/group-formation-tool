@@ -9,7 +9,6 @@ import org.springframework.util.Assert;
 
 import CSCI5308.GroupFormationTool.TestSystemConfig;
 import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
-import CSCI5308.GroupFormationTool.QuestionManager.Question;
 import CSCI5308.GroupFormationTool.QuestionManager.QuestionAbstractFactory;
 import CSCI5308.GroupFormationTool.SurveyManager.ISurvey;
 import CSCI5308.GroupFormationTool.SurveyManager.ISurveyPersistence;
@@ -81,10 +80,10 @@ public class SurveyTest {
 	@Test
 	public void getQuestionsTest() {
 		ISurvey survey = surveyFactory.createSurvey();
-		List<Question> questions = new ArrayList<Question>();
+		List<IQuestion> questions = new ArrayList<IQuestion>();
 		IQuestion question = questionFactory.createQuestion();
 		question.setId(1);
-		questions.add((Question) question);
+		questions.add(question);
 		survey.setQuestions(questions);
 		Assert.isTrue(1 == survey.getQuestions().get(0).getId());
 	}
@@ -92,20 +91,20 @@ public class SurveyTest {
 	@Test
 	public void setQuestionsTest() {
 		ISurvey survey = surveyFactory.createSurvey();
-		List<Question> questions = new ArrayList<Question>();
+		List<IQuestion> questions = new ArrayList<IQuestion>();
 		IQuestion question = questionFactory.createQuestion();
 		question.setId(1);
-		questions.add((Question) question);
+		questions.add(question);
 		survey.setQuestions(questions);
 		Assert.isTrue(1 == survey.getQuestions().get(0).getId());
 	}
 
 	@Test
 	public void getAllQuestions() {
-		List<Question> questions = new ArrayList<Question>();
+		List<IQuestion> questions = new ArrayList<IQuestion>();
 		IQuestion question = questionFactory.createQuestion();
 		question.setId(1);
-		questions.add((Question) question);
+		questions.add(question);
 		Assert.isTrue(1 == questions.get(0).getId());
 	}
 
