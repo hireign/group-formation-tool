@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="https://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+<head>
+    <title>CSCI5308 - Group Formation Tool</title>
+    <!-- Normalize.css by Nicolas Gallagher, used from https://necolas.github.io/normalize.css/
+     Necessary to reset some default browser styles for consistent appearance across browsers. -->
+    <link th:href="@{/styles/cssandjs/normalize.css}" rel="stylesheet" />
+
+    <!-- This file includes all default styles for this application. -->
+    <link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
+</head>
+<body>
+<div sec:authorize="isAuthenticated()">
+    <h4 th:inline="text">BannerID: [[${#httpServletRequest.remoteUser}]]</h4>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
+</div>
+<div class="mainGridCentreInfoBox" th:if="${errorMessage}">
+    <h3 class="errorInfo" th:text="${errorMessage}"></h3>
+</div>
+<div th:if="${questionList}">
+    <p>
+        <a th:href="@{/question/questionmanager/title(id=${courseID})}">Add Existing Question</a>
+    </p>
+    <p>
+        <a th:href="@{/question/add}">Add New Question</a>
+    </p>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Question ID</th>
+            <th>Title</th>
+            <th>Text</th>
+            <th>Type</th>
+            <th>Added</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="val: ${questionList}">
+            <td>
+                <span th:text="${val.id}"></span>
+            </td>
+            <td>
+                <span th:text="${val.title}"></span>
+            </td>
+            <td>
+                <span th:text="${val.text}"></span>
+            </td>
+            <td>
+                <span th:text="${val.type}"></span>
+            </td>
+            <td>
+                <span th:text="${val.timestamp}"></span>
+            </td>
+            <td>
+                <form th:action="@{/deletesurveyquestion}" method="POST">
+                    <input type="hidden" name="courseID" id="courseID" th:value="${courseID}" />
+                    <input type="hidden" name="questionID" id="questionID" th:value="${val.id}" />
+                    <button onclick="return confirm('Are you sure you want to remove this question?')" type="submit" >Remove</button>
+                </form>
+            </td>
+        <tr>
+    </table>
+    <div>
+        <a th:href="@{/ourse}">Save & Exit</a>
+    </div>
+    <div>
+        <a th:href="@{/question/add}">Publish</a>
+    </div>
+</div>
+</body>
+</html>

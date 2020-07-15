@@ -215,5 +215,29 @@ public class QuestionDB implements IQuestionPersistence
 			}
 		}
 	}
-	
+
+	public boolean addSurveyQuestion(long questionID, long courseID, long instructorID) throws Exception{
+		CallStoredProcedure proc = null;
+		try {
+			proc = new CallStoredProcedure("spAddQuestionToSurvey(?,?,?)");
+			proc.setParameter(1, questionID);
+			proc.setParameter(2, courseID);
+			proc.setParameter(3, instructorID);
+			proc.execute();
+		}
+		catch (SQLException e)
+		{
+			System.out.println(e);
+			return false;
+		}
+		finally
+		{
+			if (null != proc)
+			{
+				proc.cleanup();
+			}
+		}
+		return true;
+	}
+
 }

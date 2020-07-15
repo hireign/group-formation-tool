@@ -42,4 +42,16 @@ public class SurveyDBMock implements ISurveyPersistence {
 			responseTest.setId(response.getId());
 		}
 	}
+
+
+	public boolean deleteSurveyQuestion(long questionID, long courseID) {
+		Question question = new Question();
+		question.setId(questionID);
+		Survey survey = new Survey();
+		survey.setId(courseID);
+		if (question.getId() > -1 && survey.getId() > -1) {
+			return true;
+		}
+		return false;
+	}
 }

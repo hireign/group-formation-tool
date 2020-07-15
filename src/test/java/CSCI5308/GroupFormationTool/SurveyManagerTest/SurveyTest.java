@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import CSCI5308.GroupFormationTool.SurveyManager.ISurveyPersistence;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.Assert;
 
@@ -107,5 +108,13 @@ public class SurveyTest {
 		Question question = new Question();
 		question.setId(1);
 		Assert.isTrue(1 == question.getId());
+	}
+
+	
+	@Test
+	public void deleteSurveyQuestion() throws Exception {
+		ISurveyPersistence surveyDBMock = new SurveyDBMock();
+		boolean status = surveyDBMock.deleteSurveyQuestion(1, 1);
+		Assert.isTrue(status == true);
 	}
 }

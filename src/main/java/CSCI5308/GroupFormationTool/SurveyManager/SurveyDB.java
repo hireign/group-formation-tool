@@ -20,13 +20,13 @@ public class SurveyDB implements ISurveyPersistence
 {
 	private static LoggerInterface logger = SystemConfig.instance().getLogger();
 
-	public ISurvey loadSurveyByCourseID(long courseID) throws SQLException
+	public ISurvey loadSurveyByCourseID(long courseID) throws Exception
 	{
 		ISurvey survey = null;
 		CallStoredProcedure proc = null;
 		try
 		{
-			proc = new CallStoredProcedure("spFindQuestionsByCourseID(?)");
+			proc = new CallStoredProcedure("spLoadSurveyQuestions(?)");
 			proc.setParameter(1, courseID);
 			ResultSet results = proc.executeWithResults();
 			Question question;
@@ -82,7 +82,7 @@ public class SurveyDB implements ISurveyPersistence
 		return survey;
 	}
 	
-	public IOptions loadOptionsByQuestionID(long questionID) throws SQLException
+	public IOptions loadOptionsByQuestionID(long questionID) throws Exception
 	{
 		List<IOptionValue> optionList = new ArrayList<IOptionValue>();
 		IOptions options = QuestionAbstractFactory.getFactory().createOptions();
@@ -150,6 +150,30 @@ public class SurveyDB implements ISurveyPersistence
 				proc.cleanup();
 			}
 		}
+	}
+
+	@Override
+	public boolean deleteSurveyQuestion(long questionID, long courseID) throws SQLException {
+		CallStoredProcedure proc = null;
+		try {
+			proc = new CallStoredProcedure("spDeleteQuestionFromSurvey(?,?)");
+			proc.setParameter(1, questionID);
+			proc.setParameter(2, courseID);
+			proc.execute();
+		}
+		catch (SQLException e)
+		{
+			System.out.println(e);
+			return false;
+		}
+		finally
+		{
+			if (null != proc)
+			{
+				proc.cleanup();
+			}
+		}
+		return true;
 	}
 
 }

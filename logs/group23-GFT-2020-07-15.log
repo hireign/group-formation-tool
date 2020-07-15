@@ -1,0 +1,46 @@
+[INFO ] 15-07 01:43:35.684 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on LAPTOP-K3AH8TRJ with PID 17764 (started by hiren in C:\Users\hiren\git\M3\Newww Pull\group23)
+[DEBUG] 15-07 01:43:35.703 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 15-07 01:43:35.704 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 15-07 01:43:43.056 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 8.188 seconds (JVM running for 10.499)
+[INFO ] 15-07 01:46:46.830 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on LAPTOP-K3AH8TRJ with PID 17764 (started by hiren in C:\Users\hiren\git\M3\Newww Pull\group23)
+[DEBUG] 15-07 01:46:46.832 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 15-07 01:46:46.832 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 15-07 01:46:49.823 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 3.276 seconds (JVM running for 197.288)
+[INFO ] 15-07 01:46:52.342 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on LAPTOP-K3AH8TRJ with PID 3000 (started by hiren in C:\Users\hiren\git\M3\Newww Pull\group23)
+[DEBUG] 15-07 01:46:52.356 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 15-07 01:46:52.357 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[ERROR] 15-07 01:46:59.490 [restartedMain] LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+[INFO ] 15-07 01:50:51.304 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on LAPTOP-K3AH8TRJ with PID 17764 (started by hiren in C:\Users\hiren\git\M3\Newww Pull\group23)
+[DEBUG] 15-07 01:50:51.305 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 15-07 01:50:51.306 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 15-07 01:50:54.014 [restartedMain] GroupFormationToolApplication - Starting GroupFormationToolApplication on LAPTOP-K3AH8TRJ with PID 11924 (started by hiren in C:\Users\hiren\git\M3\Newww Pull\group23)
+[DEBUG] 15-07 01:50:54.036 [restartedMain] GroupFormationToolApplication - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+[INFO ] 15-07 01:50:54.038 [restartedMain] GroupFormationToolApplication - No active profile set, falling back to default profiles: default
+[INFO ] 15-07 01:50:54.970 [restartedMain] GroupFormationToolApplication - Started GroupFormationToolApplication in 3.898 seconds (JVM running for 442.436)
+[ERROR] 15-07 01:50:59.604 [restartedMain] LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+

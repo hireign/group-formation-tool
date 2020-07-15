@@ -96,6 +96,47 @@ public class SurveyManagerController {
 			model.addAttribute("errorMessage", "Unable to submit survey, please retry");
 		}
 
-		return "redirect:/index";
+		return "redirect:/";
 	}
+
+	@GetMapping(value = "/surveymanager")
+	public String loadSurvey(Model model, @RequestParam(name = CourseID) String courseID) {
+		try {
+			currentSurvey.load(surveyDB, Long.valueOf(courseID));
+			currentSurvey.setIndex(0);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("courseID", courseID);
+		model.addAttribute("questionList", currentSurvey.getQuestions());
+		return "survey/createsurvey";
+	}
+
+	@RequestMapping("/deletesurveyquestion")
+	public String deleteSurveyQuestion(Model model,
+			 @RequestParam(name = QuestionID) long questionID,
+			 @RequestParam(name = CourseID) long courseID){
+		try {
+			surveyDB.deleteSurveyQuestion(questionID, courseID);
+			currentSurvey.load(surveyDB, courseID);
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", "Unable to delete question, please retry");
+		}
+		currentSurvey.setIndex(0);
+		model.addAttribute("courseID", courseID);
+		model.addAttribute("questionList", currentSurvey.getQuestions());
+		return "survey/createsurvey";
+	}
+
+
+
+
+
+
+
+
+
+
+
 }
