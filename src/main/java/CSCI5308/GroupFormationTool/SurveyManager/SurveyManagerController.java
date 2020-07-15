@@ -16,11 +16,11 @@ public class SurveyManagerController {
 	private static final String CourseID = "courseID";
 	private static final String QuestionID = "questionID";
 	private ISurveyPersistence surveyDB;
-	private ISurvey currentSurvey = null;
+	private SurveyIterator currentSurvey = null;
 
 	public SurveyManagerController() {
 		surveyDB = SystemConfig.instance().getSurveyDB();
-		currentSurvey = SurveyAbstractFactory.getFactory().createSurvey();
+		currentSurvey = SurveyAbstractFactory.getFactory().createSurveyIterator();
 	}
 
 	@RequestMapping("/survey")
@@ -52,7 +52,7 @@ public class SurveyManagerController {
 		}
 
 		model.addAttribute("response", SurveyAbstractFactory.getFactory().createResponse());
-		model.addAttribute("question", currentSurvey.getNextQuestion());
+		model.addAttribute("question", currentSurvey.next());
 
 		return "survey/displayquestion";
 	}
@@ -78,7 +78,7 @@ public class SurveyManagerController {
 			model.addAttribute("lastquestion", false);
 		}
 
-		currentQuestion = currentSurvey.getNextQuestion();
+		currentQuestion = currentSurvey.next();
 		model.addAttribute("response", response);
 		model.addAttribute("question", currentQuestion);
 

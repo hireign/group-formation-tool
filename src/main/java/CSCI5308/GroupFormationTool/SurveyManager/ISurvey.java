@@ -7,34 +7,24 @@ import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
 
 public interface ISurvey {
 
-	long getId();
+	public long getId();
 
-	void setId(long id);
+	public void setId(long id);
 
-	long getUserID();
+	public long getUserID();
 
-	void setUserID(long userID);
+	public void setUserID(long userID);
 
-	int getActive();
+	public int getActive();
 
-	void setActive(int active);
+	public void setActive(int active);
 
-	Timestamp getCreatedAt();
+	public Timestamp getCreatedAt();
 
-	void setCreatedAt(Timestamp createdAt);
+	public void setCreatedAt(Timestamp createdAt);
 
-	List<IQuestion> getQuestions();
+	public List<IQuestion> getQuestions();
 
-	void setQuestions(List<IQuestion> questions);
-
-	int getIndex();
-
-	void setIndex(int index);
-
-	int getQuestionSize();
-
-	void load(ISurveyPersistence surveyDB, long courseID) throws Exception;
-
-	IQuestion getNextQuestion();
+	public void setQuestions(List<IQuestion> questions);
 
 }

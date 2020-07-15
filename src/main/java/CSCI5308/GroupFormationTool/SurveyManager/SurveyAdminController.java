@@ -1,23 +1,27 @@
 package CSCI5308.GroupFormationTool.SurveyManager;
 
-import CSCI5308.GroupFormationTool.AccessControl.CurrentUser;
-import CSCI5308.GroupFormationTool.SystemConfig;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import CSCI5308.GroupFormationTool.SystemConfig;
+import CSCI5308.GroupFormationTool.AccessControl.CurrentUser;
+import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
+
 @Controller
 public class SurveyAdminController {
 	private static final String CourseID = "courseID";
 	private static final String QuestionID = "questionID";
 	private ISurveyPersistence surveyDB;
-	private ISurvey currentSurvey = null;
+	private SurveyIterator currentSurvey = null;
 
 	public SurveyAdminController() {
 		surveyDB = SystemConfig.instance().getSurveyDB();
-		currentSurvey = SurveyAbstractFactory.getFactory().createSurvey();
+		currentSurvey = SurveyAbstractFactory.getFactory().createSurveyIterator();
 	}
 
 	@GetMapping("/survey/admin/groups")
@@ -42,8 +46,14 @@ public class SurveyAdminController {
 			model.addAttribute("errorMessage", "Unable to load survey, please retry later");
 		}
 		currentSurvey.setIndex(0);
+		
+		List<IQuestion> questions = null;
+		
+		if(-1 != currentSurvey.getId()) {
+			questions = currentSurvey.getQuestions();
+		}
 		model.addAttribute("courseID", courseID);
-		model.addAttribute("questionList", currentSurvey.getQuestions());
+		model.addAttribute("questionList", questions);
 		return "survey/createsurvey";
 	}
 
@@ -51,11 +61,11 @@ public class SurveyAdminController {
 	public String loadSurvey(Model model, @RequestParam(name = CourseID) String courseID) {
 		try {
 			currentSurvey.load(surveyDB, Long.valueOf(courseID));
-			currentSurvey.setIndex(0);
 		}
 		catch (Exception e) {
 			model.addAttribute("errorMessage", "Unable to load survey, please retry");
 		}
+		currentSurvey.setIndex(0);
 		model.addAttribute("courseID", courseID);
 		model.addAttribute("questionList", currentSurvey.getQuestions());
 		return "survey/createsurvey";
@@ -72,7 +82,7 @@ public class SurveyAdminController {
 		catch (Exception e) {
 			model.addAttribute("errorMessage","Unable to add question to survey, please try later");
 		}
-		return "redirect:/surveymanager?courseID="+courseId+"";
+		return "redirect:/surveymanager?courseID="+courseId;
 	}
 
 }
