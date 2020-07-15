@@ -6,6 +6,9 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import CSCI5308.GroupFormationTool.LoggerInterface;
+import CSCI5308.GroupFormationTool.SystemConfig;
+import CSCI5308.GroupFormationTool.AccessControl.UserDB;
 import CSCI5308.GroupFormationTool.Database.CallStoredProcedure;
 import CSCI5308.GroupFormationTool.QuestionManager.IOptionValue;
 import CSCI5308.GroupFormationTool.QuestionManager.IOptions;
@@ -15,8 +18,9 @@ import CSCI5308.GroupFormationTool.QuestionManager.QuestionType;
 
 public class SurveyDB implements ISurveyPersistence
 {
+	private static LoggerInterface logger = SystemConfig.instance().getLogger();
 
-	public ISurvey loadSurveyByCourseID(long courseID)
+	public ISurvey loadSurveyByCourseID(long courseID) throws SQLException
 	{
 		ISurvey survey = null;
 		CallStoredProcedure proc = null;
@@ -65,7 +69,8 @@ public class SurveyDB implements ISurveyPersistence
 		}
 		catch (SQLException e)
 		{
-			System.out.println(e);
+			logger.error(UserDB.class.toString(),String.format("userID=%d action=loadSurveyByCourseID status=failure exception e=%s", courseID,e.getMessage()));
+			throw e;
 		}
 		finally
 		{
@@ -77,7 +82,7 @@ public class SurveyDB implements ISurveyPersistence
 		return survey;
 	}
 	
-	public IOptions loadOptionsByQuestionID(long questionID)
+	public IOptions loadOptionsByQuestionID(long questionID) throws SQLException
 	{
 		List<IOptionValue> optionList = new ArrayList<IOptionValue>();
 		IOptions options = QuestionAbstractFactory.getFactory().createOptions();
@@ -107,7 +112,8 @@ public class SurveyDB implements ISurveyPersistence
 		}
 		catch (SQLException e)
 		{
-			System.out.println(e);
+			logger.error(UserDB.class.toString(),String.format("userID=%d action=loadOptionsByQuestionID status=failure exception e=%s", questionID,e.getMessage()));
+			throw e;
 		}
 		finally
 		{
@@ -120,7 +126,7 @@ public class SurveyDB implements ISurveyPersistence
 	}
 
 	@Override
-	public boolean saveSurveyResponse(IResponse surveyResponse) {
+	public void saveSurveyResponse(IResponse surveyResponse) throws SQLException {
 		CallStoredProcedure proc = null;
 		try
 		{
@@ -134,8 +140,8 @@ public class SurveyDB implements ISurveyPersistence
 		}
 		catch (SQLException e)
 		{
-			System.out.println(e);
-			return false;
+			logger.error(UserDB.class.toString(),String.format("userID=%d action=saveSurveyResponse status=failure exception e=%s", surveyResponse.getId(),e.getMessage()));
+			throw e;
 		}
 		finally
 		{
@@ -144,7 +150,6 @@ public class SurveyDB implements ISurveyPersistence
 				proc.cleanup();
 			}
 		}
-		return true;
 	}
 
 }

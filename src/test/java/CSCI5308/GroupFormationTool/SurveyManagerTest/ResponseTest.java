@@ -109,13 +109,14 @@ public class ResponseTest {
 	}
 
 	@Test
-	public void save() {
+	public void save() throws Exception {
 		ISurveyPersistence surveyDB = new SurveyDBMock();
 		IResponse response = new Response();
 		response.setId(1);
 		response.setUserID(1);
 		response.setQuestionID(1);
 		response.setResponse("1");
-		Assert.isTrue(surveyDB.saveSurveyResponse(response));
+		surveyDB.saveSurveyResponse(response);
+		Assert.isTrue(1 == response.getId());
 	}
 }

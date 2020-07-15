@@ -33,7 +33,7 @@ public interface ISurvey {
 
 	int getQuestionSize();
 
-	void load(ISurveyPersistence surveyDB, long courseID);
+	void load(ISurveyPersistence surveyDB, long courseID) throws Exception;
 
 	Question getNextQuestion();
 

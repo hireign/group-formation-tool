@@ -30,6 +30,6 @@ public interface IResponse {
 
 	void convertOptionListToResponseString();
 
-	boolean save(ISurveyPersistence surveyDB);
+	void save(ISurveyPersistence surveyDB) throws Exception;
 
 }

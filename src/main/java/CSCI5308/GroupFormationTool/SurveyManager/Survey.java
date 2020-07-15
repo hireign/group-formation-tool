@@ -81,7 +81,7 @@ public class Survey implements ISurvey {
 	}
 
 	@Override
-	public void load(ISurveyPersistence surveyDB, long courseID) {
+	public void load(ISurveyPersistence surveyDB, long courseID) throws Exception {
 		Survey survey = (Survey)surveyDB.loadSurveyByCourseID(courseID);
 		
 		if(survey.active == 1) {

@@ -7,6 +7,7 @@ import CSCI5308.GroupFormationTool.QuestionManager.Options;
 import CSCI5308.GroupFormationTool.QuestionManager.Question;
 import CSCI5308.GroupFormationTool.SurveyManager.IResponse;
 import CSCI5308.GroupFormationTool.SurveyManager.ISurveyPersistence;
+import CSCI5308.GroupFormationTool.SurveyManager.Response;
 import CSCI5308.GroupFormationTool.SurveyManager.Survey;
 
 public class SurveyDBMock implements ISurveyPersistence {
@@ -34,11 +35,11 @@ public class SurveyDBMock implements ISurveyPersistence {
 		return options;
 	}
 
-	public boolean saveSurveyResponse(IResponse response) {
+	public void saveSurveyResponse(IResponse response) {
 		if (response.getId() > -1 && response.getQuestionID() > -1
 				&& response.getResponse() != "" && response.getUserID() > -1) {
-			return true;
+			IResponse responseTest = new Response();
+			responseTest.setId(response.getId());
 		}
-		return false;
 	}
 }
