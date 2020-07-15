@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import CSCI5308.GroupFormationTool.AccessControl.User;
+import CSCI5308.GroupFormationTool.AccessControl.IUser;
 
 public class PasswordValidatorEnumerator implements IPasswordValidatorEnumerator
 {	
@@ -20,7 +20,7 @@ public class PasswordValidatorEnumerator implements IPasswordValidatorEnumerator
 		validators = validatorDB.loadActivePasswordValidators();
 	}
 
-	public List<PasswordValidator> getActiveValidators(User user) throws Exception
+	public List<PasswordValidator> getActiveValidators(IUser user) throws Exception
 	{
 		System.out.println("Validators active: \n"+validators.values());
 		activeValidators = new ArrayList<PasswordValidator>();

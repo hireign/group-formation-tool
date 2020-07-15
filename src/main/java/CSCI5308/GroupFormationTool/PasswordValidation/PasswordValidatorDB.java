@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import CSCI5308.GroupFormationTool.LoggerUtil;
+import CSCI5308.GroupFormationTool.LoggerInterface;
 import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.Database.CallStoredProcedure;
 
 public class PasswordValidatorDB implements IPasswordValidatorPersistence
 {
 	
-	private static LoggerUtil logger = SystemConfig.instance().getLogger();
+	private static LoggerInterface logger = SystemConfig.instance().getLogger();
 	
 	@Override
 	public HashMap<Long,String> loadActivePasswordValidators() throws SQLException

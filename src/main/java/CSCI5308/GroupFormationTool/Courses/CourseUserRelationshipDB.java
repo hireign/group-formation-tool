@@ -5,19 +5,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import CSCI5308.GroupFormationTool.LoggerUtil;
+import CSCI5308.GroupFormationTool.LoggerInterface;
 import CSCI5308.GroupFormationTool.SystemConfig;
+import CSCI5308.GroupFormationTool.AccessControl.IUser;
 import CSCI5308.GroupFormationTool.AccessControl.User;
+import CSCI5308.GroupFormationTool.AccessControl.UserAbstractFactory;
 import CSCI5308.GroupFormationTool.Database.CallStoredProcedure;
 
 public class CourseUserRelationshipDB implements ICourseUserRelationshipPersistence
 {
 	
-	private static LoggerUtil logger = SystemConfig.instance().getLogger();
+	private static LoggerInterface logger = SystemConfig.instance().getLogger();
 	
-	public List<User> findAllUsersWithoutCourseRole(Role role, long courseID) throws SQLException
+	public List<IUser> findAllUsersWithoutCourseRole(Role role, long courseID) throws SQLException
 	{
-		List<User> users = new ArrayList<User>();
+		List<IUser> users = new ArrayList<IUser>();
 		CallStoredProcedure proc = null;
 		try
 		{
@@ -33,7 +35,7 @@ public class CourseUserRelationshipDB implements ICourseUserRelationshipPersiste
 					String bannerID = results.getString(2);
 					String firstName = results.getString(3);
 					String lastName = results.getString(4);
-					User u = new User();
+					IUser u = UserAbstractFactory.getFactory().createUser();
 					u.setID(userID);
 					u.setBannerID(bannerID);
 					u.setFirstName(firstName);
@@ -58,9 +60,9 @@ public class CourseUserRelationshipDB implements ICourseUserRelationshipPersiste
 		return users;
 	}
 
-	public List<User> findAllUsersWithCourseRole(Role role, long courseID) throws SQLException
+	public List<IUser> findAllUsersWithCourseRole(Role role, long courseID) throws SQLException
 	{
-		List<User> users = new ArrayList<User>();
+		List<IUser> users = new ArrayList<IUser>();
 		CallStoredProcedure proc = null;
 		try
 		{
@@ -73,7 +75,7 @@ public class CourseUserRelationshipDB implements ICourseUserRelationshipPersiste
 				while (results.next())
 				{
 					long userID = results.getLong(1);
-					User u = new User();
+					IUser u = UserAbstractFactory.getFactory().createUser();
 					u.setID(userID);
 					users.add(u);
 				}
@@ -95,7 +97,7 @@ public class CourseUserRelationshipDB implements ICourseUserRelationshipPersiste
 		return users;
 	}
 	
-	public void enrollUser(Course course, User user, Role role) throws SQLException
+	public void enrollUser(ICourse course, IUser user, Role role) throws SQLException
 	{
 		CallStoredProcedure proc = null;
 		try
@@ -121,7 +123,7 @@ public class CourseUserRelationshipDB implements ICourseUserRelationshipPersiste
 		}
 	}
 
-	public List<Role> loadUserRolesForCourse(Course course, User user) throws SQLException
+	public List<Role> loadUserRolesForCourse(ICourse course, IUser user) throws SQLException
 	{
 		List<Role> roles = new ArrayList<Role>();
 		CallStoredProcedure proc = null;

@@ -5,6 +5,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
 
 import CSCI5308.GroupFormationTool.Courses.Course;
+import CSCI5308.GroupFormationTool.Courses.ICourse;
 import CSCI5308.GroupFormationTool.Courses.ICoursePersistence;
 
 @SpringBootTest
@@ -14,7 +15,7 @@ class CourseTest
 	@Test
 	public void ConstructorTests() throws Exception 
 	{
-		Course course = new Course();
+		ICourse course = new Course();
 		Assert.isTrue(course.getId() == -1);
 		Assert.isTrue(course.getTitle().isEmpty());
 
@@ -27,7 +28,7 @@ class CourseTest
 	@Test
 	public void setIdTest() 
 	{
-		Course course = new Course();
+		ICourse course = new Course();
 		course.setId(7);
 		Assert.isTrue(course.getId() == 7);
 	}
@@ -35,7 +36,7 @@ class CourseTest
 	@Test
 	public void getIdTest() 
 	{
-		Course course = new Course();
+		ICourse course = new Course();
 		course.setId(7);
 		Assert.isTrue(course.getId() == 7);
 	}
@@ -43,7 +44,7 @@ class CourseTest
 	@Test
 	public void setTitleTest() 
 	{
-		Course course = new Course();
+		ICourse course = new Course();
 		course.setTitle("Advanced Topics in Software Development");
 		Assert.isTrue(course.getTitle().equals("Advanced Topics in Software Development"));
 	}
@@ -51,7 +52,7 @@ class CourseTest
 	@Test
 	public void getTitleTest() 
 	{
-		Course course = new Course();
+		ICourse course = new Course();
 		course.setTitle("Advanced Topics in Software Development");
 		Assert.isTrue(course.getTitle().equals("Advanced Topics in Software Development"));
 	}
@@ -68,7 +69,7 @@ class CourseTest
 	public void createCourseTest() throws Exception 
 	{
 		ICoursePersistence courseDB = new CourseDBMock();
-		Course course = new Course();
+		ICourse course = new Course();
 		course.setId(0);
 		course.setTitle("Software Engineering");
 		courseDB.createCourse(course);

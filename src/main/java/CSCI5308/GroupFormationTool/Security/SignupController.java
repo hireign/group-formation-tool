@@ -8,12 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import CSCI5308.GroupFormationTool.LoggerUtil;
+import CSCI5308.GroupFormationTool.LoggerInterface;
 import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.AccessControl.*;
 import CSCI5308.GroupFormationTool.PasswordValidation.IPasswordValidatorEnumerator;
 import CSCI5308.GroupFormationTool.PasswordValidation.IPasswordValidatorPersistence;
-import CSCI5308.GroupFormationTool.PasswordValidation.PasswordValidatorEnumerator;
+import CSCI5308.GroupFormationTool.PasswordValidation.PasswordAbstractFactory;
 
 
 @Controller
@@ -25,13 +25,13 @@ public class SignupController
 	private final String FIRST_NAME = "firstName";
 	private final String LAST_NAME = "lastName";
 	private final String EMAIL = "email";
-	LoggerUtil logger = SystemConfig.instance().getLogger();
+	LoggerInterface logger = SystemConfig.instance().getLogger();
 	private IPasswordValidatorEnumerator passwordValidatorEnumerator;
 	
 	public SignupController() {
 		IPasswordValidatorPersistence validatorDB = SystemConfig.instance().getPasswordValidatorDB();
 		try {
-			passwordValidatorEnumerator = new PasswordValidatorEnumerator(validatorDB);
+			passwordValidatorEnumerator = PasswordAbstractFactory.getFactory().createPwdEnumerator(validatorDB);
 		} catch (Exception e) {
 			logger.fatal(SignupController.class.toString(), String.format("action=loadActivePasswordValidators status=failed "
 					+ "exception=%s",e.getMessage()));
@@ -62,7 +62,7 @@ public class SignupController
 			 User.isLastNameValid(lastName) &&
 			 password.equals(passwordConfirm))
 		{
-			User u = new User();
+			IUser u = UserAbstractFactory.getFactory().createUser();
 			u.setBannerID(bannerID);
 			u.setPassword(password);
 			u.setFirstName(firstName);

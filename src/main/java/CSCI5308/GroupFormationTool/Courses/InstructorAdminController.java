@@ -25,7 +25,7 @@ public class InstructorAdminController
 	public String instructorAdmin(Model model, @RequestParam(name = ID) long courseID)
 	{
 		ICoursePersistence courseDB = SystemConfig.instance().getCourseDB();
-		Course course = new Course();
+		ICourse course = CourseAbstractFactory.getFactory().createCourse();
 		try {
 			courseDB.loadCourseByID(courseID, course);
 		} catch (Exception e) {
@@ -61,7 +61,7 @@ public class InstructorAdminController
 			@RequestParam(name = DISPLAY_RESULTS) boolean displayResults)
 	{
 		ICoursePersistence courseDB = SystemConfig.instance().getCourseDB();
-		Course course = new Course();
+		ICourse course = CourseAbstractFactory.getFactory().createCourse();
 		try {
 			courseDB.loadCourseByID(courseID, course);
 		} catch (Exception e) {
@@ -96,7 +96,7 @@ public class InstructorAdminController
 	public String enrollTA(Model model, @RequestParam(name = ID) long courseID)
 	{
 		ICoursePersistence courseDB = SystemConfig.instance().getCourseDB();
-		Course course = new Course();
+		ICourse course = CourseAbstractFactory.getFactory().createCourse();
 		try {
 			courseDB.loadCourseByID(courseID, course);
 		} catch (Exception e) {
@@ -124,7 +124,7 @@ public class InstructorAdminController
    public ModelAndView upload(@RequestParam(name = FILE) MultipartFile file, @RequestParam(name = ID) long courseID)
    {
 		ICoursePersistence courseDB = SystemConfig.instance().getCourseDB();
-		Course course = new Course();
+		ICourse course = CourseAbstractFactory.getFactory().createCourse();
 		try {
 			courseDB.loadCourseByID(courseID, course);
 		} catch (Exception e) {

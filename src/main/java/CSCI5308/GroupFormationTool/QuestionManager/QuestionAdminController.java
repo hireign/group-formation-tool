@@ -43,7 +43,7 @@ public class QuestionAdminController
 	@RequestMapping("/question/add") 
 	public String addQuestion(Model model) 
 	{
-		Question question = new Question();
+		IQuestion question = QuestionAbstractFactory.getFactory().createQuestion();
 		List<QuestionType> questionType = new ArrayList<QuestionType>();
 		questionType = Arrays.asList(QuestionType.values());
 		model.addAttribute("question", question);
@@ -55,7 +55,7 @@ public class QuestionAdminController
 	public ModelAndView addOptions(Model model,@RequestParam(name = BannerID) String bannerId, 
 											@ModelAttribute Question question) 
 	{	
-		Options options = new Options();
+		IOptions options = QuestionAbstractFactory.getFactory().createOptions();
 		options.addOption();
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("question", question);
