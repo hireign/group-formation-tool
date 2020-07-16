@@ -128,4 +128,12 @@ public class SurveyTest {
 		boolean status = surveyDBMock.addSurveyQuestion(1, 1, 1);
 		Assert.isTrue(status == true);
 	}
+
+
+	@Test
+	public void publishSurvey() throws Exception {
+		ISurveyPersistence surveyDBMock = TestSystemConfig.instance().getSurveyDB();
+		boolean status = surveyDBMock.publishSurvey(1);
+		Assert.isTrue(status == true);
+	}
 }

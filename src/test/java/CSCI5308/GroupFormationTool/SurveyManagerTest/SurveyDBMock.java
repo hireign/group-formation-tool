@@ -75,4 +75,15 @@ public class SurveyDBMock implements ISurveyPersistence {
 		}
 		return false;
 	}
+
+	@Override
+	public boolean publishSurvey(long courseID) throws Exception {
+		ISurvey survey = surveyFactory.createSurvey();
+		survey.setId(courseID);
+		survey.setActive(1);
+		if(survey.getActive()==1){
+			return true;
+		}
+		return false;
+	}
 }
