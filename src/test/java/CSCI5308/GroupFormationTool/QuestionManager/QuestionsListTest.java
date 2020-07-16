@@ -16,7 +16,7 @@ public class QuestionsListTest {
     public void setQuestionListTest() {
         List<Question> questionsList = new ArrayList<>();
         QuestionsList questions = new QuestionsList();
-        IQuestion question = questionFactory.createQuestion();
+        IQuestion question = questionFactory.makeQuestion();
         question.setText("What is mobile number? Karu kya dial number?");
         questionsList.add((Question)question);
         questions.setQuestionsList(questionsList);
@@ -28,7 +28,7 @@ public class QuestionsListTest {
     public void getQuestionsListTest() {
     	List<Question> questionsList = new ArrayList<>();
         QuestionsList questions = new QuestionsList();
-        IQuestion question = questionFactory.createQuestion();
+        IQuestion question = questionFactory.makeQuestion();
         question.setText("Call me on my cell phone....");
         questionsList.add((Question)question);
         questions.setQuestionsList(questionsList);
@@ -40,10 +40,10 @@ public class QuestionsListTest {
     public void addQuestionTest() {
     	List<Question> questionsList = new ArrayList<>();
         QuestionsList questions = new QuestionsList();
-        IQuestion question = questionFactory.createQuestion();
+        IQuestion question = questionFactory.makeQuestion();
         question.setText("Hotline Bling!");
         questionsList.add((Question)question);
-        question = questionFactory.createQuestion();
+        question = questionFactory.makeQuestion();
         question.setTitle("Govinda/Drake");
         questionsList.add((Question)question);
         questions.setQuestionsList(questionsList);

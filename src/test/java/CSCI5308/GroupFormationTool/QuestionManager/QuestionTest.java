@@ -15,7 +15,7 @@ public class QuestionTest
 	@Test
 	public void ConstructorTests()
 	{
-		IQuestion q = questionFactory.createQuestion();
+		IQuestion q = questionFactory.makeQuestion();
 		Assert.isTrue(q.getTitle().isEmpty());
 		Assert.isTrue(q.getText().isEmpty());
 		Assert.isNull(q.getType());
@@ -25,7 +25,7 @@ public class QuestionTest
 	@Test
 	public void getTimestamp() 
 	{
-		IQuestion q = questionFactory.createQuestion();
+		IQuestion q = questionFactory.makeQuestion();
 		Timestamp time = Timestamp.valueOf("2020-06-16 00:00:00");
 		q.setTimestamp(time);
 		Assert.isTrue(time == q.getTimestamp());
@@ -34,7 +34,7 @@ public class QuestionTest
 	@Test
 	public void setTimestamp() 
 	{
-		IQuestion q = questionFactory.createQuestion();
+		IQuestion q = questionFactory.makeQuestion();
 		Timestamp time = Timestamp.valueOf("2020-06-16 00:00:00");
 		q.setTimestamp(time);
 		Assert.isTrue(time == q.getTimestamp());
@@ -43,7 +43,7 @@ public class QuestionTest
 	@Test
 	public void getId() 
 	{
-		IQuestion q = questionFactory.createQuestion();
+		IQuestion q = questionFactory.makeQuestion();
 		q.setId(7);
 		Assert.isTrue(q.getId() == 7);
 	}
@@ -51,7 +51,7 @@ public class QuestionTest
 	@Test
 	public void setId() 
 	{
-		IQuestion q = questionFactory.createQuestion();
+		IQuestion q = questionFactory.makeQuestion();
 		q.setId(7);
 		Assert.isTrue(q.getId() == 7);
 	}
@@ -59,7 +59,7 @@ public class QuestionTest
 	@Test
 	public void getTitle() 
 	{
-		IQuestion q = questionFactory.createQuestion();
+		IQuestion q = questionFactory.makeQuestion();
 		q.setTitle("Test title");
 		Assert.isTrue(q.getTitle().equals("Test title"));
 	}
@@ -67,7 +67,7 @@ public class QuestionTest
 	@Test
 	public void setTitle() 
 	{
-		IQuestion q = questionFactory.createQuestion();
+		IQuestion q = questionFactory.makeQuestion();
 		q.setTitle("Test title");
 		Assert.isTrue(q.getTitle().equals("Test title"));
 	}
@@ -75,7 +75,7 @@ public class QuestionTest
 	@Test
 	public void getText() 
 	{
-		IQuestion q = questionFactory.createQuestion();
+		IQuestion q = questionFactory.makeQuestion();
 		q.setText("Test text");
 		Assert.isTrue(q.getText().equals("Test text"));
 	}
@@ -83,7 +83,7 @@ public class QuestionTest
 	@Test
 	public void setText() 
 	{
-		IQuestion q = questionFactory.createQuestion();
+		IQuestion q = questionFactory.makeQuestion();
 		q.setText("Test text");
 		Assert.isTrue(q.getText().equals("Test text"));
 	}
@@ -91,7 +91,7 @@ public class QuestionTest
 	@Test
 	public void getType() 
 	{
-		IQuestion q = questionFactory.createQuestion();
+		IQuestion q = questionFactory.makeQuestion();
 		q.setType(QuestionType.TEXT);
 		Assert.isTrue(q.getType() == QuestionType.TEXT);
 	}
@@ -99,7 +99,7 @@ public class QuestionTest
 	@Test
 	public void setType() 
 	{
-		IQuestion q = questionFactory.createQuestion();
+		IQuestion q = questionFactory.makeQuestion();
 		q.setType(QuestionType.TEXT);
 		Assert.isTrue(q.getType() == QuestionType.TEXT);
 	}
@@ -107,7 +107,7 @@ public class QuestionTest
 	@Test
 	public void deleteQuestion() throws Exception 
 	{
-		IQuestion q = questionFactory.createQuestion();
+		IQuestion q = questionFactory.makeQuestion();
 		IQuestionPersistence questionDB = TestSystemConfig.instance().getQuestionDB();
 		q.setDefaults();
 		boolean status = questionDB.deleteQuestionByQuestionId(q.getId());

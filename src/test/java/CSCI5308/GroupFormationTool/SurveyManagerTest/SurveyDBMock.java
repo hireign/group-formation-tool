@@ -18,9 +18,9 @@ public class SurveyDBMock implements ISurveyPersistence {
 	private QuestionAbstractFactory questionFactory = QuestionAbstractFactory.getFactory();
 
 	public ISurvey loadSurveyByCourseID(long courseID) {
-		ISurvey survey = surveyFactory.createSurvey();
+		ISurvey survey = surveyFactory.makeSurvey();
 		List<IQuestion> questions = new ArrayList<IQuestion>();
-		IQuestion question = questionFactory.createQuestion();
+		IQuestion question = questionFactory.makeQuestion();
 
 		question.setId(1);
 		question.setTitle("Programming Expertise");
@@ -36,7 +36,7 @@ public class SurveyDBMock implements ISurveyPersistence {
 	}
 
 	public IOptions loadOptionsByQuestionID(long questionID) {
-		IOptions options = questionFactory.createOptions();
+		IOptions options = questionFactory.makeOptions();
 		options.setDefault();
 		return options;
 	}
@@ -44,15 +44,15 @@ public class SurveyDBMock implements ISurveyPersistence {
 	public void saveSurveyResponse(IResponse response) {
 		if (response.getId() > -1 && response.getQuestionID() > -1 && response.getResponse() != ""
 				&& response.getUserID() > -1) {
-			IResponse responseTest = surveyFactory.createResponse();
+			IResponse responseTest = surveyFactory.makeResponse();
 			responseTest.setId(response.getId());
 		}
 	}
 
 	public boolean deleteSurveyQuestion(long questionID, long courseID) {
-		IQuestion question = questionFactory.createQuestion();
+		IQuestion question = questionFactory.makeQuestion();
 		question.setId(questionID);
-		ISurvey survey = surveyFactory.createSurvey();
+		ISurvey survey = surveyFactory.makeSurvey();
 		survey.setId(courseID);
 		if (question.getId() > -1 && survey.getId() > -1) {
 			return true;
@@ -62,11 +62,11 @@ public class SurveyDBMock implements ISurveyPersistence {
 
 	@Override
 	public boolean addSurveyQuestion(long questionID, long courseID, long instructorID) {
-		ISurvey survey = surveyFactory.createSurvey();
+		ISurvey survey = surveyFactory.makeSurvey();
 		survey.setId(courseID);
 		survey.setUserID(instructorID);
 		List<IQuestion> questionList = new ArrayList<IQuestion>();
-		IQuestion question = questionFactory.createQuestion();
+		IQuestion question = questionFactory.makeQuestion();
 		question.setId(questionID);
 		questionList.add((Question) question);
 		survey.setQuestions(questionList);
@@ -78,7 +78,7 @@ public class SurveyDBMock implements ISurveyPersistence {
 
 	@Override
 	public boolean publishSurvey(long courseID) throws Exception {
-		ISurvey survey = surveyFactory.createSurvey();
+		ISurvey survey = surveyFactory.makeSurvey();
 		survey.setId(courseID);
 		survey.setActive(1);
 		if(survey.getActive()==1){

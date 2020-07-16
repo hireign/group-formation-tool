@@ -10,23 +10,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import CSCI5308.GroupFormationTool.SystemConfig;
 
 @Controller
-public class CourseController
-{
+public class CourseController {
 	private static final String ID = "id";
-	
+
 	@GetMapping("/course/course")
-	public String course(Model model, @RequestParam(name = ID) long courseID)
-	{
+	public String course(Model model, @RequestParam(name = ID) long courseID) {
 		ICoursePersistence courseDB = SystemConfig.instance().getCourseDB();
-		ICourse course = CourseAbstractFactory.getFactory().createCourse();
+		ICourse course = CourseAbstractFactory.getFactory().makeCourse();
 		try {
 			courseDB.loadCourseByID(courseID, course);
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", "Unable to load this course at this moment");
 			return "course/course";
 		}
-		
-	
+
 		List<Role> userRoles = null;
 		try {
 			userRoles = course.getAllRolesForCurrentUserInCourse();
@@ -34,15 +31,12 @@ public class CourseController
 			model.addAttribute("errorMessage", "Unable to load this course at this moment");
 			return "course/course";
 		}
-		if (null == userRoles)
-		{
+		if (null == userRoles) {
 			model.addAttribute("instructor", false);
 			model.addAttribute("ta", false);
 			model.addAttribute("student", false);
 			model.addAttribute("guest", true);
-		}
-		else
-		{
+		} else {
 			model.addAttribute("instructor", userRoles.contains(Role.INSTRUCTOR));
 			model.addAttribute("ta", userRoles.contains(Role.TA));
 			model.addAttribute("student", userRoles.contains(Role.STUDENT));

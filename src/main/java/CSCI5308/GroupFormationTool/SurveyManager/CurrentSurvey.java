@@ -11,13 +11,13 @@ import CSCI5308.GroupFormationTool.Courses.Role;
 import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
 
 public class CurrentSurvey implements SurveyIterator {
-	private ISurvey survey = SurveyAbstractFactory.getFactory().createSurvey();
+	private ISurvey survey = SurveyAbstractFactory.getFactory().makeSurvey();
 	private int index;
-	
+
 	public CurrentSurvey() {
 		index = 0;
 	}
-	
+
 	public long getId() {
 		return survey.getId();
 	}
@@ -66,27 +66,28 @@ public class CurrentSurvey implements SurveyIterator {
 		this.index = index;
 	}
 
-	public void load(ISurveyPersistence surveyDB, long courseID, ICourseUserRelationshipPersistence courseUserRelationshipDB, IUser user) throws Exception {
+	public void load(ISurveyPersistence surveyDB, long courseID,
+			ICourseUserRelationshipPersistence courseUserRelationshipDB, IUser user) throws Exception {
 		ISurvey survey = surveyDB.loadSurveyByCourseID(courseID);
-		ICourse course = CourseFactory.getFactory().createCourse();
+		ICourse course = CourseFactory.getFactory().makeCourse();
 		course.setId(courseID);
 		List<Role> courseUserRelationship = courseUserRelationshipDB.loadUserRolesForCourse(course, user);
 
 		if (survey != null) {
-			if(survey.getActive() == 1 || courseUserRelationship.contains(Role.INSTRUCTOR) || courseUserRelationship.contains(Role.TA))
-			this.survey.setId(survey.getId());
+			if (survey.getActive() == 1 || courseUserRelationship.contains(Role.INSTRUCTOR)
+					|| courseUserRelationship.contains(Role.TA))
+				this.survey.setId(survey.getId());
 			this.survey.setUserID(survey.getUserID());
 			this.survey.setActive(survey.getActive());
 			this.survey.setQuestions(survey.getQuestions());
 			this.survey.setCreatedAt(survey.getCreatedAt());
-		}
-		else {
+		} else {
 			this.survey.setId(-1);
 		}
 	}
 
 	public boolean hasNext() {
-		if(index < survey.getQuestions().size()) {
+		if (index < survey.getQuestions().size()) {
 			return true;
 		}
 		return false;
@@ -101,7 +102,7 @@ public class CurrentSurvey implements SurveyIterator {
 
 		return question;
 	}
-	
+
 	public int getQuestionSize() {
 		return survey.getQuestions().size();
 	}

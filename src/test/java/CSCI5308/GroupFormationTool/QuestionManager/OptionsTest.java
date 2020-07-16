@@ -16,16 +16,16 @@ class OptionsTest
 	@Test
 	public void ConstructorTests() 
 	{
-		IOptions options = questionFactory.createOptions();
+		IOptions options = questionFactory.makeOptions();
 		Assert.isTrue(options.getOptionList().size() == 0);
 	}
 	
 	@Test
 	public void getOptionList() 
 	{
-		IOptions options = questionFactory.createOptions();
+		IOptions options = questionFactory.makeOptions();
 		List<IOptionValue> list = new ArrayList<IOptionValue>();
-		list.add(questionFactory.createOptionValue("test","test"));
+		list.add(questionFactory.makeOptionValue("test","test"));
 		options.setOptionList(list);
 		Assert.isTrue(options.getOptionList() == list);
 		
@@ -34,9 +34,9 @@ class OptionsTest
 	@Test
 	public void setOptionList() 
 	{
-		IOptions options = questionFactory.createOptions();
+		IOptions options = questionFactory.makeOptions();
 		List<IOptionValue> list = new ArrayList<IOptionValue>();
-		list.add(questionFactory.createOptionValue("test","test"));
+		list.add(questionFactory.makeOptionValue("test","test"));
 		options.setOptionList(list);
 		Assert.isTrue(options.getOptionList() == list);
 	}
@@ -44,7 +44,7 @@ class OptionsTest
 	@Test
 	public void addOption() 
 	{
-		IOptions options = questionFactory.createOptions();
+		IOptions options = questionFactory.makeOptions();
 		options.addOption();
 		Assert.isTrue(options.getOptionList().size()>0);
 	}

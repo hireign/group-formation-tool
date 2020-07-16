@@ -1,29 +1,28 @@
 package CSCI5308.GroupFormationTool.QuestionManager;
 
-public class QuestionFactory extends QuestionAbstractFactory{
+public class QuestionFactory extends QuestionAbstractFactory {
 
-	public IQuestionPersistence createQuestionDB() {
+	public IQuestionPersistence makeQuestionDB() {
 		return new QuestionDB();
 	}
 
 	@Override
-	public IQuestion createQuestion() {
+	public IQuestion makeQuestion() {
 		return new Question();
 	}
 
-
 	@Override
-	public IOptionValue createOptionValue(String text, String storedAs) {
+	public IOptionValue makeOptionValue(String text, String storedAs) {
 		return new OptionValue(text, storedAs);
 	}
 
 	@Override
-	public IOptions createOptions() {
+	public IOptions makeOptions() {
 		return new Options();
 	}
 
 	@Override
-	public IOptionValue createOptionvalue() {
+	public IOptionValue makeOptionvalue() {
 		return new OptionValue();
 	}
 

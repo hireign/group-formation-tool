@@ -21,39 +21,37 @@ public class SurveyAdminController {
 	private ISurveyPersistence surveyDB;
 	private SurveyIterator currentSurvey = null;
 	private ICourseUserRelationshipPersistence courseUserRelationshipDB = null;
-	
+
 	public SurveyAdminController() {
 		surveyDB = SystemConfig.instance().getSurveyDB();
-		currentSurvey = SurveyAbstractFactory.getFactory().createSurveyIterator();
-		courseUserRelationshipDB = CourseFactory.getFactory().createCourseUserPersistenceDB();
+		currentSurvey = SurveyAbstractFactory.getFactory().makeSurveyIterator();
+		courseUserRelationshipDB = CourseFactory.getFactory().makeCourseUserPersistenceDB();
 	}
 
 	@GetMapping("/survey/admin/groups")
-	public String showGroups(Model model)
-	{
+	public String showGroups(Model model) {
 		return "index";
 	}
 
 	@RequestMapping("/deletesurveyquestion")
-	public String deleteSurveyQuestion(Model model,
-									   @RequestParam(name = QuestionID) long questionID,
-									   @RequestParam(name = CourseID) long courseID){
+	public String deleteSurveyQuestion(Model model, @RequestParam(name = QuestionID) long questionID,
+			@RequestParam(name = CourseID) long courseID) {
 		try {
 			surveyDB.deleteSurveyQuestion(questionID, courseID);
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", "Unable to delete question, please retry");
 		}
-		try{
-			currentSurvey.load(surveyDB, courseID, courseUserRelationshipDB, CurrentUser.instance().getCurrentAuthenticatedUser());
-		}
-		catch (Exception e) {
+		try {
+			currentSurvey.load(surveyDB, courseID, courseUserRelationshipDB,
+					CurrentUser.instance().getCurrentAuthenticatedUser());
+		} catch (Exception e) {
 			model.addAttribute("errorMessage", "Unable to load survey, please retry later");
 		}
 		currentSurvey.setIndex(0);
-		
+
 		List<IQuestion> questions = null;
-		
-		if(-1 != currentSurvey.getId()) {
+
+		if (-1 != currentSurvey.getId()) {
 			questions = currentSurvey.getQuestions();
 		}
 		model.addAttribute("courseID", courseID);
@@ -64,9 +62,9 @@ public class SurveyAdminController {
 	@GetMapping(value = "/surveymanager")
 	public String loadSurvey(Model model, @RequestParam(name = CourseID) String courseID) {
 		try {
-			currentSurvey.load(surveyDB, Long.valueOf(courseID), courseUserRelationshipDB, CurrentUser.instance().getCurrentAuthenticatedUser());
-		}
-		catch (Exception e) {
+			currentSurvey.load(surveyDB, Long.valueOf(courseID), courseUserRelationshipDB,
+					CurrentUser.instance().getCurrentAuthenticatedUser());
+		} catch (Exception e) {
 			model.addAttribute("errorMessage", "Unable to load survey, please retry");
 		}
 		currentSurvey.setIndex(0);
@@ -77,31 +75,25 @@ public class SurveyAdminController {
 	}
 
 	@RequestMapping("/question/addtosurvey")
-	public String addSurveyQuestion(Model model,
-									@RequestParam(name = CourseID) String courseId,
-									@RequestParam(name = QuestionID) String questionId)
-	{
+	public String addSurveyQuestion(Model model, @RequestParam(name = CourseID) String courseId,
+			@RequestParam(name = QuestionID) String questionId) {
 		try {
-			surveyDB.addSurveyQuestion(Long.valueOf(questionId),Long.valueOf(courseId), CurrentUser.instance().getCurrentAuthenticatedUser().getID());
+			surveyDB.addSurveyQuestion(Long.valueOf(questionId), Long.valueOf(courseId),
+					CurrentUser.instance().getCurrentAuthenticatedUser().getID());
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", "Unable to add question to survey, please try later");
 		}
-		catch (Exception e) {
-			model.addAttribute("errorMessage","Unable to add question to survey, please try later");
-		}
-		return "redirect:/surveymanager?courseID="+courseId;
+		return "redirect:/surveymanager?courseID=" + courseId;
 	}
 
 	@RequestMapping("/survey/publish")
-	public String publishSurvey(Model model,
-								@RequestParam(name = CourseID) String courseId)
-	{
+	public String publishSurvey(Model model, @RequestParam(name = CourseID) String courseId) {
 		try {
 			surveyDB.publishSurvey(Long.valueOf(courseId));
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", "Unable to publish survey, please try later");
 		}
-		catch (Exception e) {
-			model.addAttribute("errorMessage","Unable to publish survey, please try later");
-		}
-		return "redirect:/surveymanager?courseID="+courseId;
+		return "redirect:/surveymanager?courseID=" + courseId;
 	}
 
 }
-

@@ -1,9 +1,9 @@
 package CSCI5308.GroupFormationTool;
 
-public class LoggerFactory extends LoggerAbstractFactory{
+public class LoggerFactory extends LoggerAbstractFactory {
 
 	@Override
-	public LoggerInterface createLoggerInstance() {
+	public LoggerInterface makeLoggerInstance() {
 		return new LoggerUtil();
 	}
 

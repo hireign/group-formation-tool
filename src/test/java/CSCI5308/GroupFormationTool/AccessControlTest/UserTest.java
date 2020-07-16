@@ -18,24 +18,24 @@ public class UserTest
 	@Test
 	public void ConstructorTests() throws Exception
 	{
-		IUser u = userFactory.createUser();
+		IUser u = userFactory.makeUser();
 		Assert.isTrue(u.getBannerID().isEmpty());
 		Assert.isTrue(u.getFirstName().isEmpty());
 		Assert.isTrue(u.getLastName().isEmpty());
 		Assert.isTrue(u.getEmail().isEmpty());
 		
 		IUserPersistence userDBMock = TestSystemConfig.instance().getUserDB();
-		u = userFactory.createUser((long)1, userDBMock);
+		u = userFactory.makeUser((long)1, userDBMock);
 		Assert.isTrue(u.getBannerID().equals("B00000000"));
 		
-		u = userFactory.createUser("B00000000", userDBMock);
+		u = userFactory.makeUser("B00000000", userDBMock);
 		Assert.isTrue(u.getBannerID().equals("B00000000"));
 	}
 	
 	@Test
 	public void setIDTest()
 	{
-		IUser u = userFactory.createUser();
+		IUser u = userFactory.makeUser();
 		u.setID(10);
 		Assert.isTrue(10 == u.getID());
 	}
@@ -43,7 +43,7 @@ public class UserTest
 	@Test
 	public void getIDTest()
 	{
-		IUser u = userFactory.createUser();
+		IUser u = userFactory.makeUser();
 		u.setID(10);
 		Assert.isTrue(10 == u.getID());
 	}
@@ -51,7 +51,7 @@ public class UserTest
 	@Test
 	public void setBannerIDTest()
 	{
-		IUser u = userFactory.createUser();
+		IUser u = userFactory.makeUser();
 		u.setBannerID("B00000000");
 		Assert.isTrue(u.getBannerID().equals("B00000000"));
 	}
@@ -59,7 +59,7 @@ public class UserTest
 	@Test
 	public void getBannerIDTest()
 	{
-		IUser u = userFactory.createUser();
+		IUser u = userFactory.makeUser();
 		u.setBannerID("B00000000");
 		Assert.isTrue(u.getBannerID().equals("B00000000"));
 	}
@@ -67,7 +67,7 @@ public class UserTest
 	@Test
 	public void setFirstNameTest()
 	{
-		IUser u = userFactory.createUser();
+		IUser u = userFactory.makeUser();
 		u.setFirstName("Rob");
 		Assert.isTrue(u.getFirstName().equals("Rob"));
 	}
@@ -75,7 +75,7 @@ public class UserTest
 	@Test
 	public void getFirstNameTest()
 	{
-		IUser u = userFactory.createUser();
+		IUser u = userFactory.makeUser();
 		u.setFirstName("Rob");
 		Assert.isTrue(u.getFirstName().equals("Rob"));
 	}
@@ -83,7 +83,7 @@ public class UserTest
 	@Test
 	public void setLastNameTest()
 	{
-		IUser u = userFactory.createUser();
+		IUser u = userFactory.makeUser();
 		u.setLastName("Hawkey");
 		Assert.isTrue(u.getLastName().equals("Hawkey"));
 	}
@@ -91,7 +91,7 @@ public class UserTest
 	@Test
 	public void getLastNameTest()
 	{
-		IUser u = userFactory.createUser();
+		IUser u = userFactory.makeUser();
 		u.setLastName("Hawkey");
 		Assert.isTrue(u.getLastName().equals("Hawkey"));
 	}
@@ -99,7 +99,7 @@ public class UserTest
 	@Test
 	public void setEmailTest()
 	{
-		IUser u = userFactory.createUser();
+		IUser u = userFactory.makeUser();
 		u.setEmail("rhawkey@dal.ca");
 		Assert.isTrue(u.getEmail().equals("rhawkey@dal.ca"));
 	}
@@ -107,7 +107,7 @@ public class UserTest
 	@Test
 	public void getEmailTest()
 	{
-		IUser u = userFactory.createUser();
+		IUser u = userFactory.makeUser();
 		u.setEmail("rhawkey@dal.ca");
 		Assert.isTrue(u.getEmail().equals("rhawkey@dal.ca"));
 	}
@@ -116,7 +116,7 @@ public class UserTest
 	public void createUser() throws Exception
 	{		
 		IUserPersistence userDB = TestSystemConfig.instance().getUserDB();
-		IUser user = userFactory.createUser();
+		IUser user = userFactory.makeUser();
 		userDB.createUser(user);
 		Assert.isTrue(user.getId() == 0);
 		Assert.isTrue(user.getBannerID().equals("B00000000"));

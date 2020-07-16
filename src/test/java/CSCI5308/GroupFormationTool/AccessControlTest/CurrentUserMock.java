@@ -14,7 +14,7 @@ public class CurrentUserMock
 	{
 		IUserPersistence userDB = TestSystemConfig.instance().getUserDB();
 		String bannerID = "B00000000";
-		IUser u = userFactory.createUser();
+		IUser u = userFactory.makeUser();
 		userDB.loadUserByBannerID(bannerID, u);
 		return u;
 	}

@@ -4,33 +4,33 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class CourseFactory extends CourseAbstractFactory {
 
-	public ICoursePersistence createCourseDB() {
+	public ICoursePersistence makeCourseDB() {
 		return new CourseDB();
 	}
 
-	public ICourseUserRelationship createCourseUserDB() {
+	public ICourseUserRelationship makeCourseUserDB() {
 		return new CourseUserRelationship();
 	}
 
-	public ICourseUserRelationshipPersistence createCourseUserPersistenceDB() {
+	public ICourseUserRelationshipPersistence makeCourseUserPersistenceDB() {
 		return new CourseUserRelationshipDB();
 	}
 
-	public ICourse createCourse() {
+	public ICourse makeCourse() {
 		return new Course();
 	}
 
-	public ICourse createCourse(long id, ICoursePersistence courseDB) throws Exception {
+	public ICourse makeCourse(long id, ICoursePersistence courseDB) throws Exception {
 		return new Course(id, courseDB);
 	}
 
 	@Override
-	public IStudentCSVParser createCSVParser(MultipartFile file) {
+	public IStudentCSVParser makeCSVParser(MultipartFile file) {
 		return new StudentCSVParser(file);
 	}
 
 	@Override
-	public IStudentCSVImport createCSVImporter(IStudentCSVParser parser, ICourse course) {
+	public IStudentCSVImport makeCSVImporter(IStudentCSVParser parser, ICourse course) {
 		return new StudentCSVImport(parser, course);
 	}
 

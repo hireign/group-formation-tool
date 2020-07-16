@@ -75,19 +75,19 @@ public class Response implements IResponse {
 		if (options == null) {
 			return;
 		}
-		if(response == null) {
+		if (response == null) {
 			response = "";
 		}
 		for (String option : this.options) {
 			if (option == "") {
 				continue;
 			}
-			
+
 			response += option;
 			response += ",";
 		}
 	}
-	
+
 	@Override
 	public void save(ISurveyPersistence surveyDB) throws Exception {
 		convertOptionListToResponseString();

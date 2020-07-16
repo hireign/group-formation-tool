@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Configuration status="info">
+<Configuration status="error">
 
 	<Properties>
         <property name="fileName">group23-GFT</property>
@@ -26,7 +26,7 @@
 
             <AppenderRef ref="LogToConsole"/>
         </Logger>
-        <Root level="info">
+        <Root level="error">
             <AppenderRef ref="LogToFile"/>
             <AppenderRef ref="LogToConsole"/>
         </Root>

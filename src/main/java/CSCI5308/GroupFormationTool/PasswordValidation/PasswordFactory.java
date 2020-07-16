@@ -1,13 +1,13 @@
 package CSCI5308.GroupFormationTool.PasswordValidation;
 
-public class PasswordFactory extends PasswordAbstractFactory{
+public class PasswordFactory extends PasswordAbstractFactory {
 
-	public IPasswordValidatorPersistence createPwdDB() {
+	public IPasswordValidatorPersistence makePwdDB() {
 		return new PasswordValidatorDB();
 	}
 
 	@Override
-	public IPasswordValidatorEnumerator createPwdEnumerator(IPasswordValidatorPersistence validatorDB) throws Exception {
+	public IPasswordValidatorEnumerator makePwdEnumerator(IPasswordValidatorPersistence validatorDB) throws Exception {
 		return new PasswordValidatorEnumerator(validatorDB);
 	}
 

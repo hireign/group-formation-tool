@@ -21,49 +21,49 @@ public class SurveyTest {
 
 	@Test
 	public void getIdTest() {
-		ISurvey survey = surveyFactory.createSurvey();
+		ISurvey survey = surveyFactory.makeSurvey();
 		survey.setId(1);
 		Assert.isTrue(1 == survey.getId());
 	}
 
 	@Test
 	public void setIdTest() {
-		ISurvey survey = surveyFactory.createSurvey();
+		ISurvey survey = surveyFactory.makeSurvey();
 		survey.setId(1);
 		Assert.isTrue(1 == survey.getId());
 	}
 
 	@Test
 	public void getUserIDTest() {
-		ISurvey survey = surveyFactory.createSurvey();
+		ISurvey survey = surveyFactory.makeSurvey();
 		survey.setUserID(1);
 		Assert.isTrue(1 == survey.getUserID());
 	}
 
 	@Test
 	public void setUserIDTest() {
-		ISurvey survey = surveyFactory.createSurvey();
+		ISurvey survey = surveyFactory.makeSurvey();
 		survey.setUserID(1);
 		Assert.isTrue(1 == survey.getUserID());
 	}
 
 	@Test
 	public void getActiveTest() {
-		ISurvey survey = surveyFactory.createSurvey();
+		ISurvey survey = surveyFactory.makeSurvey();
 		survey.setActive(1);
 		Assert.isTrue(1 == survey.getActive());
 	}
 
 	@Test
 	public void setActiveTest() {
-		ISurvey survey = surveyFactory.createSurvey();
+		ISurvey survey = surveyFactory.makeSurvey();
 		survey.setActive(1);
 		Assert.isTrue(1 == survey.getActive());
 	}
 
 	@Test
 	public void getCreatedAtTest() {
-		ISurvey survey = surveyFactory.createSurvey();
+		ISurvey survey = surveyFactory.makeSurvey();
 		Timestamp time = Timestamp.valueOf("2020-07-10 00:00:00");
 		survey.setCreatedAt(time);
 		Assert.isTrue(time == survey.getCreatedAt());
@@ -71,7 +71,7 @@ public class SurveyTest {
 
 	@Test
 	public void setCreatedAtTest() {
-		ISurvey survey = surveyFactory.createSurvey();
+		ISurvey survey = surveyFactory.makeSurvey();
 		Timestamp time = Timestamp.valueOf("2020-07-10 00:00:00");
 		survey.setCreatedAt(time);
 		Assert.isTrue(time == survey.getCreatedAt());
@@ -79,9 +79,9 @@ public class SurveyTest {
 
 	@Test
 	public void getQuestionsTest() {
-		ISurvey survey = surveyFactory.createSurvey();
+		ISurvey survey = surveyFactory.makeSurvey();
 		List<IQuestion> questions = new ArrayList<IQuestion>();
-		IQuestion question = questionFactory.createQuestion();
+		IQuestion question = questionFactory.makeQuestion();
 		question.setId(1);
 		questions.add(question);
 		survey.setQuestions(questions);
@@ -90,9 +90,9 @@ public class SurveyTest {
 
 	@Test
 	public void setQuestionsTest() {
-		ISurvey survey = surveyFactory.createSurvey();
+		ISurvey survey = surveyFactory.makeSurvey();
 		List<IQuestion> questions = new ArrayList<IQuestion>();
-		IQuestion question = questionFactory.createQuestion();
+		IQuestion question = questionFactory.makeQuestion();
 		question.setId(1);
 		questions.add(question);
 		survey.setQuestions(questions);
@@ -102,7 +102,7 @@ public class SurveyTest {
 	@Test
 	public void getAllQuestions() {
 		List<IQuestion> questions = new ArrayList<IQuestion>();
-		IQuestion question = questionFactory.createQuestion();
+		IQuestion question = questionFactory.makeQuestion();
 		question.setId(1);
 		questions.add(question);
 		Assert.isTrue(1 == questions.get(0).getId());
@@ -110,7 +110,7 @@ public class SurveyTest {
 
 	@Test
 	public void getNextQuestion() {
-		IQuestion question = questionFactory.createQuestion();
+		IQuestion question = questionFactory.makeQuestion();
 		question.setId(1);
 		Assert.isTrue(1 == question.getId());
 	}

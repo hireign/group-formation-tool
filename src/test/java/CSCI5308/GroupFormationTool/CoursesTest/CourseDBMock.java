@@ -14,11 +14,11 @@ public class CourseDBMock implements ICoursePersistence
 	public List<ICourse> loadAllCourses() 
 	{
 		List<ICourse> courseList = new ArrayList<>();
-		ICourse course = courseFactory.createCourse();
+		ICourse course = courseFactory.makeCourse();
 		course.setId(0);
 		course.setTitle("Software Engineering");
 		courseList.add(course);
-		course = courseFactory.createCourse();
+		course = courseFactory.makeCourse();
 		course.setId(1);
 		course.setTitle("Advanced Topics in Software Development");
 		courseList.add(course);
@@ -39,7 +39,7 @@ public class CourseDBMock implements ICoursePersistence
 
 	public boolean deleteCourse(long id) 
 	{
-		ICourse course = courseFactory.createCourse();
+		ICourse course = courseFactory.makeCourse();
 		course.setId(id);
 		course.setTitle("Software Engineering");
 		course.setDefaults();

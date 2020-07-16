@@ -15,10 +15,8 @@ import CSCI5308.GroupFormationTool.PasswordValidation.IPasswordValidatorEnumerat
 import CSCI5308.GroupFormationTool.PasswordValidation.IPasswordValidatorPersistence;
 import CSCI5308.GroupFormationTool.PasswordValidation.PasswordAbstractFactory;
 
-
 @Controller
-public class SignupController
-{
+public class SignupController {
 	private final String USERNAME = "username";
 	private final String PASSWORD = "password";
 	private final String PASSWORD_CONFIRMATION = "passwordConfirmation";
@@ -27,42 +25,34 @@ public class SignupController
 	private final String EMAIL = "email";
 	LoggerInterface logger = SystemConfig.instance().getLogger();
 	private IPasswordValidatorEnumerator passwordValidatorEnumerator;
-	
+
 	public SignupController() {
 		IPasswordValidatorPersistence validatorDB = SystemConfig.instance().getPasswordValidatorDB();
 		try {
-			passwordValidatorEnumerator = PasswordAbstractFactory.getFactory().createPwdEnumerator(validatorDB);
+			passwordValidatorEnumerator = PasswordAbstractFactory.getFactory().makePwdEnumerator(validatorDB);
 		} catch (Exception e) {
-			logger.fatal(SignupController.class.toString(), String.format("action=loadActivePasswordValidators status=failed "
-					+ "exception=%s",e.getMessage()));
+			logger.fatal(SignupController.class.toString(), String
+					.format("action=loadActivePasswordValidators status=failed " + "exception=%s", e.getMessage()));
 		}
 		SystemConfig.instance().setPasswordValidatorEnumerator(passwordValidatorEnumerator);
 	}
-	
+
 	@GetMapping("/signup")
-	public String displaySignup(Model model)
-	{
+	public String displaySignup(Model model) {
 		return "signup";
 	}
-	
-	@RequestMapping(value = "/signup", method = RequestMethod.POST) 
-   public ModelAndView processSignup(
-   	@RequestParam(name = USERNAME) String bannerID,
-   	@RequestParam(name = PASSWORD) String password,
-   	@RequestParam(name = PASSWORD_CONFIRMATION) String passwordConfirm,
-   	@RequestParam(name = FIRST_NAME) String firstName,
-   	@RequestParam(name = LAST_NAME) String lastName,
-   	@RequestParam(name = EMAIL) String email)
-	{
+
+	@RequestMapping(value = "/signup", method = RequestMethod.POST)
+	public ModelAndView processSignup(@RequestParam(name = USERNAME) String bannerID,
+			@RequestParam(name = PASSWORD) String password,
+			@RequestParam(name = PASSWORD_CONFIRMATION) String passwordConfirm,
+			@RequestParam(name = FIRST_NAME) String firstName, @RequestParam(name = LAST_NAME) String lastName,
+			@RequestParam(name = EMAIL) String email) {
 		boolean success = false;
 		List<String> errorMessages = new ArrayList<String>();
-		if (User.isBannerIDValid(bannerID) &&
-			 User.isEmailValid(email) &&
-			 User.isFirstNameValid(firstName) &&
-			 User.isLastNameValid(lastName) &&
-			 password.equals(passwordConfirm))
-		{
-			IUser u = UserAbstractFactory.getFactory().createUser();
+		if (User.isBannerIDValid(bannerID) && User.isEmailValid(email) && User.isFirstNameValid(firstName)
+				&& User.isLastNameValid(lastName) && password.equals(passwordConfirm)) {
+			IUser u = UserAbstractFactory.getFactory().makeUser();
 			u.setBannerID(bannerID);
 			u.setPassword(password);
 			u.setFirstName(firstName);
@@ -80,11 +70,10 @@ public class SignupController
 			}
 		}
 		ModelAndView m = new ModelAndView("login");
-		if (success == false)
-		{
+		if (success == false) {
 			m = new ModelAndView("signup");
 			m.addObject("errorMessage", "Invalid data, please check your values.");
-			m.addObject("passwordInvalid",errorMessages);
+			m.addObject("passwordInvalid", errorMessages);
 		}
 		return m;
 	}
