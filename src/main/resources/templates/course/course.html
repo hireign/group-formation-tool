@@ -37,6 +37,10 @@
 				<br/>
 				<a th:href="@{/question/questionmanager/title(id=${course.id})}">Question Manager</a>
 			</div>
+			<div th:if="${instructor} or ${ta}">
+			<br/>
+			<a th:href="@{/groupformation/criteria(id=${course.id},bannerID=${#httpServletRequest.remoteUser})}">Create Criteria and Form Groups</a>
+		</div>
 		</div>
 	</body>
 </html>
