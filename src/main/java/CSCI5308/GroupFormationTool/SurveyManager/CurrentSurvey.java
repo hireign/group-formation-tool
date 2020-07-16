@@ -3,6 +3,11 @@ package CSCI5308.GroupFormationTool.SurveyManager;
 import java.sql.Timestamp;
 import java.util.List;
 
+import CSCI5308.GroupFormationTool.AccessControl.IUser;
+import CSCI5308.GroupFormationTool.Courses.CourseFactory;
+import CSCI5308.GroupFormationTool.Courses.ICourse;
+import CSCI5308.GroupFormationTool.Courses.ICourseUserRelationshipPersistence;
+import CSCI5308.GroupFormationTool.Courses.Role;
 import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
 
 public class CurrentSurvey implements SurveyIterator {
@@ -61,17 +66,21 @@ public class CurrentSurvey implements SurveyIterator {
 		this.index = index;
 	}
 
-	public void load(ISurveyPersistence surveyDB, long courseID) throws Exception {
+	public void load(ISurveyPersistence surveyDB, long courseID, ICourseUserRelationshipPersistence courseUserRelationshipDB, IUser user) throws Exception {
 		ISurvey survey = surveyDB.loadSurveyByCourseID(courseID);
+		ICourse course = CourseFactory.getFactory().createCourse();
+		course.setId(courseID);
+		List<Role> courseUserRelationship = courseUserRelationshipDB.loadUserRolesForCourse(course, user);
 
-		if (survey != null && survey.getActive() == 1) {
+		if (survey != null) {
+			if(survey.getActive() == 1 || courseUserRelationship.contains(Role.INSTRUCTOR) || courseUserRelationship.contains(Role.TA))
 			this.survey.setId(survey.getId());
 			this.survey.setUserID(survey.getUserID());
 			this.survey.setActive(survey.getActive());
 			this.survey.setQuestions(survey.getQuestions());
 			this.survey.setCreatedAt(survey.getCreatedAt());
 		}
-		else if(survey == null) {
+		else {
 			this.survey.setId(-1);
 		}
 	}

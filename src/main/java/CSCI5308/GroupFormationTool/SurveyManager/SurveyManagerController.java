@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.AccessControl.CurrentUser;
+import CSCI5308.GroupFormationTool.Courses.CourseFactory;
+import CSCI5308.GroupFormationTool.Courses.ICourseUserRelationshipPersistence;
 import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
 
 @Controller
@@ -17,16 +19,18 @@ public class SurveyManagerController {
 	private static final String QuestionID = "questionID";
 	private ISurveyPersistence surveyDB;
 	private SurveyIterator currentSurvey = null;
+	private ICourseUserRelationshipPersistence courseUserRelationshipDB = null;
 
 	public SurveyManagerController() {
 		surveyDB = SystemConfig.instance().getSurveyDB();
 		currentSurvey = SurveyAbstractFactory.getFactory().createSurveyIterator();
+		courseUserRelationshipDB = CourseFactory.getFactory().createCourseUserPersistenceDB();
 	}
 
 	@RequestMapping("/survey")
-	public String questionsByDate(Model model, @RequestParam(name = CourseID) String courseID) {
+	public String loadSurvey(Model model, @RequestParam(name = CourseID) String courseID) {
 		try {
-			currentSurvey.load(surveyDB, Long.valueOf(courseID));
+			currentSurvey.load(surveyDB, Long.valueOf(courseID), courseUserRelationshipDB, CurrentUser.instance().getCurrentAuthenticatedUser());
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", "Unable to load survey at this moment. Please try again later.");
 			return "course/course";

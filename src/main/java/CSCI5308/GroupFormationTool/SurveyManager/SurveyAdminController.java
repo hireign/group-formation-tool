@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.AccessControl.CurrentUser;
+import CSCI5308.GroupFormationTool.Courses.CourseFactory;
+import CSCI5308.GroupFormationTool.Courses.ICourseUserRelationshipPersistence;
 import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
 
 @Controller
@@ -18,10 +20,12 @@ public class SurveyAdminController {
 	private static final String QuestionID = "questionID";
 	private ISurveyPersistence surveyDB;
 	private SurveyIterator currentSurvey = null;
-
+	private ICourseUserRelationshipPersistence courseUserRelationshipDB = null;
+	
 	public SurveyAdminController() {
 		surveyDB = SystemConfig.instance().getSurveyDB();
 		currentSurvey = SurveyAbstractFactory.getFactory().createSurveyIterator();
+		courseUserRelationshipDB = CourseFactory.getFactory().createCourseUserPersistenceDB();
 	}
 
 	@GetMapping("/survey/admin/groups")
@@ -40,7 +44,7 @@ public class SurveyAdminController {
 			model.addAttribute("errorMessage", "Unable to delete question, please retry");
 		}
 		try{
-			currentSurvey.load(surveyDB, courseID);
+			currentSurvey.load(surveyDB, courseID, courseUserRelationshipDB, CurrentUser.instance().getCurrentAuthenticatedUser());
 		}
 		catch (Exception e) {
 			model.addAttribute("errorMessage", "Unable to load survey, please retry later");
@@ -60,7 +64,7 @@ public class SurveyAdminController {
 	@GetMapping(value = "/surveymanager")
 	public String loadSurvey(Model model, @RequestParam(name = CourseID) String courseID) {
 		try {
-			currentSurvey.load(surveyDB, Long.valueOf(courseID));
+			currentSurvey.load(surveyDB, Long.valueOf(courseID), courseUserRelationshipDB, CurrentUser.instance().getCurrentAuthenticatedUser());
 		}
 		catch (Exception e) {
 			model.addAttribute("errorMessage", "Unable to load survey, please retry");
@@ -77,7 +81,7 @@ public class SurveyAdminController {
 									@RequestParam(name = QuestionID) String questionId)
 	{
 		try {
-			surveyDB.addSurveyQuestion(Long.valueOf(questionId),Long.valueOf(courseId),CurrentUser.instance().getCurrentAuthenticatedUser().getID());
+			surveyDB.addSurveyQuestion(Long.valueOf(questionId),Long.valueOf(courseId), CurrentUser.instance().getCurrentAuthenticatedUser().getID());
 		}
 		catch (Exception e) {
 			model.addAttribute("errorMessage","Unable to add question to survey, please try later");
