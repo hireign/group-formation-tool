@@ -10,6 +10,8 @@ public class Question implements IQuestion
 	private QuestionType type;
 	private Timestamp timestamp;
 	private IOptions options;
+	public String groupingStrategy;
+	public long compareTo;
 
 	public Question() 
 	{
@@ -106,6 +108,22 @@ public class Question implements IQuestion
 	public void setOptions(IOptions options)
 	{
 		this.options = options;
+	}
+
+	public String getGroupingStrategy() {
+		return groupingStrategy;
+	}
+
+	public void setGroupingStrategy(String groupingStrategy) {
+		this.groupingStrategy = groupingStrategy;
+	}
+
+	public long getCompareTo() {
+		return compareTo;
+	}
+
+	public void setCompareTo(long compareTo) {
+		this.compareTo = compareTo;
 	}
 	
 }
