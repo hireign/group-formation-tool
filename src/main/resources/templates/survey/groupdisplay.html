@@ -1,10 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="https://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+    <title>CSCI5308 - Group Formation Tool</title>
+    <!-- Normalize.css by Nicolas Gallagher, used from https://necolas.github.io/normalize.css/
+     Necessary to reset some default browser styles for consistent appearance across browsers. -->
+    <link th:href="@{/styles/cssandjs/normalize.css}" rel="stylesheet" />
+
+    <!-- This file includes all default styles for this application. -->
+    <link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
 </head>
 <body>
-
+<div sec:authorize="isAuthenticated()">
+    <h4 th:inline="text">BannerID: [[${#httpServletRequest.remoteUser}]]</h4>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
+</div>
+<div class="mainGridCentreInfoBox" th:if="${errorMessage}">
+    <h3 class="errorInfo" th:text="${errorMessage}"></h3>
+</div>
+<div th:if="${groupList}">
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Group No.</th>
+            <th>Banner Id</th>
+            <th>Last Name</th>
+            <th>First Name</th>
+            <th>Responses</th>
+        </tr>
+        <tr th:each="val: ${groupList}">
+            <td>
+                <span th:text="${val.id}"></span>
+            </td>
+            <td>
+                <span th:text="${val.bannerID}"></span>
+            </td>
+            <td>
+                <span th:text="${val.lName}"></span>
+            </td>
+            <td>
+                <span th:text="${val.fName}"></span>
+            </td>
+            <td>
+                <span th:text="${val.responses}"></span>
+            </td>
+        <tr>
+    </table>
+</div>
 </body>
 </html>

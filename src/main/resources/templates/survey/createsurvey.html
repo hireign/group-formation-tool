@@ -23,53 +23,62 @@
 <div class="mainGridCentreInfoBox" th:if="${errorMessage}">
     <h3 class="errorInfo" th:text="${errorMessage}"></h3>
 </div>
-<p>
-	<a th:href="@{/question/questionmanager/title(id=${courseID})}">Add Existing Question</a>
-</p>
-<p>
-	<a th:href="@{/question/add}">Add New Question</a>
-</p>
-<div th:if="${questionList}">
-    <table border="1">
-        <thead>
-        <tr>
-            <th>Question ID</th>
-            <th>Title</th>
-            <th>Text</th>
-            <th>Type</th>
-            <th>Added</th>
-            <th>Action</th>
-        </tr>
-        <tr th:each="val: ${questionList}">
-            <td>
-                <span th:text="${val.id}"></span>
-            </td>
-            <td>
-                <span th:text="${val.title}"></span>
-            </td>
-            <td>
-                <span th:text="${val.text}"></span>
-            </td>
-            <td>
-                <span th:text="${val.type}"></span>
-            </td>
-            <td>
-                <span th:text="${val.timestamp}"></span>
-            </td>
-            <td>
-                <form th:action="@{/deletesurveyquestion}" method="POST">
-                    <input type="hidden" name="courseID" id="courseID" th:value="${courseID}" />
-                    <input type="hidden" name="questionID" id="questionID" th:value="${val.id}" />
-                    <button onclick="return confirm('Are you sure you want to remove this question?')" type="submit" >Remove</button>
-                </form>
-            </td>
-        <tr>
-    </table>
-    <div>
-        <a th:href="@{/}">Save & Exit</a>
+<div>
+    <div th:if="${status==0 || null==status}">
+        <p>
+            <a th:href="@{/question/questionmanager/title(id=${courseID})}">Add Existing Question</a>
+        </p>
+        <p>
+            <a th:href="@{/question/add}">Add New Question</a>
+        </p>
     </div>
-    <div>
-        <a th:href="@{/question/add}">Publish</a>
+    <div th:if="${questionList}">
+        <table border="1">
+            <thead>
+            <tr>
+                <th>Question ID</th>
+                <th>Title</th>
+                <th>Text</th>
+                <th>Type</th>
+                <th>Added</th>
+                <th th:if="${status==0}">Action</th>
+            </tr>
+            <tr th:each="val: ${questionList}">
+                <td>
+                    <span th:text="${val.id}"></span>
+                </td>
+                <td>
+                    <span th:text="${val.title}"></span>
+                </td>
+                <td>
+                    <span th:text="${val.text}"></span>
+                </td>
+                <td>
+                    <span th:text="${val.type}"></span>
+                </td>
+                <td>
+                    <span th:text="${val.timestamp}"></span>
+                </td>
+                <td th:if="${status==0}">
+                    <form th:action="@{/deletesurveyquestion}" method="POST">
+                        <input type="hidden" name="courseID" id="courseID" th:value="${courseID}" />
+                        <input type="hidden" name="questionID" id="questionID" th:value="${val.id}" />
+                        <button onclick="return confirm('Are you sure you want to remove this question?')" type="submit" >Remove</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div th:if="${status==0}">
+        <form th:action="@{/}">
+            <button type="submit" >Save & Exit</button>
+        </form>
+    </div>
+    <div th:if="${status==0}">
+        <form th:action="@{/survey/publish}">
+            <input type="hidden" name="courseID" id="courseID" th:value="${courseID}" />
+            <button onclick="return confirm('Are you sure to publish this survey?')" type="submit" >Publish</button>
+        </form>
     </div>
 </div>
 </body>

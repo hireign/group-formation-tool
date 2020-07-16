@@ -13,4 +13,6 @@ public interface ISurveyPersistence {
 	public boolean deleteSurveyQuestion(long questionID, long courseID) throws Exception;
 
 	public boolean addSurveyQuestion(long questionID, long courseID, long instructorID) throws Exception;
+
+	public boolean publishSurvey(long courseID) throws Exception;
 }

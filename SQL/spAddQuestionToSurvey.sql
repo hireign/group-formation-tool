@@ -9,7 +9,7 @@ CREATE PROCEDURE spAddQuestionToSurvey (
 )
 BEGIN
 
-INSERT INTO Survey (SurveyID, QuestionID, UserID, Active) VALUES(courseParamId,questionParamId,instructorParamId,1,);
+INSERT INTO Survey (SurveyID, QuestionID, UserID, Active) VALUES(courseParamId,questionParamId,instructorParamId,0);
 
 END $$
 
