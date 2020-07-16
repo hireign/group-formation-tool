@@ -1,5 +1,6 @@
 package CSCI5308.GroupFormationTool;
 
+import CSCI5308.GroupFormationTool.Algorithm.FetchAlgorithmInput;
 import CSCI5308.GroupFormationTool.Algorithm.IAlgorithmPersistence;
 import CSCI5308.GroupFormationTool.Security.*;
 import CSCI5308.GroupFormationTool.AccessControl.*;
@@ -48,6 +49,7 @@ public class SystemConfig
 		courseUserRelationshipDB = new CourseUserRelationshipDB();
 		questionDB = new QuestionDB();
 		validatorDB = new PasswordValidatorDB();
+		algorithmDB = new FetchAlgorithmInput();
 	}
 	
 	// This is the way the rest of the application gets access to the System object.
@@ -142,4 +144,5 @@ public class SystemConfig
 	}
 
 	public IAlgorithmPersistence getAlgorithmDB(){return algorithmDB;}
+
 }

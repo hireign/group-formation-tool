@@ -54,7 +54,7 @@ public class FetchAlgorithmInput implements IAlgorithmPersistence{
         try
         {
             proc = new CallStoredProcedure("spfindSurveyIDeWithCourseID(?)");
-            proc.setParameter(0, courseId);
+            proc.setParameter(1, courseId);
             ResultSet results = proc.executeWithResults();
             if (null != results)
             {
@@ -80,21 +80,23 @@ public class FetchAlgorithmInput implements IAlgorithmPersistence{
         try
         {
             proc = new CallStoredProcedure("spGetResponseByCourseID(?)");
-            proc.setParameter(0, courseID);
+            proc.setParameter(1, courseID);
             ResultSet results = proc.executeWithResults();
             if (null != results)
             {
                 while (results.next())
                 {
-                    String questionID = results.getString(1);
-                    String userID = results.getString(2);
-                    String response = results.getString(3);
-                    String surveyID = results.getString(4);
+                    long id = results.getLong(1);
+                    String questionID = results.getString(2);
+                    String userID = results.getString(3);
+                    String response = results.getString(4);
+                    String surveyID = results.getString(5);
                     Response r = new Response();
+                    r.setId(id);
                     r.setQuestionID(questionID);
                     r.setUserID(userID);
                     r.setResponse(response);
-                    r.setResponse(surveyID);
+                    r.setSurveyID(surveyID);
                     responses.add(r);
                 }
             }

@@ -1,6 +1,7 @@
 package CSCI5308.GroupFormationTool.Algorithm;
 
 import CSCI5308.GroupFormationTool.AccessControl.User;
+import CSCI5308.GroupFormationTool.SystemConfig;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -90,7 +91,7 @@ public class FindSimilarity {
         return costs[s2.length()];
     }
 
-    public static ArrayList<String> findUniqueUser(ArrayList<Response> responses){
+    public ArrayList<String> findUniqueUser(ArrayList<Response> responses){
         ArrayList<String> uniqueUserList = new ArrayList<String>();
         for (int i=0; i<responses.size(); i++){
             if (!uniqueUserList.contains(responses.get(i).getUserID())){
@@ -100,10 +101,41 @@ public class FindSimilarity {
         return uniqueUserList;
     }
 
-    public static HashMap<String,HashMap<String,String>> getUserResponseByQuestion (ArrayList<String> userlist,
+    public HashMap<String,HashMap<String,String>> getUserResponseByQuestion (ArrayList<String> userlist,
                                          ArrayList<Response> responses) {
         HashMap<String, HashMap<String, String>> outerMap = new HashMap<String, HashMap<String, String>>();
-        HashMap<String, String> innerMap = new HashMap<String, String>();
+
+        for (int i=0; i<userlist.size(); i++){
+            HashMap<String, String> innerMap = new HashMap<String, String>();
+            for (int j=0; j<responses.size(); j++) {
+                if (userlist.get(i).equals( responses.get(j).getUserID())) {
+                    innerMap.put(responses.get(j).getQuestionID(),responses.get(j).getResponse());
+                }
+            }
+            outerMap.put(userlist.get(i),innerMap);
+        }
         return outerMap;
+    }
+
+    public int[][] simiarityTwoDArray (HashMap<String,HashMap<String, String>> userHashMap, String[] studentIds){
+       int hashmapsize = userHashMap.size();
+       int[][] twoD_array = new int[hashmapsize][hashmapsize];
+       for (int index=0; index<studentIds.length; index++) {
+           HashMap<String, String> hashMapStudent1 = userHashMap.get(studentIds[index]);
+           for (int index2=0; index2< studentIds.length; index2++){
+               HashMap<String, String> hashMapStudent2 = userHashMap.get(studentIds[index2]);
+               for (Map.Entry iterateStudent1Response : hashMapStudent1.entrySet()) {
+                   String key3 = (String)iterateStudent1Response.getKey();
+                   String response1= hashMapStudent1.get(key3);
+                   String response2= hashMapStudent2.get(key3);
+                   Double similarityScore = similarity(response1,response2);
+                   if(similarityScore==1.0) {
+                       twoD_array[index][index2] = twoD_array[index][index2] + 1;
+                   }
+               }
+           }
+
+       }
+       return twoD_array;
     }
 }

@@ -26,6 +26,7 @@ public class AlgorithmController {
     private final String QUESTIONID = "";
     private final String GROUPSIZE = "";
 //    private ArrayList<Response> responses = new ArrayList<Response>();
+    FindSimilarity findSimilarity = new FindSimilarity();
     IAlgorithmPersistence iAlgorithmPersistence = SystemConfig.instance().getAlgorithmDB();
 
     @RequestMapping(value = "/selectstudent", method = RequestMethod.POST)
@@ -36,10 +37,19 @@ public class AlgorithmController {
 //            @RequestParam(name = GROUPSIZE) String groupsize)
             @ModelAttribute Response response)
     {
-        ArrayList<Response> responses = iAlgorithmPersistence.findResponseWithSelectedQuestion(response.getSurveyID(),response.getQuestionID());
-        System.out.println(responses);
-        return "index";
+        ArrayList<Response> responses = iAlgorithmPersistence.GetResponseByCourseID("3");
+        ArrayList<String> userlist= new ArrayList<String>();
+        userlist=findSimilarity.findUniqueUser(responses);
+        String[] testuserlist = new String[userlist.size()];
+        for(int i=0;i<userlist.size();i++) {
+            testuserlist[i] = userlist.get(i);
+        }
+        HashMap<String, HashMap<String,String>> userHashmap = findSimilarity.getUserResponseByQuestion(userlist,responses);
 
+        int[][] twoD_array = findSimilarity.simiarityTwoDArray(userHashmap,testuserlist);
+        Arrays.toString(twoD_array);
+        System.out.println(Arrays.toString(twoD_array));
+        return "index";
     }
 
     @GetMapping("/selectstudent")
