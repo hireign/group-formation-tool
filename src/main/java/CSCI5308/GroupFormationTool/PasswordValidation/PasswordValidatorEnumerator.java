@@ -5,13 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import CSCI5308.GroupFormationTool.LoggerInterface;
+import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.AccessControl.IUser;
+import CSCI5308.GroupFormationTool.AccessControl.UserDB;
 
 public class PasswordValidatorEnumerator implements IPasswordValidatorEnumerator
 {	
 	private IPasswordValidatorPersistence validatorDB;
 	private List<PasswordValidator> activeValidators;
 	private HashMap<Long, String> validators;
+	private static LoggerInterface logger = SystemConfig.instance().getLogger();
 	
 	public PasswordValidatorEnumerator(IPasswordValidatorPersistence validatorDB) throws Exception 
 	{
@@ -22,7 +26,8 @@ public class PasswordValidatorEnumerator implements IPasswordValidatorEnumerator
 
 	public List<PasswordValidator> getActiveValidators(IUser user) throws Exception
 	{
-		System.out.println("Validators active: \n"+validators.values());
+		logger.info(UserDB.class.toString(),String.format("Active validators=%d action=getActiveValidators status=success", validators.values()));
+		
 		activeValidators = new ArrayList<PasswordValidator>();
 		for (@SuppressWarnings("rawtypes") Map.Entry item : validators.entrySet()) 
 		{
