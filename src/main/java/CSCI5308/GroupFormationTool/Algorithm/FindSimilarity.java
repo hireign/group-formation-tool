@@ -48,11 +48,6 @@ public class FindSimilarity {
         return sortedHashMap;
     }
 
-    private static void addStudenttoGroup(HashMap <Response, String> similaritylist,
-                                                       ArrayList<User> studentlist){
-
-    }
-
     public static double similarity(String s1, String s2) {
         String longer = s1, shorter = s2;
         if (s2.length() > s1.length()) {
@@ -137,5 +132,16 @@ public class FindSimilarity {
 
        }
        return twoD_array;
+    }
+
+    private  String[] groupFormation(int groupsize, int[][] twoD_array){
+        //find the largest similarity value in 2D array
+        //add the index of that two d array to a group
+        //create another two array of existing group
+        //repeat
+        int student_number = twoD_array.length;
+        int total_groups = student_number / groupsize;
+        String[] group = new String[student_number];
+        return group;
     }
 }
