@@ -14,14 +14,14 @@ public class QuestionDBMock implements IQuestionPersistence
 		questions = new ArrayList<IQuestion>();
 		if(bannerId.equals("B-000000")) 
 		{
-			IQuestion q = questionFactory.createQuestion();
+			IQuestion q = questionFactory.makeQuestion();
 			q.setId(1);
 			q.setTitle("Test Title");
 			q.setText("Test Question");
 			q.setType(QuestionType.TEXT);
 			questions.add(q);
 			
-			q = questionFactory.createQuestion();
+			q = questionFactory.makeQuestion();
 			q.setId(1);
 			q.setTitle("Test Title 2");
 			q.setText("Test Question");
@@ -37,14 +37,14 @@ public class QuestionDBMock implements IQuestionPersistence
 		questions = new ArrayList<IQuestion>();
 		if(bannerId.equals("B-000000")) 
 		{
-			IQuestion q = questionFactory.createQuestion();
+			IQuestion q = questionFactory.makeQuestion();
 			q.setId(1);
 			q.setTitle("Test Title 2");
 			q.setText("Test Question");
 			q.setType(QuestionType.TEXT);
 			questions.add(q);
 			
-			q = questionFactory.createQuestion();
+			q = questionFactory.makeQuestion();
 			q.setId(1);
 			q.setTitle("Test Title");
 			q.setText("Test Question");
@@ -56,7 +56,7 @@ public class QuestionDBMock implements IQuestionPersistence
 
 	public boolean deleteQuestionByQuestionId(long questionId) 
 	{
-		IQuestion q = questionFactory.createQuestion();
+		IQuestion q = questionFactory.makeQuestion();
 		q.setId(1);
 		q.setTitle("Test Title");
 		q.setText("Test Question");

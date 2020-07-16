@@ -1,20 +1,20 @@
 package CSCI5308.GroupFormationTool.SurveyManager;
 
-public class SurveyFactory extends SurveyAbstractFactory{
+public class SurveyFactory extends SurveyAbstractFactory {
 
-	public ISurvey createSurvey() {
+	public ISurvey makeSurvey() {
 		return new Survey();
 	}
 
-	public IResponse createResponse() {
+	public IResponse makeResponse() {
 		return new Response();
 	}
 
-	public ISurveyPersistence createSurveyDB() {
+	public ISurveyPersistence makeSurveyDB() {
 		return new SurveyDB();
 	}
-	
-	public SurveyIterator createSurveyIterator() {
+
+	public SurveyIterator makeSurveyIterator() {
 		return new CurrentSurvey();
 	}
 

@@ -2,22 +2,22 @@ package CSCI5308.GroupFormationTool.AccessControl;
 
 public class UserFactory extends UserAbstractFactory {
 
-	public IUserPersistence createUserDB() {
+	public IUserPersistence makeUserDB() {
 		return new UserDB();
 	}
 
 	@Override
-	public IUser createUser() {
+	public IUser makeUser() {
 		return new User();
 	}
 
 	@Override
-	public IUser createUser(Long bannerID, IUserPersistence userDB) throws Exception {
+	public IUser makeUser(Long bannerID, IUserPersistence userDB) throws Exception {
 		return new User(bannerID, userDB);
 	}
 
 	@Override
-	public IUser createUser(String bannerID, IUserPersistence userDB) throws Exception {
+	public IUser makeUser(String bannerID, IUserPersistence userDB) throws Exception {
 		return new User(bannerID, userDB);
 	}
 

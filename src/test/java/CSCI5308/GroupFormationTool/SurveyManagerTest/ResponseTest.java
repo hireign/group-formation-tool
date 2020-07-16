@@ -18,77 +18,77 @@ public class ResponseTest {
 
 	@Test
 	public void getId() {
-		IResponse response = surveyFactory.createResponse();
+		IResponse response = surveyFactory.makeResponse();
 		response.setId(1);
 		Assert.isTrue(1 == response.getId());
 	}
 
 	@Test
 	public void setId() {
-		IResponse response = surveyFactory.createResponse();
+		IResponse response = surveyFactory.makeResponse();
 		response.setId(1);
 		Assert.isTrue(1 == response.getId());
 	}
 
 	@Test
 	public void getQuestionID() {
-		IResponse response = surveyFactory.createResponse();
+		IResponse response = surveyFactory.makeResponse();
 		response.setQuestionID(1);
 		Assert.isTrue(1 == response.getQuestionID());
 	}
 
 	@Test
 	public void setQuestionID() {
-		IResponse response = surveyFactory.createResponse();
+		IResponse response = surveyFactory.makeResponse();
 		response.setQuestionID(1);
 		Assert.isTrue(1 == response.getQuestionID());
 	}
 
 	@Test
 	public void getUserID() {
-		IResponse response = surveyFactory.createResponse();
+		IResponse response = surveyFactory.makeResponse();
 		response.setUserID(1);
 		Assert.isTrue(1 == response.getUserID());
 	}
 
 	@Test
 	public void setUserID() {
-		IResponse response = surveyFactory.createResponse();
+		IResponse response = surveyFactory.makeResponse();
 		response.setUserID(1);
 		Assert.isTrue(1 == response.getUserID());
 	}
 
 	@Test
 	public void getResponse() {
-		IResponse response = surveyFactory.createResponse();
+		IResponse response = surveyFactory.makeResponse();
 		response.setResponse("1");
 		Assert.isTrue("1" == response.getResponse());
 	}
 
 	@Test
 	public void setResponse() {
-		IResponse response = surveyFactory.createResponse();
+		IResponse response = surveyFactory.makeResponse();
 		response.setResponse("1");
 		Assert.isTrue("1" == response.getResponse());
 	}
 
 	@Test
 	public void getSurveyID() {
-		IResponse response = surveyFactory.createResponse();
+		IResponse response = surveyFactory.makeResponse();
 		response.setSurveyID(1);
 		Assert.isTrue(1 == response.getSurveyID());
 	}
 
 	@Test
 	public void setSurveyID() {
-		IResponse response = surveyFactory.createResponse();
+		IResponse response = surveyFactory.makeResponse();
 		response.setSurveyID(1);
 		Assert.isTrue(1 == response.getSurveyID());
 	}
 
 	@Test
 	public void getOptions() {
-		IResponse response = surveyFactory.createResponse();
+		IResponse response = surveyFactory.makeResponse();
 		List<String> options = new ArrayList<String>();
 		options.add("1");
 		response.setOptions(options);
@@ -97,7 +97,7 @@ public class ResponseTest {
 
 	@Test
 	public void setOptions() {
-		IResponse response = surveyFactory.createResponse();
+		IResponse response = surveyFactory.makeResponse();
 		List<String> options = new ArrayList<String>();
 		options.add("1");
 		response.setOptions(options);
@@ -106,7 +106,7 @@ public class ResponseTest {
 
 	@Test
 	public void convertOptionListToResponseString() {
-		IResponse response = surveyFactory.createResponse();
+		IResponse response = surveyFactory.makeResponse();
 		response.setResponse("1");
 		Assert.isTrue("1" == response.getResponse());
 	}
@@ -114,7 +114,7 @@ public class ResponseTest {
 	@Test
 	public void save() throws Exception {
 		ISurveyPersistence surveyDB = TestSystemConfig.instance().getSurveyDB();
-		IResponse response = surveyFactory.createResponse();
+		IResponse response = surveyFactory.makeResponse();
 		response.setId(1);
 		response.setUserID(1);
 		response.setQuestionID(1);

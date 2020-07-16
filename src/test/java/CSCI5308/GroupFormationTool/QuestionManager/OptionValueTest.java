@@ -11,7 +11,7 @@ class OptionValueTest
 	@Test
 	public void ConstructorTests() 
 	{
-		IOptionValue value = questionFactory.createOptionvalue();
+		IOptionValue value = questionFactory.makeOptionvalue();
 		Assert.isTrue(isStringEmpty(value.getText()));
 		Assert.isTrue(isStringEmpty(value.getStoredAs()));
 	}
@@ -19,7 +19,7 @@ class OptionValueTest
 	@Test
 	public void getText() 
 	{
-		IOptionValue value = questionFactory.createOptionvalue();
+		IOptionValue value = questionFactory.makeOptionvalue();
 		value.setText("Test Text");
 		Assert.isTrue(value.getText().equals("Test Text"));
 	}
@@ -27,7 +27,7 @@ class OptionValueTest
 	@Test
 	public void setText() 
 	{
-		IOptionValue value = questionFactory.createOptionvalue();
+		IOptionValue value = questionFactory.makeOptionvalue();
 		value.setText("Test Text");
 		Assert.isTrue(value.getText().equals("Test Text"));
 	}
@@ -35,7 +35,7 @@ class OptionValueTest
 	@Test
 	public void getStoredAs() 
 	{
-		IOptionValue value = questionFactory.createOptionvalue();
+		IOptionValue value = questionFactory.makeOptionvalue();
 		value.setStoredAs("Test");
 		Assert.isTrue(value.getStoredAs().equals("Test"));
 	}
@@ -43,7 +43,7 @@ class OptionValueTest
 	@Test
 	public void setStoredAs() 
 	{
-		IOptionValue value = questionFactory.createOptionvalue();
+		IOptionValue value = questionFactory.makeOptionvalue();
 		value.setStoredAs("Test");
 		Assert.isTrue(value.getStoredAs().equals("Test"));
 	}
@@ -51,7 +51,7 @@ class OptionValueTest
 	@Test
 	public void createOption() 
 	{
-		IOptionValue value = questionFactory.createOptionValue("Test Text", "1");
+		IOptionValue value = questionFactory.makeOptionValue("Test Text", "1");
 		Assert.isTrue(value.getText().equals("Test Text"));
 		Assert.isTrue(value.getStoredAs().equals("1"));
 	}

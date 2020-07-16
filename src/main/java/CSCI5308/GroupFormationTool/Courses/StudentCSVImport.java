@@ -38,7 +38,7 @@ public class StudentCSVImport implements IStudentCSVImport {
 			String email = u.getEmail();
 			String userDetails = bannerID + " " + firstName + " " + lastName + " " + email;
 
-			IUser user = UserAbstractFactory.getFactory().createUser();
+			IUser user = UserAbstractFactory.getFactory().makeUser();
 			try {
 				userDB.loadUserByBannerID(bannerID, user);
 			} catch (Exception e1) {

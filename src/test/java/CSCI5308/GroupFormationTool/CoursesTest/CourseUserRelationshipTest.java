@@ -31,7 +31,7 @@ class CourseUserRelationshipTest
 	@Test
 	public void userHasRoleInCourse() throws Exception 
 	{
-		ICourse course = courseFactory.createCourse();
+		ICourse course = courseFactory.makeCourse();
 		course.setId(0);
 		CurrentUserMock currentUser = TestSystemConfig.instance().getCurrentUser();
 		IUser user = currentUser.getCurrentAuthenticatedUser();
@@ -44,7 +44,7 @@ class CourseUserRelationshipTest
 	@Test
 	public void loadAllRoluesForUserInCourse() throws Exception 
 	{
-		ICourse course = courseFactory.createCourse();
+		ICourse course = courseFactory.makeCourse();
 		course.setId(0);
 		CurrentUserMock currentUser = TestSystemConfig.instance().getCurrentUser();
 		IUser user = currentUser.getCurrentAuthenticatedUser();
@@ -55,7 +55,7 @@ class CourseUserRelationshipTest
 	@Test
 	public void enrollUserInCourse() throws Exception 
 	{
-		ICourse course = courseFactory.createCourse();
+		ICourse course = courseFactory.makeCourse();
 		CurrentUserMock currentUser = TestSystemConfig.instance().getCurrentUser();
 		IUser user = currentUser.getCurrentAuthenticatedUser();
 		courseUserRelationshipDB.enrollUser(course, user, Role.STUDENT);

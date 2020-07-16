@@ -17,9 +17,7 @@ import CSCI5308.GroupFormationTool.Database.IDatabaseConfiguration;
 import CSCI5308.GroupFormationTool.SurveyManager.ISurveyPersistence;
 import CSCI5308.GroupFormationTool.SurveyManager.SurveyAbstractFactory;
 
-
-public class SystemConfig
-{
+public class SystemConfig {
 	private static SystemConfig uniqueInstance = null;
 	private LoggerInterface logger;
 	private IPasswordEncryption passwordEncryption;
@@ -32,105 +30,87 @@ public class SystemConfig
 	private IPasswordValidatorEnumerator passwordValidatorEnumerator;
 	private CourseAbstractFactory courseFactory = CourseAbstractFactory.getFactory();
 	private ISurveyPersistence surveyDB;
-	
-	private SystemConfig()
-	{
-		passwordEncryption = EncryptionAbstractFactory.getFactory().createEncrypter();
-		userDB = UserAbstractFactory.getFactory().createUserDB();
-		databaseConfiguration = DefaultDatabaseConfigurationFactory.getFactory().createDBConfig();
-		courseDB = courseFactory.createCourseDB();
-		courseUserRelationshipDB = courseFactory.createCourseUserPersistenceDB();
-		questionDB = QuestionAbstractFactory.getFactory().createQuestionDB();
-		validatorDB = PasswordAbstractFactory.getFactory().createPwdDB();
-		logger = LoggerAbstractFactory.getFactory().createLoggerInstance();
-		surveyDB = SurveyAbstractFactory.getFactory().createSurveyDB();
+
+	private SystemConfig() {
+		passwordEncryption = EncryptionAbstractFactory.getFactory().makeEncrypter();
+		userDB = UserAbstractFactory.getFactory().makeUserDB();
+		databaseConfiguration = DefaultDatabaseConfigurationFactory.getFactory().makeDBConfig();
+		courseDB = courseFactory.makeCourseDB();
+		courseUserRelationshipDB = courseFactory.makeCourseUserPersistenceDB();
+		questionDB = QuestionAbstractFactory.getFactory().makeQuestionDB();
+		validatorDB = PasswordAbstractFactory.getFactory().makePwdDB();
+		logger = LoggerAbstractFactory.getFactory().makeLoggerInstance();
+		surveyDB = SurveyAbstractFactory.getFactory().makeSurveyDB();
 	}
-	
-	public static SystemConfig instance()
-	{
-		if (null == uniqueInstance)
-		{
+
+	public static SystemConfig instance() {
+		if (null == uniqueInstance) {
 			uniqueInstance = new SystemConfig();
 		}
 		return uniqueInstance;
 	}
-	
-	public IPasswordEncryption getPasswordEncryption()
-	{
+
+	public IPasswordEncryption getPasswordEncryption() {
 		return passwordEncryption;
 	}
-	
-	public void setPasswordEncryption(IPasswordEncryption passwordEncryption)
-	{
+
+	public void setPasswordEncryption(IPasswordEncryption passwordEncryption) {
 		this.passwordEncryption = passwordEncryption;
 	}
-	
-	public IUserPersistence getUserDB()
-	{
+
+	public IUserPersistence getUserDB() {
 		return userDB;
 	}
-	
-	public void setUserDB(IUserPersistence userDB)
-	{
+
+	public void setUserDB(IUserPersistence userDB) {
 		this.userDB = userDB;
 	}
-	
-	public IDatabaseConfiguration getDatabaseConfiguration()
-	{
+
+	public IDatabaseConfiguration getDatabaseConfiguration() {
 		return databaseConfiguration;
 	}
-	
-	public void setDatabaseConfiguration(IDatabaseConfiguration databaseConfiguration)
-	{
+
+	public void setDatabaseConfiguration(IDatabaseConfiguration databaseConfiguration) {
 		this.databaseConfiguration = databaseConfiguration;
 	}
-	
-	public void setCourseDB(ICoursePersistence courseDB)
-	{
+
+	public void setCourseDB(ICoursePersistence courseDB) {
 		this.courseDB = courseDB;
 	}
-	
-	public ICoursePersistence getCourseDB()
-	{
+
+	public ICoursePersistence getCourseDB() {
 		return courseDB;
 	}
-	
-	public void setCourseUserRelationshipDB(ICourseUserRelationshipPersistence courseUserRelationshipDB)
-	{
+
+	public void setCourseUserRelationshipDB(ICourseUserRelationshipPersistence courseUserRelationshipDB) {
 		this.courseUserRelationshipDB = courseUserRelationshipDB;
 	}
-	
-	public ICourseUserRelationshipPersistence getCourseUserRelationshipDB()
-	{
+
+	public ICourseUserRelationshipPersistence getCourseUserRelationshipDB() {
 		return courseUserRelationshipDB;
 	}
-	
-	public void setQuestionDB(IQuestionPersistence questionDB)
-	{
+
+	public void setQuestionDB(IQuestionPersistence questionDB) {
 		this.questionDB = questionDB;
 	}
-	
-	public IQuestionPersistence getQuestionDB()
-	{
+
+	public IQuestionPersistence getQuestionDB() {
 		return questionDB;
 	}
-	public void setPasswordValidatorDB(IPasswordValidatorPersistence validatorDB)
-	{
+
+	public void setPasswordValidatorDB(IPasswordValidatorPersistence validatorDB) {
 		this.validatorDB = validatorDB;
 	}
-	
-	public IPasswordValidatorPersistence getPasswordValidatorDB()
-	{
+
+	public IPasswordValidatorPersistence getPasswordValidatorDB() {
 		return validatorDB;
 	}
-	
-	public void setPasswordValidatorEnumerator(IPasswordValidatorEnumerator passwordValidatorEnumerator)
-	{
+
+	public void setPasswordValidatorEnumerator(IPasswordValidatorEnumerator passwordValidatorEnumerator) {
 		this.passwordValidatorEnumerator = passwordValidatorEnumerator;
 	}
-	
-	public IPasswordValidatorEnumerator getPasswordValidatorEnumerator()
-	{
+
+	public IPasswordValidatorEnumerator getPasswordValidatorEnumerator() {
 		return passwordValidatorEnumerator;
 	}
 
@@ -141,14 +121,12 @@ public class SystemConfig
 	public void setLogger(LoggerInterface logger) {
 		this.logger = logger;
 	}
-	
-	public ISurveyPersistence getSurveyDB()
-	{
+
+	public ISurveyPersistence getSurveyDB() {
 		return surveyDB;
 	}
 
-	public void setSurveyDB(ISurveyPersistence surveyDB)
-	{
+	public void setSurveyDB(ISurveyPersistence surveyDB) {
 		this.surveyDB = surveyDB;
 	}
 }

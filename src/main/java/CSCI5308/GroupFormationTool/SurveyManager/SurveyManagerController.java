@@ -23,14 +23,15 @@ public class SurveyManagerController {
 
 	public SurveyManagerController() {
 		surveyDB = SystemConfig.instance().getSurveyDB();
-		currentSurvey = SurveyAbstractFactory.getFactory().createSurveyIterator();
-		courseUserRelationshipDB = CourseFactory.getFactory().createCourseUserPersistenceDB();
+		currentSurvey = SurveyAbstractFactory.getFactory().makeSurveyIterator();
+		courseUserRelationshipDB = CourseFactory.getFactory().makeCourseUserPersistenceDB();
 	}
 
 	@RequestMapping("/survey")
 	public String loadSurvey(Model model, @RequestParam(name = CourseID) String courseID) {
 		try {
-			currentSurvey.load(surveyDB, Long.valueOf(courseID), courseUserRelationshipDB, CurrentUser.instance().getCurrentAuthenticatedUser());
+			currentSurvey.load(surveyDB, Long.valueOf(courseID), courseUserRelationshipDB,
+					CurrentUser.instance().getCurrentAuthenticatedUser());
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", "Unable to load survey at this moment. Please try again later.");
 			return "course/course";
@@ -55,7 +56,7 @@ public class SurveyManagerController {
 			model.addAttribute("lastquestion", false);
 		}
 
-		model.addAttribute("response", SurveyAbstractFactory.getFactory().createResponse());
+		model.addAttribute("response", SurveyAbstractFactory.getFactory().makeResponse());
 		model.addAttribute("question", currentSurvey.next());
 
 		return "survey/displayquestion";

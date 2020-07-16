@@ -1,23 +1,8 @@
-<!--
-	I've taken this concept from this URL:
-	https://www.logicbig.com/tutorials/spring-framework/spring-boot/custom-thymeleaf-error-page.html
-	
-	The idea here is that uncaught exceptions in the system should redirect automatically to this
-	page and show the stack trace. Later, when we learn error handling and logging I will log
-	the stack trace, not display it to the user.  It is a security risk to display too much
-	information about your system to the user when errors happen.
- -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<!-- Normalize.css by Nicolas Gallagher, used from https://necolas.github.io/normalize.css/ 
-	Necessary to reset some default browser styles for consistent appearance across browsers. -->
 	<link th:href="@{/styles/cssandjs/normalize.css}" rel="stylesheet" />
-
-	<!-- This file includes all default styles for this application. -->
 	<link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
-
-	<!-- This file includes all default styles for this application. -->
 	<link th:href="@{/styles/cssandjs/errorstyles.css}" rel="stylesheet" />
 </head>
 <body class="bodyGridContainer">
@@ -57,7 +42,7 @@
 			<tr>
 				<td>Trace</td>
 				<td>
-					<pre th:text="${trace}"/>
+					<pre th:text="${trace}"></pre>
 				</td>
 			</tr>
 		</table>

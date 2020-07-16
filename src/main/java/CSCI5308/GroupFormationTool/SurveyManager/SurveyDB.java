@@ -32,7 +32,7 @@ public class SurveyDB implements ISurveyPersistence {
 			int active = 0;
 			Timestamp createdAt = null;
 			boolean fetched = false;
-			
+
 			if (null != results) {
 				while (results.next()) {
 					fetched = true;
@@ -45,7 +45,7 @@ public class SurveyDB implements ISurveyPersistence {
 					String questionText = results.getString(7);
 					Timestamp questionCreatedAt = results.getTimestamp(8);
 
-					question = questionFactory.createQuestion();
+					question = questionFactory.makeQuestion();
 					question.setId(questionID);
 					question.setType(QuestionType.valueOf(questionType.toUpperCase()));
 					question.setTitle(questionTitle);
@@ -62,7 +62,7 @@ public class SurveyDB implements ISurveyPersistence {
 				}
 
 				if (!results.next() && fetched) {
-					survey = SurveyAbstractFactory.getFactory().createSurvey();
+					survey = SurveyAbstractFactory.getFactory().makeSurvey();
 					survey.setId(surveyID);
 					survey.setActive(active);
 					survey.setCreatedAt(createdAt);
@@ -83,7 +83,7 @@ public class SurveyDB implements ISurveyPersistence {
 
 	public IOptions loadOptionsByQuestionID(long questionID) throws Exception {
 		List<IOptionValue> optionList = new ArrayList<IOptionValue>();
-		IOptions options = QuestionAbstractFactory.getFactory().createOptions();
+		IOptions options = QuestionAbstractFactory.getFactory().makeOptions();
 		CallStoredProcedure proc = null;
 		try {
 			proc = new CallStoredProcedure("spFindOptionsByQuestionID(?)");
@@ -96,7 +96,7 @@ public class SurveyDB implements ISurveyPersistence {
 					String displayText = results.getString(1);
 					String storedAs = results.getString(2);
 
-					optionValue = QuestionAbstractFactory.getFactory().createOptionvalue();
+					optionValue = QuestionAbstractFactory.getFactory().makeOptionvalue();
 					optionValue.setText(displayText);
 					optionValue.setStoredAs(storedAs);
 					optionList.add(optionValue);
@@ -182,7 +182,7 @@ public class SurveyDB implements ISurveyPersistence {
 		return true;
 	}
 
-	public boolean publishSurvey(long courseID) throws Exception{
+	public boolean publishSurvey(long courseID) throws Exception {
 		CallStoredProcedure proc = null;
 		try {
 			proc = new CallStoredProcedure("spPublishSurvey(?)");

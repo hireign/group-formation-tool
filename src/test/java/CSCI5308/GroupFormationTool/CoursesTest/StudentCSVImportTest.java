@@ -35,8 +35,8 @@ class StudentCSVImportTest
 	@Test
 	public void enrollStudentFromRecord() throws Exception 
 	{
-		IUser user = userFactory.createUser();
-		ICourse course = courseFactory.createCourse();
+		IUser user = userFactory.makeUser();
+		ICourse course = courseFactory.makeCourse();
 		IUserPersistence userDB = TestSystemConfig.instance().getUserDB();
 		IPasswordEncryption passwordEncryption = TestSystemConfig.instance().getPasswordEncryption();
 		user.createUser(userDB, passwordEncryption, null);

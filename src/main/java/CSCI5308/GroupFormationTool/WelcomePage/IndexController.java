@@ -11,14 +11,11 @@ import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.Courses.*;
 
 @Controller
-public class IndexController
-{
+public class IndexController {
 	@GetMapping("/")
-	public String greeting(Model model)
-	{
+	public String greeting(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (authentication.isAuthenticated())
-		{
+		if (authentication.isAuthenticated()) {
 			ICoursePersistence courseDB = SystemConfig.instance().getCourseDB();
 			List<ICourse> allCourses = null;
 			try {
