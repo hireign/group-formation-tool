@@ -9,6 +9,7 @@
 	<title>CSCI5308 - Group Formation Tool</title>
 	<link th:href="@{/styles/cssandjs/normalize.css}" rel="stylesheet" />
 	<link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
+	<script th:src="@{/styles/cssandjs/filterdropdown.js}"></script>
 </head>
 	<body>
 	<br> Select the criteria to form groups <br>
@@ -48,18 +49,22 @@
 						<span th:text="${question.type}"></span>
 					</td>
 					<td>
-					<select class="form-control selectpicker">
-                        <option th:each="groupingStrategy : ${groupingStrategies}" th:value="${groupingStrategy}"  th:text="${groupingStrategy}"></option>
-                        </select>
-                        <input  type="hidden" th:field="*{questionsList[__${itr.index}__].id}" th:value="${question.id}" name="id">
-                        <input  type="hidden" th:field="*{questionsList[__${itr.index}__].type}" th:value="${question.type}" name="type">
-                        <input  type="hidden" th:field="*{questionsList[__${itr.index}__].text}" th:value="${question.text}" name="text">
+						<div th:if="${question.type.toString()=='MCQOne' || question.type.toString()=='MCQMultiple' || question.type.toString()=='Text'}">
+							<select id="dropdownDiv" >
+								<option th:each="groupingStrategy, itrState : ${groupingStrategies}" th:if="${itrState.index <= itrState.size-3}" th:text="${groupingStrategy}" th:value="${groupingStrategy}"></option>
+							</select>
+						</div>
+						<div th:if="${question.type.toString()=='Numeric'}">
+							<select id="dropdownDiv" th:onchange="|checkForComparison(this.value, ${question.id})|">
+								<option th:each="groupingStrategy, itrState : ${groupingStrategies}" th:if="${itrState.index <= itrState.size-1}" th:text="${groupingStrategy}" th:value="${groupingStrategy}"></option>
+							</select>
+						</div>
+						<input  type="hidden" th:field="*{questionsList[__${itr.index}__].id}" th:value="${question.id}" name="id">
+						<input  type="hidden" th:field="*{questionsList[__${itr.index}__].type}" th:value="${question.type}" id="questionType" name="type">
+						<input  type="hidden" th:field="*{questionsList[__${itr.index}__].text}" th:value="${question.text}" name="text">
 					</td>
-					<td>
-						<span th:if="${question.type.toString() eq 'Numeric'}">
-							<input type="number" th:value="${compareTo}" th:name="compareTo" class="form control" required="required">
-							<input  type="hidden" th:field="*{questionsList[__${itr.index}__].compareTo}" th:value="${question.compareTo}" name="compareTo">
-						</span>
+					<td th:if="${question.type.toString()=='Numeric'}">
+						<input th:id="${question.id}" type="hidden" th:value="${compareTo}" th:name="compareTo" class="form control" required="required">
 					</td>
 				<tr>
 		</table>
@@ -79,3 +84,16 @@
 		</p>
 </body>
 </html>
+
+
+<!--<html>-->
+<!--<div class="dropdown">-->
+<!--	<button onclick="myFunction()" class="dropbtn">Dropdown</button>-->
+<!--	<div id="myDropdown" class="dropdown-content">-->
+<!--		<a>Similar</a>-->
+<!--		<a>dissimilar</a>-->
+<!--		<a>greaterthan</a>-->
+<!--		<a>lessthan</a>-->
+<!--	</div>-->
+<!--</div>-->
+<!--</html>-->
