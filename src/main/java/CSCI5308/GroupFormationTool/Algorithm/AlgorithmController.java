@@ -49,6 +49,10 @@ public class AlgorithmController {
         int[][] twoD_array = findSimilarity.simiarityTwoDArray(userHashmap,testuserlist);
         Arrays.toString(twoD_array);
         System.out.println(Arrays.toString(twoD_array));
+        
+        Integer[][] formedGroups = findSimilarity.groupFormation(2, twoD_array);
+        System.out.print(Arrays.toString(formedGroups));
+        
         return "index";
     }
 
