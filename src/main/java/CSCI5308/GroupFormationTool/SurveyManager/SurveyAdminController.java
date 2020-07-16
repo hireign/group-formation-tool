@@ -72,6 +72,7 @@ public class SurveyAdminController {
 		currentSurvey.setIndex(0);
 		model.addAttribute("courseID", courseID);
 		model.addAttribute("questionList", currentSurvey.getQuestions());
+		model.addAttribute("status", currentSurvey.getActive());
 		return "survey/createsurvey";
 	}
 
@@ -85,6 +86,19 @@ public class SurveyAdminController {
 		}
 		catch (Exception e) {
 			model.addAttribute("errorMessage","Unable to add question to survey, please try later");
+		}
+		return "redirect:/surveymanager?courseID="+courseId;
+	}
+
+	@RequestMapping("/survey/publish")
+	public String publishSurvey(Model model,
+								@RequestParam(name = CourseID) String courseId)
+	{
+		try {
+			surveyDB.publishSurvey(Long.valueOf(courseId));
+		}
+		catch (Exception e) {
+			model.addAttribute("errorMessage","Unable to publish survey, please try later");
 		}
 		return "redirect:/surveymanager?courseID="+courseId;
 	}
