@@ -1,19 +1,16 @@
 package CSCI5308.GroupFormationTool.GroupFormation;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import CSCI5308.GroupFormationTool.SystemConfig;
-import CSCI5308.GroupFormationTool.AccessControl.IUser;
 import CSCI5308.GroupFormationTool.AccessControl.IUserPersistence;
-import CSCI5308.GroupFormationTool.AccessControl.User;
-import CSCI5308.GroupFormationTool.AccessControl.UserAbstractFactory;
 import CSCI5308.GroupFormationTool.QuestionManager.QuestionsList;
 import CSCI5308.GroupFormationTool.SurveyManager.Response;
 
@@ -40,18 +37,16 @@ public class GroupFormationController {
 		ArrayList<Long> userlist= new ArrayList<Long>();
 		userlist=FormGroupsRandom.findUniqueUser(responses);
 		
-		long noOfGroups = (long) (Math.abs(userlist.size()/groupSize) + Math.ceil(userlist.size()%groupSize));
-		int curentUser = 0;
-		for(int i=0; i<noOfGroups;i++) {
-			Group currentGroup = new Group();
-			currentGroup.setGroupID(i+1);
-			for(int j=0; j<groupSize && curentUser<userlist.size(); j++, curentUser++) {
-				IUser user = UserAbstractFactory.getFactory().makeUser();
-				userDB.loadUserByID(userlist.get(curentUser), user);
-				currentGroup.addStudent((User)user);
-			}
-			groups.add(currentGroup);
-		}
+		Long[] testuserlist = new Long[userlist.size()];
+        for(int i=0;i<userlist.size();i++) {
+            testuserlist[i] = userlist.get(i);
+        }
+        
+        HashMap<Long, HashMap<Long,String>> userHashmap = FormGroupsCluster.getUserResponseByQuestion(userlist, responses);
+        
+        int[][] twoD_array = FormGroupsCluster.simiarityTwoDArray(userHashmap,testuserlist);
+        Integer[][] formedGroups = FormGroupsCluster.groupFormation(groupSize, twoD_array);
+        groups = FormGroupsCluster.convertToUserList(testuserlist, formedGroups);
 		
 		model.addAttribute("groups", groups);
 		return "survey/groupdisplay";
