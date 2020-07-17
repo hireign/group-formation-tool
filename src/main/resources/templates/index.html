@@ -24,12 +24,12 @@
 			<aside class="mainGridRow welcomeInfoBox">
 				<h2>!!Welcome to the CSCI5308 Group Formation Tool!!</h2>
 			</aside>
+			<div class="mainGridCentreInfoBox" th:if="${errorMessage}">
+					<h3 class="errorInfo" th:text="${errorMessage}"></h3>
+			</div>
 			<div class="mainGridRow" sec:authorize="isAuthenticated()">
 				
 				<h4>Available courses:</h4>
-				<div class="mainGridCentreInfoBox" th:if="${errorMessage}">
-					<h3 class="errorInfo" th:text="${errorMessage}"></h3>
-				</div>
 				<table>
 					<tr th:each="course : ${courses}">
 						<td><a th:href="@{/course/course(id=${course.id})}" th:text="${course.title}">Title</a></td>
