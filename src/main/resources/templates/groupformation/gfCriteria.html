@@ -57,7 +57,7 @@
 					</td>
 					<td>
 						<span th:if="${question.type.toString() eq 'Numeric'}">
-							<input type="number" th:value="${compareTo}" th:name="compareTo" class="form control" required="required">
+							<input type="number" th:value="${compareTo}" th:name="compareTo" class="form control">
 							<input  type="hidden" th:field="*{questionsList[__${itr.index}__].compareTo}" th:value="${question.compareTo}" name="compareTo">
 						</span>
 					</td>

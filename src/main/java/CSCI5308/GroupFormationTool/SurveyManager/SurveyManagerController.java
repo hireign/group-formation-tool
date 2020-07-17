@@ -99,7 +99,8 @@ public class SurveyManagerController {
 			response.setUserID(CurrentUser.instance().getCurrentAuthenticatedUser().getId());
 			response.save(surveyDB);
 		} catch (Exception e) {
-			model.addAttribute("errorMessage", "Unable to submit survey, please retry");
+			model.addAttribute("errorMessage", "Unable to submit survey, please retry after some time");
+			return "index";
 		}
 		return "redirect:/";
 	}
