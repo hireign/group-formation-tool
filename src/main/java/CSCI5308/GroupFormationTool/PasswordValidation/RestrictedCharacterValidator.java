@@ -8,10 +8,10 @@ public class RestrictedCharacterValidator extends PasswordValidator {
 
 	@Override
 	public boolean isValid(String password) {
-		char[] restrcitedCharacters = constraint.toCharArray();
+		char[] restrictedCharacters = constraint.toCharArray();
 
-		for (int i = 0; i < restrcitedCharacters.length; i++) {
-			if (password.contains(String.valueOf(restrcitedCharacters[i]))) {
+		for (int i = 0; i < restrictedCharacters.length; i++) {
+			if (password.contains(String.valueOf(restrictedCharacters[i]))) {
 				return false;
 			}
 		}

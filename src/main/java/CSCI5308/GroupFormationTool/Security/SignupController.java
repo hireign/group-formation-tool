@@ -44,10 +44,10 @@ public class SignupController {
 
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public ModelAndView processSignup(@RequestParam(name = USERNAME) String bannerID,
-			@RequestParam(name = PASSWORD) String password,
-			@RequestParam(name = PASSWORD_CONFIRMATION) String passwordConfirm,
-			@RequestParam(name = FIRST_NAME) String firstName, @RequestParam(name = LAST_NAME) String lastName,
-			@RequestParam(name = EMAIL) String email) {
+									  @RequestParam(name = PASSWORD) String password,
+									  @RequestParam(name = PASSWORD_CONFIRMATION) String passwordConfirm,
+									  @RequestParam(name = FIRST_NAME) String firstName, @RequestParam(name = LAST_NAME) String lastName,
+									  @RequestParam(name = EMAIL) String email) {
 		boolean success = false;
 		List<String> errorMessages = new ArrayList<String>();
 		if (User.isBannerIDValid(bannerID) && User.isEmailValid(email) && User.isFirstNameValid(firstName)

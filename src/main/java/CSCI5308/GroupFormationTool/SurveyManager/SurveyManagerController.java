@@ -64,7 +64,7 @@ public class SurveyManagerController {
 
 	@RequestMapping(value = "/survey/submit", params = { "nextQuestion" })
 	public String displayNextQuestion(Model model, @RequestParam(name = QuestionID) String questionID,
-			@ModelAttribute Response response) {
+									  @ModelAttribute Response response) {
 		IQuestion currentQuestion = null;
 		try {
 			response.setQuestionID(Long.valueOf(questionID));
@@ -92,7 +92,7 @@ public class SurveyManagerController {
 
 	@RequestMapping("/survey/submit")
 	public String storeSurveyResponse(Model model, @RequestParam(name = QuestionID) String questionID,
-			@ModelAttribute Response response) {
+									  @ModelAttribute Response response) {
 		try {
 			response.setQuestionID(Long.valueOf(questionID));
 			response.setSurveyID(currentSurvey.getId());

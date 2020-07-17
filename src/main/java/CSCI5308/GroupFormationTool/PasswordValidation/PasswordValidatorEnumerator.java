@@ -21,7 +21,7 @@ public class PasswordValidatorEnumerator implements IPasswordValidatorEnumerator
 		
 		activeValidators = new ArrayList<PasswordValidator>();
 		for (@SuppressWarnings("rawtypes")
-		Map.Entry item : validators.entrySet()) {
+				Map.Entry item : validators.entrySet()) {
 			long key = (long) item.getKey();
 			String value = (String) item.getValue();
 			String constraint = validatorDB.loadConstraintByValidatorId(key);

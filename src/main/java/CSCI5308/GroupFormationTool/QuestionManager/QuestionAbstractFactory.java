@@ -10,7 +10,7 @@ public abstract class QuestionAbstractFactory {
 
 	public abstract IOptionValue makeOptionValue(String text, String storedAs);
 
-	public abstract IOptionValue makeOptionvalue();
+	public abstract IOptionValue makeOptionValue();
 
 	public abstract IOptions makeOptions();
 

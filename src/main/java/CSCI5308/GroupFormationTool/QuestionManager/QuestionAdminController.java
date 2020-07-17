@@ -25,7 +25,7 @@ public class QuestionAdminController {
 
 	@RequestMapping("/question/delete")
 	public ModelAndView deleteQuestion(Model model, @RequestParam(name = ID) long questionId,
-			@RequestParam(name = BannerID) String bannerId) {
+									   @RequestParam(name = BannerID) String bannerId) {
 		ModelAndView mav = new ModelAndView("redirect:/question/questionmanager/title?bannerID=" + bannerId);
 		try {
 			questionDB.deleteQuestionByQuestionId(questionId);
@@ -48,7 +48,7 @@ public class QuestionAdminController {
 
 	@RequestMapping("/question/reviewQuestion")
 	public ModelAndView addOptions(Model model, @RequestParam(name = BannerID) String bannerId,
-			@ModelAttribute Question question) {
+								   @ModelAttribute Question question) {
 		IOptions options = QuestionAbstractFactory.getFactory().makeOptions();
 		options.addOption();
 		ModelAndView mav = new ModelAndView();
@@ -60,7 +60,7 @@ public class QuestionAdminController {
 
 	@RequestMapping("/question/submit")
 	public ModelAndView saveQuestion(Model model, @ModelAttribute Question question, @ModelAttribute Options options,
-			@RequestParam(name = BannerID) String bannerId) {
+									 @RequestParam(name = BannerID) String bannerId) {
 		long questionID;
 		ModelAndView mav = new ModelAndView("redirect:/question/questionmanager/title?bannerID=" + bannerId);
 		try {
@@ -75,7 +75,7 @@ public class QuestionAdminController {
 
 	@RequestMapping(value = "/question/submit", params = { "addOptionRow" })
 	public ModelAndView addOptionRow(@ModelAttribute Question question, @ModelAttribute Options options,
-			final BindingResult bindingResult) {
+									 final BindingResult bindingResult) {
 		options.addOption();
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("question", question);

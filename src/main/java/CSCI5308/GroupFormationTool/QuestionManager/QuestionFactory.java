@@ -22,7 +22,7 @@ public class QuestionFactory extends QuestionAbstractFactory {
 	}
 
 	@Override
-	public IOptionValue makeOptionvalue() {
+	public IOptionValue makeOptionValue() {
 		return new OptionValue();
 	}
 
