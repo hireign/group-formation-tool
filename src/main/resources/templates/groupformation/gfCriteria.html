@@ -64,6 +64,8 @@
 						<input  type="hidden" th:field="*{questionsList[__${itr.index}__].text}" th:value="${question.text}" name="text">
 					</td>
 					<td th:if="${question.type.toString()=='Numeric'}">
+
+						<input type="number" th:value="${compareTo}" th:name="compareTo" class="form control">						
 						<input th:id="${question.id}" type="hidden" th:value="${compareTo}" th:name="compareTo" class="form control" required="required">
 					</td>
 				<tr>
