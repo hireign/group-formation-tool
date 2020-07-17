@@ -2,143 +2,178 @@ package CSCI5308.GroupFormationTool.QuestionManager;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
+import CSCI5308.GroupFormationTool.LoggerInterface;
+import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.Database.CallStoredProcedure;
 
 public class QuestionDB implements IQuestionPersistence {
 
+	private static LoggerInterface logger = SystemConfig.instance().getLogger();
+
 	@Override
-	public List<Question> loadAllQuestionsByInstructor(long instructorId) {
+	public List<IQuestion> loadQuestionsSortedByTitle(String bannerID) throws SQLException {
+		List<IQuestion> questionList = new ArrayList<IQuestion>();
 		CallStoredProcedure proc = null;
-		ResultSet rs = null, rsOptions = null;
-		List<Question> questions = new ArrayList<Question>();
 		try {
-			proc = new CallStoredProcedure("spLoadAllQuestionsByInstructor(?)");
-			proc.setParameter(1, instructorId);
-			rs = proc.executeWithResults();
-			if (null != rs) {
-				while (rs.next()) {
-					Question question = new Question();
-					long questionId = rs.getLong(1);
-					question.setId(questionId);
-					question.setTitle(rs.getString(2));
-					question.setText(rs.getString(3));
-					question.setType(rs.getString(4));
-					question.setDate(rs.getTimestamp(5).toLocalDateTime());
+			proc = new CallStoredProcedure("spFindSortedQuestionsByTitle(?)");
+			proc.setParameter(1, bannerID);
+			ResultSet results = proc.executeWithResults();
+			IQuestion question;
 
-					proc = new CallStoredProcedure("spLoadAllOptionsByQuestion(?)");
-					proc.setParameter(1, questionId);
-					rsOptions = proc.executeWithResults();
+			if (null != results) {
+				while (results.next()) {
+					long id = results.getLong(1);
+					String title = results.getString(2);
+					String text = results.getString(3);
+					QuestionType type = QuestionType.valueOf(results.getString(4).toUpperCase());
+					Timestamp timestamp = results.getTimestamp(5);
 
-					List<Option> options = new ArrayList<Option>();
-					if (null != rsOptions) {
-						while (rsOptions.next()) {
-							Option option = new Option();
-							option.setQuestionId(questionId);
-							option.setText(rsOptions.getString(2));
-							option.setValue(rsOptions.getInt(3));
-							options.add(option);
-						}
-					}
-					question.setOptions(options);
-					questions.add(question);
+					question = QuestionAbstractFactory.getFactory().makeQuestion();
+					question.setId(id);
+					question.setTitle(title);
+					question.setText(text);
+					question.setType(type);
+					question.setTimestamp(timestamp);
+					questionList.add(question);
 				}
+				logger.info(QuestionDB.class.toString(),
+						String.format("action=loadQuestionsSortedByTitle status=success"));
 			}
 		} catch (SQLException e) {
-			return null;
+			logger.error(QuestionDB.class.toString(), String
+					.format("action=loadQuestionsSortedByTitle status=failure" + " exception=%s", e.getMessage()));
+			throw e;
+
 		} finally {
-			try {
-			if (null != rsOptions) {
-				rsOptions.close();
-			}
-			if (null != rs) {
-				rs.close();
-			}
 			if (null != proc) {
 				proc.cleanup();
 			}
-			} catch(Exception e) {}
 		}
-		return questions;
+		return questionList;
 	}
 
 	@Override
-	public boolean create(Question question) {
+	public List<IQuestion> loadSortedQuestionsSortedByDate(String bannerID) throws SQLException {
+		List<IQuestion> questionList = new ArrayList<IQuestion>();
 		CallStoredProcedure proc = null;
 		try {
-			proc = new CallStoredProcedure("spCreateQuestion(?, ?, ?, ?, ?)");
+			proc = new CallStoredProcedure("spFindSortedQuestionsByDate(?)");
+			proc.setParameter(1, bannerID);
+			ResultSet results = proc.executeWithResults();
+			IQuestion question;
+
+			if (null != results) {
+				while (results.next()) {
+					long id = results.getLong(1);
+					String title = results.getString(2);
+					String text = results.getString(3);
+					QuestionType type = QuestionType.valueOf(results.getString(4).toUpperCase());
+					Timestamp timestamp = results.getTimestamp(5);
+
+					question = new Question();
+					question.setId(id);
+					question.setTitle(title);
+					question.setText(text);
+					question.setType(type);
+					question.setTimestamp(timestamp);
+					questionList.add(question);
+				}
+				logger.info(QuestionDB.class.toString(),
+						String.format("action=loadSortedQuestionsSortedByDate status=success"));
+			}
+		} catch (SQLException e) {
+			logger.error(QuestionDB.class.toString(), String
+					.format("action=loadSortedQuestionsSortedByDate status=failure" + " exception=%s", e.getMessage()));
+			throw e;
+		} finally {
+			if (null != proc) {
+				proc.cleanup();
+			}
+		}
+		return questionList;
+	}
+
+	@Override
+	public boolean deleteQuestionByQuestionId(long questionID) throws SQLException {
+		CallStoredProcedure proc = null;
+		try {
+			proc = new CallStoredProcedure("spDeleteQuestionsByQuestionID(?)");
+			proc.setParameter(1, questionID);
+			proc.execute();
+			logger.info(QuestionDB.class.toString(), String.format("questionID=%d action= status=success", questionID));
+
+			return true;
+		} catch (SQLException e) {
+			logger.error(QuestionDB.class.toString(), String
+					.format("questionID=%d action= status=success" + " exception=%s", questionID, e.getMessage()));
+			throw e;
+		} finally {
+			if (null != proc) {
+				proc.cleanup();
+			}
+		}
+	}
+
+	@Override
+	public long createQuestion(IQuestion question, String bannerID) throws SQLException {
+		long id = -1;
+		CallStoredProcedure proc = null;
+		try {
+			proc = new CallStoredProcedure("spCreateQuestion(?,?,?,?)");
 			proc.setParameter(1, question.getTitle());
 			proc.setParameter(2, question.getText());
-			proc.setParameter(3, question.getType());
-			proc.setParameter(4, question.getInstructorId());
-			proc.registerOutputParameterLong(5);
-			proc.execute();
+			proc.setParameter(3, question.getType().toString());
+			proc.setParameter(4, bannerID);
+			ResultSet results = proc.executeWithResults();
 
-			long questionId = proc.getReturnedValueLong(5);
-
-			for (Option option : question.getOptions()) {
-				proc = new CallStoredProcedure("spCreateOption(?, ?, ?)");
-				proc.setParameter(1, questionId);
-				proc.setParameter(2, option.getText());
-				proc.setParameter(3, option.getValue());
-				proc.execute();
+			if (null != results) {
+				while (results.next()) {
+					id = results.getLong(1);
+				}
+				logger.info(QuestionDB.class.toString(),
+						String.format("title= %s action=createQuestion status=success", question.getTitle()));
 			}
 		} catch (SQLException e) {
-			return false;
+			logger.error(QuestionDB.class.toString(),
+					String.format("title= %s action=createQuestion status=failure" + " exception=%s",
+							question.getTitle(), e.getMessage()));
+			throw e;
 		} finally {
 			if (null != proc) {
 				proc.cleanup();
 			}
 		}
-		return true;
+		return id;
 	}
 
 	@Override
-	public boolean delete(long id) {
+	public boolean createQuestionOption(IOptionValue option, int order, long questionID) throws SQLException {
 		CallStoredProcedure proc = null;
-		try
-		{
-			proc = new CallStoredProcedure("spDeleteQuestionById(?)");
-			proc.setParameter(1, id);
+		try {
+			proc = new CallStoredProcedure("spCreateOptions(?,?,?,?)");
+			proc.setParameter(1, questionID);
+			proc.setParameter(2, option.getText());
+			proc.setParameter(3, option.getStoredAs());
+			proc.setParameter(4, order);
 			proc.execute();
-		}
-		catch (SQLException e)
-		{
-			// Logging needed
-			return false;
-		}
-		finally
-		{
-			if (null != proc)
-			{
+			logger.info(QuestionDB.class.toString(),
+					String.format("action=createQuestionOption " + "id = %d", questionID));
+
+			return true;
+
+		} catch (SQLException e) {
+			logger.error(QuestionDB.class.toString(), String.format(
+					"action=createQuestionOption question" + "id = %d" + " exception=%s", questionID, e.getMessage()));
+			throw e;
+		} finally {
+			if (null != proc) {
 				proc.cleanup();
 			}
 		}
-		return true;
 	}
 
-	@Override
-	public List<Question> sortByDate(List<Question> questions) {
-		Collections.sort(questions, new Comparator<Question>() {
-			public int compare(Question q1, Question q2) {
-				return q2.getDate().compareTo(q1.getDate());
-			}
-		});
-		return questions;
-	}
-	
-	@Override
-	public List<Question> sortByTitle(List<Question> questions) {
-		Collections.sort(questions, new Comparator<Question>() {
-			public int compare(Question q1, Question q2) {
-				return Character.compare(q1.getTitle().charAt(0), q2.getTitle().charAt(0));
-			}
-		});
-		return questions;
-	}
 }

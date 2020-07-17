@@ -1,15 +1,20 @@
 package CSCI5308.GroupFormationTool.AccessControlTest;
 
+import CSCI5308.GroupFormationTool.TestSystemConfig;
+import CSCI5308.GroupFormationTool.AccessControl.IUser;
 import CSCI5308.GroupFormationTool.AccessControl.IUserPersistence;
-import CSCI5308.GroupFormationTool.AccessControl.User;
+import CSCI5308.GroupFormationTool.AccessControl.UserAbstractFactory;
 
 public class CurrentUserMock 
 {
-	public User getCurrentAuthenticatedUser() 
+	
+	private UserAbstractFactory userFactory = UserAbstractFactory.getFactory();
+	
+	public IUser getCurrentAuthenticatedUser() throws Exception 
 	{
-		IUserPersistence userDB = new UserDBMock();
+		IUserPersistence userDB = TestSystemConfig.instance().getUserDB();
 		String bannerID = "B00000000";
-		User u = new User();
+		IUser u = userFactory.makeUser();
 		userDB.loadUserByBannerID(bannerID, u);
 		return u;
 	}

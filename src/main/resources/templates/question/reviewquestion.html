@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+	<head>
+		<title>CSCI5308 - Group Formation Tool</title>
+	</head>
+	<body>
+		<div sec:authorize="isAuthenticated()">
+			<h4 th:inline="text">BannerID: [[${#httpServletRequest.remoteUser}]]</h4>
+			<form th:action="@{/logout}" method="post">
+				<input type="submit" value="Sign Out"/>
+			</form>
+		</div>
+<p>
+<label>Question Review</label>
+</p>
+
+<form th:action="@{/question/submit}" th:object="${question}" method="post">
+	<label>Title: <span th:text="${question.title}"></span></label><br>
+	<label>Text: <span th:text="${question.text}"></span></label><br>
+	<label>Type: <span th:text="${question.type}"></span></label><br>
+		
+	<div th:if="${question.type.toString()}=='Text'">
+		<textarea id="freeText" rows="4" cols="50"></textarea>
+	</div>
+      
+	<div th:if="${question.type.toString()}=='Numeric'">
+		<input type="number" name="answer" size="2">
+	</div>
+
+	<div th:if="${question.type.toString()}!='Numeric' AND ${question.type.toString()}!='Text'">
+		<div th:object="${options}">
+				<tr th:each="ques, questionIndex : ${options.optionList}">
+					<td><input th:field="${options.optionList[__${questionIndex.index}__].text}"/></td>
+					<td><input th:field="${options.optionList[__${questionIndex.index}__].storedAs}"/><br></td>
+				</tr> 
+				<button type="submit" name="addOptionRow">Add row</button>
+		</div>
+	</div>
+
+	<input type="hidden" th:field="${question.text}">
+	<input type="hidden" th:field="${question.title}">
+	<input type="hidden" th:field="${question.type}">
+	<input type="hidden" name="bannerID" id="bannerID" th:value="${#httpServletRequest.remoteUser}" />
+	<input type="submit" value="SAVE"/>
+</form>
+</body>
+</html>

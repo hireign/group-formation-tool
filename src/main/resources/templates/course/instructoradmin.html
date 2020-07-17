@@ -6,78 +6,60 @@
 >
 	<head>
 		<title>CSCI5308 - Group Formation Tool</title>
-		<!-- Normalize.css by Nicolas Gallagher, used from https://necolas.github.io/normalize.css/
-	Necessary to reset some default browser styles for consistent appearance across browsers. -->
-		<link th:href="@{/styles/cssandjs/normalize.css}" rel="stylesheet" />
-
-		<!-- This file includes all default styles for this application. -->
-		<link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
 	</head>
-	<body class="bodyGridContainer">
-		<header class="bodyGridRow headerGridContainer">
-			<h1>CSCI5308 Group Formation Tool</h1>
-		</header>
-		<!-- I got the idea for how to do this from https://www.thymeleaf.org/doc/articles/springsecurity.html -->
-		<div class="bodyGridRow userProfileGridContainer" sec:authorize="isAuthenticated()">
-			<h4 class="userProfileGridCol1" th:inline="text">BannerID: [[${#httpServletRequest.remoteUser}]]</h4>
-			<form class="userProfileGridCol4" th:action="@{/logout}" method="post">
-				<input type="submit" value="Sign Out"/>
-			</form>
+	<body>
+	  	<div sec:authorize="isAuthenticated()">
+	       <h4 th:inline="text">BannerID: [[${#httpServletRequest.remoteUser}]]</h4>
+	       <form th:action="@{/logout}" method="post">
+	           <input type="submit" value="Sign Out"/>
+	       </form>
 		</div>
-		<main class="bodyGridRow mainGridContainer">
-			<aside class="mainGridRow welcomeInfoBox">
-				<h2 th:text="'Course: ' + ${course.title}">Course: Title Not Found</h2>
-			</aside>
-			<div class="mainGridCentreCard">
-				<div th:if="${displayresults}">
-					<h3>Results of previous import:</h3>
-					<br/>
-					<div th:if="${successful}">
-						<h4>Successful</h4>
-						<br/>
-						<table>
-							<tr th:each="msg : ${successful}">
-								<td>
-									<span th:text="${msg}"></span>
-								</td>
-							</tr>
-						</table>
-					</div>
-					<div th:if="${failures}">
-						<h4>Failures</h4>
-						<br/>
-						<table>
-							<tr th:each="msg : ${failures}">
-								<td>
-									<span th:text="${msg}"></span>
-								</td>
-							</tr>
-						</table>
-						<br/>
-					</div>
-				</div>
-				<p>
-					This tool allows you to import and enroll students in the system by uploading a CSV
-					file (banner ID, first name, last name, email). Each student will have an account
-					created if they do not already exist in the system, and will be emailed with their
-					login credentials.
-				</p>
-				<form th:action="@{/course/uploadcsv(id=${course.id})}" method="post" enctype="multipart/form-data">
-					<label>File to upload:</label>
-					<input type="file" name="file">
-					<button type="submit">Upload CSV File</button>
-				</form>
+		<div class="mainGridCentreInfoBox" th:if="${errorMessage}">
+					<h3 class="errorInfo" th:text="${errorMessage}"></h3>
+		</div>
+		<div th:if="${course}">
+		<h1 th:text="'Course: ' + ${course.title}">Course: Title Not Found</h1>
+		<br/>
+		<div th:if="${displayresults}">
+			<h3>Results of previous import:</h3>
+			<br/>
+			<div th:if="${successful}">
+				<h4>Successful</h4>
 				<br/>
-				<div><a class="linkToButton" th:href="@{/course/enrollta(id=${course.id})}">Enroll TAs</a></div>
-				<br/>
-				<div><a class="linkToButton" th:href="@{/course/question/create(id=${course.id})}">Create Question</a></div>
-				<br/>
-				<div><a class="linkToButton" th:href="@{/questionmanager/questiondirectory}">Question Directory</a></div>
-				<br/>
+		  		<table>
+					<tr th:each="msg : ${successful}">
+						<td>
+							<span th:text="${msg}"></span>
+						</td>
+					</tr>
+		  		</table>
 			</div>
-		</main>
-		<footer class="bodyGridRow footerGridContainer">
-			<p><strong>CSCI5308 (Advanced Topics in Software Development)</strong> is a graduate course offered for students enrolled in the <a href="https://www.dal.ca/macs" target="_blank">Master of Applied Computer Science (MACS)</a> at the <a href="https://www.dal.ca/cs" target="_blank">Faculty of Computer Science</a>, <a href="https://www.dal.ca" target="_blank">Dalhousie University</a>.</p>
-		</footer>
+			<div th:if="${failures}">
+				<h4>Failures</h4>
+				<br/>
+		  		<table>
+					<tr th:each="msg : ${failures}">
+						<td>
+							<span th:text="${msg}"></span>
+						</td>
+					</tr>
+		  		</table>
+		  		<br/>
+			</div>
+		</div>
+		<p>
+			This tool allows you to import and enroll students in the system by uploading a CSV
+			file (banner ID, first name, last name, email). Each student will have an account
+			created if they do not already exist in the system, and will be emailed with their
+			login credentials.
+		</p>
+		<form th:action="@{/course/uploadcsv(id=${course.id})}" method="post" enctype="multipart/form-data">
+			<label>File to upload:</label>
+			<input type="file" name="file">
+			<button type="submit">Upload CSV File</button>
+		</form>
+        <br/>
+		<a th:href="@{/course/enrollta(id=${course.id})}">Enroll TAs</a>
+		</div>
 	</body>
 </html>
