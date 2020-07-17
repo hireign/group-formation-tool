@@ -1,35 +1,36 @@
 <!DOCTYPE html>
 <html
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="https://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+		xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="https://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 >
 <head>
 	<meta charset="ISO-8859-1">
 	<title>CSCI5308 - Group Formation Tool</title>
 	<link th:href="@{/styles/cssandjs/normalize.css}" rel="stylesheet" />
 	<link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
+	<script th:src="@{/styles/cssandjs/filterdropdown.js}"></script>
 </head>
-	<body>
-	<br> Select the criteria to form groups <br>
-	   <br>
-	   	<div sec:authorize="isAuthenticated()">
-			<h4 th:inline="text">BannerID: [[${#httpServletRequest.remoteUser}]]</h4>
-			<form th:action="@{/logout}" method="post">
-				<input type="submit" value="Sign Out"/>
-			</form>
-		</div>
-		<div class="mainGridCentreInfoBox" th:if="${errorMessage}">
-			<h3 class="errorInfo" th:text="${errorMessage}"></h3>
-		</div>
-		
-		
-		<div>
-		<form onsubmit="return confirm('Are you sure you want to Submit?')" th:action="@{/groupformation/creategroups(id=${courseID})}" th:object="${questions}" method="POST">
-			<div th:if="${questions}"> 
-		
+<body>
+<br> Select the criteria to form groups <br>
+<br>
+<div sec:authorize="isAuthenticated()">
+	<h4 th:inline="text">BannerID: [[${#httpServletRequest.remoteUser}]]</h4>
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Sign Out"/>
+	</form>
+</div>
+<div class="mainGridCentreInfoBox" th:if="${errorMessage}">
+	<h3 class="errorInfo" th:text="${errorMessage}"></h3>
+</div>
+
+
+<div>
+	<form onsubmit="return confirm('Are you sure you want to Submit?')" th:action="@{/groupformation/creategroups(id=${courseID})}" th:object="${questions}" method="POST">
+		<div th:if="${questions}">
+
 			<table border="1">
-			<thead>
+				<thead>
 				<tr>
 					<th>Question ID</th>
 					<th>Text</th>
@@ -48,12 +49,19 @@
 						<span th:text="${question.type}"></span>
 					</td>
 					<td>
-					<select class="form-control selectpicker">
-                        <option th:each="groupingStrategy : ${groupingStrategies}" th:value="${groupingStrategy}"  th:text="${groupingStrategy}"></option>
-                        </select>
-                        <input  type="hidden" th:field="*{questionsList[__${itr.index}__].id}" th:value="${question.id}" name="id">
-                        <input  type="hidden" th:field="*{questionsList[__${itr.index}__].type}" th:value="${question.type}" name="type">
-                        <input  type="hidden" th:field="*{questionsList[__${itr.index}__].text}" th:value="${question.text}" name="text">
+						<div th:if="${question.type.toString()=='MCQOne' || question.type.toString()=='MCQMultiple' || question.type.toString()=='Text'}">
+							<select id="dropdownDiv" >
+								<option th:each="groupingStrategy, itrState : ${groupingStrategies}" th:if="${itrState.index <= itrState.size-3}" th:text="${groupingStrategy}" th:value="${groupingStrategy}"></option>
+							</select>
+						</div>
+						<div th:if="${question.type.toString()=='Numeric'}">
+							<select id="dropdownDiv" th:onchange="|checkForComparison(this.value, ${question.id})|">
+								<option th:each="groupingStrategy, itrState : ${groupingStrategies}" th:if="${itrState.index <= itrState.size-1}" th:text="${groupingStrategy}" th:value="${groupingStrategy}"></option>
+							</select>
+						</div>
+						<input  type="hidden" th:field="*{questionsList[__${itr.index}__].id}" th:value="${question.id}" name="id">
+						<input  type="hidden" th:field="*{questionsList[__${itr.index}__].type}" th:value="${question.type}" id="questionType" name="type">
+						<input  type="hidden" th:field="*{questionsList[__${itr.index}__].text}" th:value="${question.text}" name="text">
 					</td>
 					<td>
 						<span th:if="${question.type.toString() eq 'Numeric'}">
@@ -62,20 +70,20 @@
 						</span>
 					</td>
 				<tr>
-		</table>
-		<br>
-		<br>
-		<div>
-			<label>Insert number of students per group: </label>
-			<input type="number" th:value="${groupSize}" th:name="groupSize" class="form control" required="required">
-			<input  type="hidden" th:value="${groupSize}" name="groupSize" id="groupSize">
+			</table>
+			<br>
+			<br>
+			<div>
+				<label>Insert number of students per group: </label>
+				<input type="number" th:value="${groupSize}" th:name="groupSize" class="form control" required="required">
+				<input  type="hidden" th:value="${groupSize}" name="groupSize" id="groupSize">
+			</div>
+			<br>
+			<button type="submit" name="submit" value="value" class="link-button">Create Groups</button>
 		</div>
-		<br>
-		<button type="submit" name="submit" value="value" class="link-button">Create Groups</button> 
-		</div>
-		</form>
-		</div>
-		<p>
-		</p>
+	</form>
+</div>
+<p>
+</p>
 </body>
 </html>
