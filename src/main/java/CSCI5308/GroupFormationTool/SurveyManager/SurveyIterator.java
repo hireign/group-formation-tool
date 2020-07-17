@@ -13,7 +13,7 @@ public interface SurveyIterator {
 	public void setIndex(int index);
 
 	public void load(ISurveyPersistence surveyDB, long courseID,
-			ICourseUserRelationshipPersistence courseUserRelationshipDB, IUser user) throws Exception;
+					 ICourseUserRelationshipPersistence courseUserRelationshipDB, IUser user) throws Exception;
 
 	public boolean hasNext();
 

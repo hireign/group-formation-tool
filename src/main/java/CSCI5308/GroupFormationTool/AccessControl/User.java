@@ -127,7 +127,7 @@ public class User implements IUser {
 
 	@Override
 	public void createUser(IUserPersistence userDB, IPasswordValidatorEnumerator passwordEnumerator,
-			IPasswordEncryption passwordEncryption, IUserNotifications notification, List<String> errorMessages)
+						   IPasswordEncryption passwordEncryption, IUserNotifications notification, List<String> errorMessages)
 			throws Exception {
 		String rawPassword = password;
 		boolean success = true;
@@ -148,7 +148,7 @@ public class User implements IUser {
 
 	@Override
 	public void createUser(IUserPersistence userDB, IPasswordEncryption passwordEncryption,
-			IUserNotifications notification) throws Exception {
+						   IUserNotifications notification) throws Exception {
 		String rawPassword = password;
 		this.password = passwordEncryption.encryptPassword(this.password);
 		userDB.createUser(this);

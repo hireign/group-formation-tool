@@ -94,7 +94,7 @@ public class CourseAdminController {
 
 	@RequestMapping(value = "/admin/assigninstructor", method = RequestMethod.POST)
 	public ModelAndView assignInstructorToCourse(@RequestParam(name = INSTRUCTOR) List<Integer> instructor,
-			@RequestParam(name = ID) long courseID) {
+												 @RequestParam(name = ID) long courseID) {
 		ICourse c = CourseAbstractFactory.getFactory().makeCourse();
 		c.setId(courseID);
 		Iterator<Integer> iter = instructor.iterator();

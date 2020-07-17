@@ -33,9 +33,7 @@ public class CallStoredProcedure {
 				statement.close();
 			}
 			if (null != connection) {
-				if (!connection.isClosed()) {
-					connection.close();
-				}
+				connection.close();
 			}
 		} catch (Exception e) {
 			logger.error(CallStoredProcedure.class.toString(), e.getMessage());

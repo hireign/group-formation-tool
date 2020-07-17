@@ -67,7 +67,7 @@ public class CurrentSurvey implements SurveyIterator {
 	}
 
 	public void load(ISurveyPersistence surveyDB, long courseID,
-			ICourseUserRelationshipPersistence courseUserRelationshipDB, IUser user) throws Exception {
+					 ICourseUserRelationshipPersistence courseUserRelationshipDB, IUser user) throws Exception {
 		ISurvey survey = surveyDB.loadSurveyByCourseID(courseID);
 		ICourse course = CourseFactory.getFactory().makeCourse();
 		course.setId(courseID);
