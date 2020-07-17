@@ -5,43 +5,34 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import CSCI5308.GroupFormationTool.SystemConfig;
 
-public class CurrentUser
-{
+public class CurrentUser {
 	private static CurrentUser uniqueInstance = null;
-	
-	private CurrentUser()
-	{
-		
+
+	private CurrentUser() {
+
 	}
-	
-	public static CurrentUser instance()
-	{
-		if (null == uniqueInstance)
-		{
+
+	public static CurrentUser instance() {
+		if (null == uniqueInstance) {
 			uniqueInstance = new CurrentUser();
 		}
 		return uniqueInstance;
 	}
-	
-	public User getCurrentAuthenticatedUser()
-	{
+
+	public IUser getCurrentAuthenticatedUser() throws Exception {
 		IUserPersistence userDB = SystemConfig.instance().getUserDB();
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (authentication.isAuthenticated())
-		{
+		if (authentication.isAuthenticated()) {
 			String bannerID = authentication.getPrincipal().toString();
-			User u = new User();
-			userDB.loadUserByBannerID(bannerID, u);
-			if (u.isValidUser())
-			{
-				return u;
+			IUser currentUser = UserAbstractFactory.getFactory().makeUser();
+			userDB.loadUserByBannerID(bannerID, currentUser);
+			if (currentUser.isInvalidUser()) {
+				return null;
+			} else {
+				return currentUser;
 			}
 		}
 		return null;
 	}
-	
-	public static void deleteInstance()
-	{
-		uniqueInstance = null;
-	}
+
 }

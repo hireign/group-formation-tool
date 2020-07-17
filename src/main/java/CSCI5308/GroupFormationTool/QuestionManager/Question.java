@@ -1,81 +1,112 @@
 package CSCI5308.GroupFormationTool.QuestionManager;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
+import java.sql.Timestamp;
 
-import CSCI5308.GroupFormationTool.AccessControl.CurrentUser;
-
-public class Question {
+public class Question implements IQuestion {
 	private long id;
 	private String title;
 	private String text;
-	private String type;
-	private long instructorId;
-	private LocalDateTime date;
-	private List<Option> options;
+	private QuestionType type;
+	private Timestamp timestamp;
+	private IOptions options;
+	public String groupingStrategy;
+	public long compareTo;
 
+	public Question() {
+		setDefaults();
+	}
+
+	@Override
+	public void setDefaults() {
+		id = -1;
+		title = "";
+		text = "";
+		type = null;
+		timestamp = null;
+	}
+
+	@Override
+	public Timestamp getTimestamp() {
+		return timestamp;
+	}
+
+	@Override
+	public void setTimestamp(Timestamp timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	@Override
 	public long getId() {
 		return id;
 	}
 
+	@Override
 	public void setId(long id) {
 		this.id = id;
 	}
 
+	@Override
 	public String getTitle() {
 		return title;
 	}
 
+	@Override
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
+	@Override
 	public String getText() {
 		return text;
 	}
 
+	@Override
 	public void setText(String text) {
 		this.text = text;
 	}
 
-	public String getType() {
+	@Override
+	public QuestionType getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	@Override
+	public void setType(QuestionType type) {
 		this.type = type;
 	}
 
-	public long getInstructorId() {
-		return instructorId;
+	@Override
+	public void deleteQuestion(IQuestionPersistence questionDB, long questionID) throws Exception {
+		questionDB.deleteQuestionByQuestionId(questionID);
 	}
 
-	public void setInstructorId(long instructorId) {
-		this.instructorId = instructorId;
+	@Override
+	public long createQuestion(IQuestionPersistence questionDB, String bannerID) throws Exception {
+		return questionDB.createQuestion(this, bannerID);
 	}
 
-	public LocalDateTime getDate() {
-		return date;
-	}
-
-	public void setDate(LocalDateTime date) {
-		this.date = date;
-	}
-
-	public List<Option> getOptions() {
+	public IOptions getOptions() {
 		return options;
 	}
 
-	public void setOptions(List<Option> options) {
+	public void setOptions(IOptions options) {
 		this.options = options;
 	}
 
-	public boolean delete(IQuestionPersistence questionDB) {
-		return questionDB.delete(id);
+	public String getGroupingStrategy() {
+		return groupingStrategy;
 	}
 
-	public boolean create(IQuestionPersistence questionDB) {
-		return questionDB.create(this);
+	public void setGroupingStrategy(String groupingStrategy) {
+		this.groupingStrategy = groupingStrategy;
 	}
+
+	public long getCompareTo() {
+		return compareTo;
+	}
+
+	public void setCompareTo(long compareTo) {
+		this.compareTo = compareTo;
+	}
+
 }

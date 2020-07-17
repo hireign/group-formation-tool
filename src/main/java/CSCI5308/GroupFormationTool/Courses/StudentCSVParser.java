@@ -12,59 +12,55 @@ import org.springframework.web.multipart.MultipartFile;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 
-import CSCI5308.GroupFormationTool.AccessControl.User;
+import CSCI5308.GroupFormationTool.LoggerInterface;
+import CSCI5308.GroupFormationTool.SystemConfig;
+import CSCI5308.GroupFormationTool.AccessControl.IUser;
+import CSCI5308.GroupFormationTool.AccessControl.UserAbstractFactory;
 
-public class StudentCSVParser implements IStudentCSVParser
-{
+public class StudentCSVParser implements IStudentCSVParser {
 
 	private MultipartFile uploadedFile;
-	private List<User> studentList = new ArrayList<>(); 
+	private List<IUser> studentList = new ArrayList<>();
+	private LoggerInterface logger = SystemConfig.instance().getLogger();
 
-	public StudentCSVParser(MultipartFile file) 
-	{
+	public StudentCSVParser(MultipartFile file) {
 		this.uploadedFile = file;
 
 	}
-	
+
 	@Override
-	public List<User> parseCSVFile(List<String> failureResults) 
-	{
-		try
-		{
+	public List<IUser> parseCSVFile(List<String> failureResults) {
+		try {
 			Reader reader = new InputStreamReader(uploadedFile.getInputStream());
 			CSVReader csvReader = new CSVReaderBuilder(reader).build();
 			List<String[]> records = csvReader.readAll();
 			Iterator<String[]> iter = records.iterator();
-			User u;
-			while (iter.hasNext())
-			{
+			IUser u;
+			while (iter.hasNext()) {
 				String[] record = iter.next();
-				
+
 				String bannerID = record[0];
 				String firstName = record[1];
 				String lastName = record[2];
 				String email = record[3];
-				
-				u = new User();
+
+				u = UserAbstractFactory.getFactory().makeUser();
 				u.setBannerID(bannerID);
 				u.setFirstName(firstName);
 				u.setLastName(lastName);
 				u.setEmail(email);
 				studentList.add(u);
 			}
-		
-		}
-		catch (IOException e)
-		{
+
+		} catch (IOException e) {
 			failureResults.add("Failure reading uploaded file: " + e.getMessage());
-		}
-		catch (Exception e)
-		{
+			logger.error(StudentCSVParser.class.toString(), String.format("Failed to read uploaded CSV"));
+		} catch (Exception e) {
 			failureResults.add("Failure parsing CSV file: " + e.getMessage());
+			logger.error(StudentCSVParser.class.toString(), String.format("Failed to read uploaded CSV"));
 		}
 
 		return studentList;
-
 	}
 
 }

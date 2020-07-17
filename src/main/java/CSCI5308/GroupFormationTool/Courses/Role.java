@@ -1,40 +1,29 @@
 package CSCI5308.GroupFormationTool.Courses;
 
-public enum Role
-{
-	INSTRUCTOR
-	{
-		public String toString()
-		{
-		   return "Instructor";
+public enum Role {
+	INSTRUCTOR {
+		public String toString() {
+			return "Instructor";
 		}
 	},
-	GUEST
-	{
-		public String toString()
-		{
-		   return "Guest";
+	GUEST {
+		public String toString() {
+			return "Guest";
 		}
 	},
-	ADMIN
-	{
-		public String toString()
-		{
-		   return "Admin";
+	ADMIN {
+		public String toString() {
+			return "Admin";
 		}
 	},
-	STUDENT
-	{
-		public String toString()
-		{
-		   return "Student";
+	STUDENT {
+		public String toString() {
+			return "Student";
 		}
 	},
-	TA
-	{
-		public String toString()
-		{
-		   return "TA";
+	TA {
+		public String toString() {
+			return "TA";
 		}
 	}
 }

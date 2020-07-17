@@ -2,11 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">  
 <head>  
 	<title>CSCI5308 Group Formation Tool - Signup page</title>
-	<!-- Normalize.css by Nicolas Gallagher, used from https://necolas.github.io/normalize.css/ 
-	Necessary to reset some default browser styles for consistent appearance across browsers. -->
 	<link th:href="@{/styles/cssandjs/normalize.css}" rel="stylesheet" />
-
-	<!-- This file includes all default styles for this application. -->
 	<link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
 </head>  
 <body class="bodyGridContainer">
@@ -20,6 +16,13 @@
 		
 		<div class="mainGridCentreInfoBox" th:if="${errorMessage}">
 			<h3 class="errorInfo" th:text="${errorMessage}"></h3>
+		</div>
+		<div class="mainGridCentreInfoBox" th:if="${not #lists.isEmpty(passwordInvalid)}">
+			<h3 class="errorInfo">Password criteria not met!</h3>
+			<tr th:each="val: ${passwordInvalid}">
+			<td>
+				<h5 th:text="${val}"></h5>
+			</td>
 		</div>
 		<div class="mainGridCentreCard">
 			<form class="regnLoginGridContainer" th:action="@{/signup}" method="post">

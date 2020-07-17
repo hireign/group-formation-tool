@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+	<head>
+		<title>CSCI5308 - Group Formation Tool</title>
+	</head>
+	<body>
+	  	<div sec:authorize="isAuthenticated()">
+			<h4 th:inline="text">BannerID: [[${#httpServletRequest.remoteUser}]]</h4>
+			<form th:action="@{/logout}" method="post">
+				<input type="submit" value="Sign Out"/>
+			</form>
+		</div>
+		<div class="mainGridCentreInfoBox" th:if="${errorMessage}">
+				<h3 class="errorInfo" th:text="${errorMessage}"></h3>
+		</div>
+		<form th:action="@{/survey/submit}" th:object="${response}" method="POST">
+		<table border="1">
+			<thead>
+				<tr>
+					<th>Question ID</th>
+					<th>Title</th>
+					<th>Text</th>
+					<th>Options</th>
+				</tr>
+			</thead>
+				<tr>
+					<td>
+						<span th:text="${question.id}"></span>
+					</td>
+					<td>
+						<span th:text="${question.title}"></span>
+					</td>
+					<td>
+						<span th:text="${question.text}"></span>
+					</td>
+					<td>
+						<span th:text="${question.type.toString()}"></span>
+					</td>
+					<td>
+					<table>
+       					<th:block th:switch="${question.type.toString()}">
+       						<div th:case="'Text'">
+    							<input type="text" th:field="${response.response}"/>
+    						</div>
+    						<div th:case="'Numeric'">
+    							<input type="text" th:field="${response.response}"/>	
+    						</div>
+    						<div th:case="'MCQOne'">
+    							<select th:field="${response.response}">
+    								<option th:each="option : ${question.options.optionList}" th:value="${option.text}" th:text="${option.text}">
+    							</select>
+    						</div>
+    						<div th:case="'MCQMultiple'">
+    							<li th:each="option, optionIndex : ${question.options.optionList}">
+    								<input type="checkbox" th:field="*{options}" th:value="${option.text}" th:text="${option.text}"/>
+    							</li>
+    						</div>
+       					</th:block>
+						</table>
+						<input type="hidden" name="questionID" th:value="${question.id}"/>
+    				</td>
+					<!-- TODO: PASS banner ID and question ID to response object -->
+					<td>
+    					<span th:if="${lastquestion == true}">
+    						<button onclick="return confirm('Are you sure you want to submit?')" type="submit" >Submit</button>
+    					</span>
+    					<span th:if="${lastquestion == false}">
+    						<button type="submit" name="nextQuestion">Next</button>
+    					</span>
+					</td>
+				</tr>
+		</table>
+		</form>
+</body>
+</html>

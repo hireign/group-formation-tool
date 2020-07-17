@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+	<head>
+		<title>CSCI5308 - Group Formation Tool</title>
+	</head>
+	<body>
+	  	<div sec:authorize="isAuthenticated()">
+			<h4 th:inline="text">BannerID: [[${#httpServletRequest.remoteUser}]]</h4>
+			<form th:action="@{/logout}" method="post">
+				<input type="submit" value="Sign Out"/>
+			</form>
+		</div>
+		<div class="mainGridCentreInfoBox" th:if="${errorMessage}">
+			<h3 class="errorInfo" th:text="${errorMessage}"></h3>
+		</div>
+		<div th:if="${questionList}">
+		<p>
+		<a th:href="@{/question/add}">Create New Question</a>
+		</p>
+		<table border="1">
+			<thead>
+				<tr>
+				<th>Question ID</th>
+				<th><a th:href="@{/question/questionmanager/title(bannerID=${#httpServletRequest.remoteUser})}">Title</a></th>
+				<th>Text</th>
+				<th>Type</th>
+				<th><a th:href="@{/question/questionmanager/date(bannerID=${#httpServletRequest.remoteUser})}">Created</a></th>
+				<th colspan="2">Action</th>
+				</tr>
+				<tr th:each="val: ${questionList}">
+					<td>
+						<span th:text="${val.id}"></span>
+					</td>
+					<td>
+						<span th:text="${val.title}"></span>
+					</td>
+					<td>
+						<span th:text="${val.text}"></span>
+					</td>
+					<td>
+						<span th:text="${val.type}"></span>
+					</td>
+					<td>
+						<span th:text="${val.timestamp}"></span>
+					</td>
+					<td>
+						<form th:action="@{/question/delete}" method="POST">
+							<input type="hidden" name="id" id="id" th:value="${val.id}" />
+							<input type="hidden" name="bannerID" id="bannerID" th:value="${#httpServletRequest.remoteUser}" />
+							<button onclick="return confirm('Are you sure you want to delete this question?')" type="submit" >Delete</button>
+						</form>
+					</td>
+					<td>
+						<form th:action="@{/question/addtosurvey}" method="POST">
+							<input type="hidden" name="questionID" id="questionID" th:value="${val.id}" />
+							<input type="hidden" name="courseID" id="courseID" th:value="${param.id}" />
+							<button onclick="return confirm('Are you sure you want to add this question to survey?')" type="submit" >Add to Survey</button>
+						</form>
+					</td>
+				<tr>
+		</table>
+		</div>
+</body>
+</html>

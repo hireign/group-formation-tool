@@ -17,6 +17,8 @@ $RECYCLE.BIN/
 !.git*
 *~
 
+### Logs ###
+*.log
 
 ### OSX ###
 .DS_Store
