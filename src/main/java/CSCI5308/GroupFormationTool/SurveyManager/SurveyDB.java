@@ -96,7 +96,7 @@ public class SurveyDB implements ISurveyPersistence {
 					String displayText = results.getString(1);
 					String storedAs = results.getString(2);
 
-					optionValue = QuestionAbstractFactory.getFactory().makeOptionvalue();
+					optionValue = QuestionAbstractFactory.getFactory().makeOptionValue();
 					optionValue.setText(displayText);
 					optionValue.setStoredAs(storedAs);
 					optionList.add(optionValue);

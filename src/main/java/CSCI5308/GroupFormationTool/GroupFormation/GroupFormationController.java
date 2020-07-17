@@ -21,7 +21,7 @@ public class GroupFormationController {
 
 	@PostMapping("/groupformation/creategroups")
 	public String formGroups(Model model, QuestionsList questions, @RequestParam(name = ID) long courseID,
-			@RequestParam(name = GROUPSIZE) long groupSize) {
+							 @RequestParam(name = GROUPSIZE) long groupSize) {
 		System.out.println("Questions" + questions);
 		System.out.println("CourseID" + courseID);
 		System.out.println("groupSize" + groupSize);

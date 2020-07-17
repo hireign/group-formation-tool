@@ -35,7 +35,7 @@ public class SurveyAdminController {
 
 	@RequestMapping("/deletesurveyquestion")
 	public String deleteSurveyQuestion(Model model, @RequestParam(name = QuestionID) long questionID,
-			@RequestParam(name = CourseID) long courseID) {
+									   @RequestParam(name = CourseID) long courseID) {
 		try {
 			surveyDB.deleteSurveyQuestion(questionID, courseID);
 		} catch (Exception e) {
@@ -76,7 +76,7 @@ public class SurveyAdminController {
 
 	@RequestMapping("/question/addtosurvey")
 	public String addSurveyQuestion(Model model, @RequestParam(name = CourseID) String courseId,
-			@RequestParam(name = QuestionID) String questionId) {
+									@RequestParam(name = QuestionID) String questionId) {
 		try {
 			surveyDB.addSurveyQuestion(Long.valueOf(questionId), Long.valueOf(courseId),
 					CurrentUser.instance().getCurrentAuthenticatedUser().getID());

@@ -42,7 +42,7 @@ public interface IUser {
 	boolean isInvalidUser();
 
 	void createUser(IUserPersistence userDB, IPasswordValidatorEnumerator passwordEnumerator,
-			IPasswordEncryption passwordEncryption, IUserNotifications notification, List<String> errorMessages)
+					IPasswordEncryption passwordEncryption, IUserNotifications notification, List<String> errorMessages)
 			throws Exception;
 
 	void createUser(IUserPersistence userDB, IPasswordEncryption passwordEncryption, IUserNotifications notification)
